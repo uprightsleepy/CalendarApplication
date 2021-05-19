@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.mainScreenController">
+   <top>
+       <AnchorPane prefHeight="750.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
+           <Label layoutX="278.0" layoutY="44.0" text="Appointment Manager">
+              <font>
+                  <Font size="44.0" />
+              </font>
+           </Label>
+           <TableView layoutX="42.0" layoutY="193.0" prefHeight="400.0" prefWidth="916.0">
+               <columns>
+                   <TableColumn prefWidth="75.0" text="ID" />
+                   <TableColumn prefWidth="119.20001220703125" text="Customer Name" />
+                   <TableColumn prefWidth="119.20001220703125" text="Title" />
+                   <TableColumn prefWidth="119.20001220703125" text="Description" />
+                   <TableColumn prefWidth="119.20001220703125" text="Type" />
+                   <TableColumn prefWidth="119.20001220703125" text="Date" />
+                   <TableColumn prefWidth="119.20001220703125" text="Start Time" />
+                   <TableColumn prefWidth="119.20001220703125" text="End Time" />
+               </columns>
+           </TableView>
+           <DatePicker layoutX="765.0" layoutY="142.0" prefHeight="26.0" prefWidth="175.0" />
+           <ChoiceBox fx:id="calendarType" layoutX="810.0" layoutY="618.0" prefWidth="150.0" value="View All">
+               <items>
+                   <FXCollections fx:factory="observableArrayList">
+                       <String fx:value="Week" />
+                       <String fx:value="Month" />
+                       <String fx:value="View All" />
+                   </FXCollections>
+               </items>
+           </ChoiceBox>
+         <Button layoutX="42.0" layoutY="142.0" mnemonicParsing="false" text="View Customers" />
+         <Button layoutX="159.0" layoutY="142.0" mnemonicParsing="false" text="New Appointment" />
+         <Button layoutX="278.0" layoutY="142.0" mnemonicParsing="false" text="Edit Appointment" />
+         <Button layoutX="398.0" layoutY="142.0" mnemonicParsing="false" text="Delete Appointment" />
+         <Button layoutX="536.0" layoutY="142.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="108.0" text="Reports" />
+         <Button layoutX="40.0" layoutY="618.0" mnemonicParsing="false" onAction="#logout" prefHeight="26.0" prefWidth="85.0" text="Logout" />
+       </AnchorPane>
+   </top>
+</BorderPane>

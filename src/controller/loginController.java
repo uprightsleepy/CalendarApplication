@@ -8,7 +8,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 
 import java.io.*;
-import java.security.Timestamp;
 import java.util.*;
 
 import javafx.scene.image.ImageView;
@@ -53,10 +52,10 @@ public class loginController implements Initializable {
             loginSuccessful = true;
             recordAttempt();
 
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/customerGUI.fxml")));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/mainScreen.fxml")));
             Stage stage = (Stage)((Button)(actionEvent.getSource())).getScene().getWindow();
 
-            Scene scene = new Scene(root,1200,750);
+            Scene scene = new Scene(root,1000,700);
             stage.setTitle("Customer View");
             stage.setScene(scene);
             stage.show();

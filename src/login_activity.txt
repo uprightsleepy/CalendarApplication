@@ -1,7 +1,35 @@
 
-Login attempt recorded at TIME; Login Successful: false
-Login attempt recorded at TIME; Login Successful: false
-Login attempt recorded at TIME; Login Successful: false
-Login attempt recorded at TIME; Login Successful: true
-Login attempt recorded at Mon May 17 23:41:42 PDT 2021 | Login Successful: false
-Login attempt recorded at Mon May 17 23:42:50 PDT 2021 | Login Successful: false
+Login attempt recorded at Tue May 18 20:37:57 PDT 2021 | Login Successful: true
+Login attempt recorded at Tue May 18 20:56:08 PDT 2021 | Login Successful: true
+Login attempt recorded at Tue May 18 20:57:00 PDT 2021 | Login Successful: true
+Login attempt recorded at Tue May 18 20:58:04 PDT 2021 | Login Successful: true
+Login attempt recorded at Tue May 18 20:59:18 PDT 2021 | Login Successful: true
+Login attempt recorded at Tue May 18 21:06:28 PDT 2021 | Login Successful: true
+Login attempt recorded at Tue May 18 21:08:44 PDT 2021 | Login Successful: true
+Login attempt recorded at Tue May 18 21:10:19 PDT 2021 | Login Successful: true
+Login attempt recorded at Tue May 18 21:11:38 PDT 2021 | Login Successful: true
+Login attempt recorded at Tue May 18 21:15:26 PDT 2021 | Login Successful: true
+Login attempt recorded at Tue May 18 21:16:07 PDT 2021 | Login Successful: true
+Login attempt recorded at Tue May 18 21:21:10 PDT 2021 | Login Successful: true
+Login attempt recorded at Tue May 18 21:26:05 PDT 2021 | Login Successful: true
+Login attempt recorded at Tue May 18 21:27:53 PDT 2021 | Login Successful: true
+Login attempt recorded at Tue May 18 21:28:30 PDT 2021 | Login Successful: true
+Login attempt recorded at Tue May 18 21:29:59 PDT 2021 | Login Successful: true
+Login attempt recorded at Tue May 18 21:30:25 PDT 2021 | Login Successful: true
+Login attempt recorded at Tue May 18 21:31:47 PDT 2021 | Login Successful: true
+Login attempt recorded at Tue May 18 21:32:01 PDT 2021 | Login Successful: true
+Login attempt recorded at Tue May 18 21:35:22 PDT 2021 | Login Successful: true
+Login attempt recorded at Tue May 18 21:37:36 PDT 2021 | Login Successful: true
+Login attempt recorded at Tue May 18 21:40:56 PDT 2021 | Login Successful: true
+Login attempt recorded at Tue May 18 21:42:11 PDT 2021 | Login Successful: true
+Login attempt recorded at Tue May 18 21:43:36 PDT 2021 | Login Successful: true
+Login attempt recorded at Tue May 18 21:43:53 PDT 2021 | Login Successful: true
+Login attempt recorded at Tue May 18 21:44:50 PDT 2021 | Login Successful: true
+Login attempt recorded at Tue May 18 21:55:11 PDT 2021 | Login Successful: true
+Login attempt recorded at Tue May 18 21:55:45 PDT 2021 | Login Successful: true
+Login attempt recorded at Tue May 18 21:57:00 PDT 2021 | Login Successful: true
+Login attempt recorded at Tue May 18 21:58:27 PDT 2021 | Login Successful: true
+Login attempt recorded at Tue May 18 21:59:23 PDT 2021 | Login Successful: true
+Login attempt recorded at Tue May 18 22:01:06 PDT 2021 | Login Successful: true
+Login attempt recorded at Tue May 18 22:01:31 PDT 2021 | Login Successful: true
+Login attempt recorded at Tue May 18 22:01:39 PDT 2021 | Login Successful: true
