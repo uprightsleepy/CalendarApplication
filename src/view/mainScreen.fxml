@@ -9,7 +9,7 @@
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.mainScreenController">
    <top>
        <AnchorPane prefHeight="750.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
-           <Label layoutX="278.0" layoutY="44.0" text="Appointment Manager">
+           <Label layoutX="278.0" layoutY="44.0" text="Appointment Manager" textFill="#20a9ce">
               <font>
                   <Font size="44.0" />
               </font>
@@ -26,8 +26,8 @@
                    <TableColumn prefWidth="119.20001220703125" text="End Time" />
                </columns>
            </TableView>
-           <DatePicker layoutX="765.0" layoutY="142.0" prefHeight="26.0" prefWidth="175.0" />
-           <ChoiceBox fx:id="calendarType" layoutX="810.0" layoutY="618.0" prefWidth="150.0" value="View All">
+           <DatePicker layoutX="765.0" layoutY="142.0" prefHeight="26.0" prefWidth="175.0" style="-fx-background-color: #20A9CE;" />
+           <ChoiceBox fx:id="calendarType" layoutX="810.0" layoutY="618.0" prefWidth="150.0" style="-fx-background-color: #20A9CE;" value="View All">
                <items>
                    <FXCollections fx:factory="observableArrayList">
                        <String fx:value="Week" />
@@ -36,12 +36,17 @@
                    </FXCollections>
                </items>
            </ChoiceBox>
-         <Button layoutX="42.0" layoutY="142.0" mnemonicParsing="false" text="View Customers" />
-         <Button layoutX="159.0" layoutY="142.0" mnemonicParsing="false" text="New Appointment" />
-         <Button layoutX="278.0" layoutY="142.0" mnemonicParsing="false" text="Edit Appointment" />
-         <Button layoutX="398.0" layoutY="142.0" mnemonicParsing="false" text="Delete Appointment" />
-         <Button layoutX="536.0" layoutY="142.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="108.0" text="Reports" />
-         <Button layoutX="40.0" layoutY="618.0" mnemonicParsing="false" onAction="#logout" prefHeight="26.0" prefWidth="85.0" text="Logout" />
+         <Button layoutX="42.0" layoutY="142.0" mnemonicParsing="false" onAction="#viewCustomerGUI" style="-fx-background-color: #20A9CE;" text="View Customers" textFill="WHITE" />
+         <Button layoutX="159.0" layoutY="142.0" mnemonicParsing="false" style="-fx-background-color: #20A9CE;" text="New Appointment" textFill="WHITE" />
+         <Button layoutX="287.0" layoutY="142.0" mnemonicParsing="false" style="-fx-background-color: #20A9CE;" text="Edit Appointment" textFill="WHITE" />
+         <Button layoutX="411.0" layoutY="142.0" mnemonicParsing="false" style="-fx-background-color: #20A9CE;" text="Delete Appointment" textFill="WHITE" />
+         <Button layoutX="553.0" layoutY="142.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="108.0" style="-fx-background-color: #20A9CE;" text="Reports" textFill="WHITE" />
+         <Button layoutX="40.0" layoutY="618.0" mnemonicParsing="false" onAction="#logout" prefHeight="26.0" prefWidth="85.0" style="-fx-background-color: #20A9CE;" text="Logout" textFill="WHITE" />
+         <Label fx:id="testDB" layoutX="434.0" layoutY="616.0" text="TEST">
+            <font>
+               <Font size="37.0" />
+            </font>
+         </Label>
        </AnchorPane>
    </top>
 </BorderPane>

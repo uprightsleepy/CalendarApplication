@@ -5,19 +5,24 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
+import utils.DBConnection;
+
+import java.sql.Connection;
 
 
 import java.io.IOException;
 import java.net.URL;
+
 import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class mainScreenController implements Initializable {
+
+    public Label testDB;
+    public ChoiceBox<String> calendarType;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -38,5 +43,17 @@ public class mainScreenController implements Initializable {
 
             stage.show();
         }
+    }
+
+
+    public void viewCustomerGUI(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/customerGUI.fxml")));
+        Stage stage = (Stage) ((Button) (actionEvent.getSource())).getScene().getWindow();
+
+        Scene scene = new Scene(root, 1000, 700);
+        stage.setTitle("Customer Menu");
+        stage.setScene(scene);
+
+        stage.show();
     }
 }

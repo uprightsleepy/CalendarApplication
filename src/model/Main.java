@@ -4,14 +4,12 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import utils.DBConnection;
 
-import java.util.Locale;
 import java.util.Objects;
 
 public class Main extends Application {
-    public ImageView leftPanel;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -23,6 +21,8 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
+        DBConnection.connect();
         launch(args);
+        DBConnection.closeConnection();
     }
 }

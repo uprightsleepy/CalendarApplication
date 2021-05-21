@@ -10,8 +10,8 @@ import javafx.scene.control.*;
 import java.io.*;
 import java.util.*;
 
-import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import utils.DBConnection;
 
 import java.net.URL;
 
@@ -20,29 +20,25 @@ public class loginController implements Initializable {
     public TextField usernameTF;
     public PasswordField passwordTF;
     public Button loginButton;
-    public ImageView leftPane;
 
     public boolean loginSuccessful = false;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Locale currentLocale = Locale.getDefault();
-        String language = System.getProperty("user.language");
+//        String language = System.getProperty("user.language");
         String country = currentLocale.getDisplayCountry();
         locationID.setText(country);
-
-        String username = "admin";
-        String password = "admin";
     }
 
     public void login(ActionEvent actionEvent) throws IOException {
-        if(!usernameTF.getText().equals("admin")) {
+        if(!usernameTF.getText().equals("test")) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error Dialog");
             alert.setContentText("Incorrect Username. Please enter the correct login credentials.");
             alert.showAndWait();
             recordAttempt();
-        } else if(!passwordTF.getText().equals("admin")) {
+        } else if(!passwordTF.getText().equals("test")) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error Dialog");
             alert.setContentText("Incorrect Password. Please enter the correct login credentials.");

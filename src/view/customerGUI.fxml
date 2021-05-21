@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.customerGUIController">
+   <center>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label layoutX="406.0" layoutY="30.0" text="Customers" textFill="#20a9ce">
+               <font>
+                  <Font size="40.0" />
+               </font>
+            </Label>
+            <TableView layoutX="110.0" layoutY="123.0" prefHeight="400.0" prefWidth="780.0">
+              <columns>
+                <TableColumn prefWidth="130.0" text="Customer ID" />
+                  <TableColumn prefWidth="130.0" text="Name" />
+                  <TableColumn prefWidth="130.0" text="Address" />
+                  <TableColumn prefWidth="130.0" text="Postal Code" />
+                  <TableColumn prefWidth="130.0" text="Phone Number" />
+                  <TableColumn prefWidth="130.0" text="Country" />
+              </columns>
+            </TableView>
+            <Button layoutX="207.0" layoutY="556.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="180.0" style="-fx-background-color: #20A9CE;" text="New Customer" textFill="WHITE" />
+            <Button layoutX="413.0" layoutY="556.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="180.0" style="-fx-background-color: #20A9CE;" text="Update Customer" textFill="WHITE" />
+            <Button layoutX="614.0" layoutY="556.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="180.0" style="-fx-background-color: #20A9CE;" text="Delete Customer" textFill="WHITE" />
+            <Button layoutX="806.0" layoutY="640.0" mnemonicParsing="false" onAction="#backToMain" prefHeight="45.0" prefWidth="180.0" style="-fx-background-color: #20A9CE;" text="Back to Main Menu" textFill="WHITE" />
+         </children></AnchorPane>
+   </center>
+</BorderPane>

@@ -9,5 +9,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="JavaFX-11" level="application" />
+    <orderEntry type="library" name="Connector J 8" level="project" />
   </component>
 </module>
