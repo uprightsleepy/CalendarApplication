@@ -1,5 +1,7 @@
 package controller;
 
+import DBAccess.DBCountries;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -7,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import model.Countries;
 import utils.DBConnection;
 
 import java.sql.Connection;
@@ -26,6 +29,7 @@ public class mainScreenController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        populate();
 
     }
 
@@ -56,4 +60,13 @@ public class mainScreenController implements Initializable {
 
         stage.show();
     }
+
+    public void populate() {
+        ObservableList<Countries> countryList = DBCountries.getAllCountries();
+
+        for(Countries c : countryList) {
+            System.out.println("Country ID: " + c.getId() + " | Name: " + c.getName());
+        }
+    }
+
 }

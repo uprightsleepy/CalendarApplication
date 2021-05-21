@@ -8,10 +8,11 @@ public class DBConnection {
 //    JDBC URL parts
     private static final String protocol = "jdbc";
     private static final String vendorName = ":mysql:";
-    private static final String serverName = "//wgudb.ucertify.com/WJ07rsq";
+    private static final String serverName = "//wgudb.ucertify.com:3306/";
+    private static final String dbName = "WJ07rsq";
 
 //    JDBC URL
-    private static final String jdbcURL = protocol + vendorName + serverName;
+    private static final String jdbcURL = protocol + vendorName + serverName + dbName;
 
 
     private static final String MYSQLJDBCDriver = "com.mysql.cj.jdbc.Driver"; //JDBC Driver reference
@@ -40,5 +41,9 @@ public class DBConnection {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public static Connection getConnection() {
+        return connection;
     }
 }
