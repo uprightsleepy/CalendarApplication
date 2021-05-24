@@ -1,5 +1,7 @@
 package controller;
 
+import DBAccess.DBUsers;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -11,6 +13,7 @@ import java.io.*;
 import java.util.*;
 
 import javafx.stage.Stage;
+import model.User;
 
 import java.net.URL;
 
@@ -25,35 +28,40 @@ public class loginController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Locale currentLocale = Locale.getDefault();
-//        String language = System.getProperty("user.language");
         String country = currentLocale.getDisplayCountry();
         locationID.setText(country);
     }
 
     public void login(ActionEvent actionEvent) throws IOException {
-        if(!usernameTF.getText().equals("test")) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Dialog");
-            alert.setContentText("Incorrect Username. Please enter the correct login credentials.");
-            alert.showAndWait();
-            recordAttempt();
-        } else if(!passwordTF.getText().equals("test")) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Dialog");
-            alert.setContentText("Incorrect Password. Please enter the correct login credentials.");
-            alert.showAndWait();
-            recordAttempt();
-        } else {
-            loginSuccessful = true;
-            recordAttempt();
 
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/mainScreen.fxml")));
-            Stage stage = (Stage)((Button)(actionEvent.getSource())).getScene().getWindow();
+        ObservableList<User> userList = DBUsers.getAllUsers();
 
-            Scene scene = new Scene(root,1000,700);
-            stage.setTitle("Customer View");
-            stage.setScene(scene);
-            stage.show();
+        for(User user : userList) {
+            if(!user.getUsername().equals(usernameTF.getText())) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error Dialog");
+                alert.setContentText("Incorrect Username. Please enter the correct login credentials.");
+                alert.showAndWait();
+                recordAttempt();
+            } else if(!user.getPassword().equals(passwordTF.getText())) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error Dialog");
+                alert.setContentText("Incorrect Password. Please enter the correct login credentials.");
+                alert.showAndWait();
+                recordAttempt();
+            } else {
+                loginSuccessful = true;
+                recordAttempt();
+
+                Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/mainScreen.fxml")));
+                Stage stage = (Stage)((Button)(actionEvent.getSource())).getScene().getWindow();
+
+                Scene scene = new Scene(root,1000,700);
+                stage.setTitle("Customer View");
+                stage.setScene(scene);
+                stage.show();
+            }
+            break;
         }
     }
 

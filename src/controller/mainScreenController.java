@@ -10,9 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.Countries;
-import utils.DBConnection;
 
-import java.sql.Connection;
 
 
 import java.io.IOException;
@@ -68,5 +66,4 @@ public class mainScreenController implements Initializable {
             System.out.println("Country ID: " + c.getId() + " | Name: " + c.getName());
         }
     }
-
 }
