@@ -14,16 +14,16 @@
                   <Font size="44.0" />
               </font>
            </Label>
-           <TableView layoutX="42.0" layoutY="193.0" prefHeight="400.0" prefWidth="916.0">
+           <TableView fx:id="appointmentsList" layoutX="42.0" layoutY="193.0" prefHeight="400.0" prefWidth="916.0">
                <columns>
-                   <TableColumn prefWidth="75.0" text="ID" />
-                   <TableColumn prefWidth="119.20001220703125" text="Customer Name" />
-                   <TableColumn prefWidth="119.20001220703125" text="Title" />
-                   <TableColumn prefWidth="119.20001220703125" text="Description" />
-                   <TableColumn prefWidth="119.20001220703125" text="Type" />
-                   <TableColumn prefWidth="119.20001220703125" text="Date" />
-                   <TableColumn prefWidth="119.20001220703125" text="Start Time" />
-                   <TableColumn prefWidth="119.20001220703125" text="End Time" />
+                   <TableColumn fx:id="idCol" prefWidth="75.0" text="ID" />
+                   <TableColumn fx:id="nameCol" prefWidth="119.20001220703125" text="Customer Name" />
+                   <TableColumn fx:id="titleCol" prefWidth="119.20001220703125" text="Title" />
+                   <TableColumn fx:id="descCol" prefWidth="119.20001220703125" text="Description" />
+                   <TableColumn fx:id="typeCol" prefWidth="119.20001220703125" text="Type" />
+                   <TableColumn fx:id="dateCol" prefWidth="119.20001220703125" text="Date" />
+                   <TableColumn fx:id="startCol" prefWidth="119.20001220703125" text="Start Time" />
+                   <TableColumn fx:id="endCol" prefWidth="119.20001220703125" text="End Time" />
                </columns>
            </TableView>
            <DatePicker layoutX="765.0" layoutY="142.0" prefHeight="26.0" prefWidth="175.0" style="-fx-background-color: #20A9CE;" />

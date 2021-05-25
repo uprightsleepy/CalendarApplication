@@ -25,6 +25,7 @@ public class DBUsers {
                 String password = rs.getString("Password");
 
                 User login = new User(userID,username,password);
+                System.out.println(login);
 
                 userList.add(login);
             }

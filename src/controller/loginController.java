@@ -42,15 +42,18 @@ public class loginController implements Initializable {
                 alert.setTitle("Error Dialog");
                 alert.setContentText("Incorrect Username. Please enter the correct login credentials.");
                 alert.showAndWait();
+
                 recordAttempt();
             } else if(!user.getPassword().equals(passwordTF.getText())) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error Dialog");
                 alert.setContentText("Incorrect Password. Please enter the correct login credentials.");
                 alert.showAndWait();
+
                 recordAttempt();
             } else {
                 loginSuccessful = true;
+
                 recordAttempt();
 
                 Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/mainScreen.fxml")));

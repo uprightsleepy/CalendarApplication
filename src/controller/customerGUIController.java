@@ -1,14 +1,18 @@
 package controller;
 
+import DBAccess.DBAppointments;
+import DBAccess.DBCustomer;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import model.Appointment;
+import model.Customer;
 
 import java.io.IOException;
 import java.net.URL;
@@ -18,8 +22,18 @@ import java.util.ResourceBundle;
 
 public class customerGUIController implements Initializable {
 
+    public TableView<Customer> customerList;
+    public TableColumn<Customer, Integer> idCol;
+    public TableColumn<Customer, String> nameCol;
+    public TableColumn<Customer, String> addressCol;
+    public TableColumn<Customer, String> postalCol;
+    public TableColumn<Customer, String> phoneCol;
+    public TableColumn<Customer, String> locationCol;
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        populate();
 
     }
 
@@ -35,6 +49,32 @@ public class customerGUIController implements Initializable {
             stage.setScene(scene);
 
             stage.show();
+        }
+    }
+
+    public void addCustomer(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/newCustomer.fxml")));
+        Stage stage = (Stage) ((Button) (actionEvent.getSource())).getScene().getWindow();
+
+        Scene scene = new Scene(root, 1000, 700);
+        stage.setTitle("Add Customer");
+        stage.setScene(scene);
+
+        stage.show();
+    }
+
+    public void populate() throws NullPointerException{
+
+        ObservableList<Customer> customers = DBCustomer.getAllCustomers();
+        for(Customer c : customers) {
+            System.out.println(customers);
+
+            customerList.setItems(customers);
+            idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+            nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+            addressCol.setCellValueFactory(new PropertyValueFactory<>("address"));
+            postalCol.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
+            phoneCol.setCellValueFactory(new PropertyValueFactory<>("phone"));
         }
     }
 }

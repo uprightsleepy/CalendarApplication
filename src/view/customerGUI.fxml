@@ -13,17 +13,17 @@
                   <Font size="40.0" />
                </font>
             </Label>
-            <TableView layoutX="110.0" layoutY="123.0" prefHeight="400.0" prefWidth="780.0">
+            <TableView fx:id="customerList" layoutX="110.0" layoutY="123.0" prefHeight="400.0" prefWidth="780.0">
               <columns>
-                <TableColumn prefWidth="130.0" text="Customer ID" />
-                  <TableColumn prefWidth="130.0" text="Name" />
-                  <TableColumn prefWidth="130.0" text="Address" />
-                  <TableColumn prefWidth="130.0" text="Postal Code" />
-                  <TableColumn prefWidth="130.0" text="Phone Number" />
-                  <TableColumn prefWidth="130.0" text="Country" />
+                <TableColumn fx:id="idCol" prefWidth="130.0" text="Customer ID" />
+                  <TableColumn fx:id="nameCol" prefWidth="130.0" text="Name" />
+                  <TableColumn fx:id="addressCol" prefWidth="130.0" text="Address" />
+                  <TableColumn fx:id="postalCol" prefWidth="130.0" text="Postal Code" />
+                  <TableColumn fx:id="phoneCol" prefWidth="130.0" text="Phone Number" />
+                  <TableColumn fx:id="locationCol" prefWidth="130.0" text="Country" />
               </columns>
             </TableView>
-            <Button layoutX="207.0" layoutY="556.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="180.0" style="-fx-background-color: #20A9CE;" text="New Customer" textFill="WHITE" />
+            <Button layoutX="207.0" layoutY="556.0" mnemonicParsing="false" onAction="#addCustomer" prefHeight="45.0" prefWidth="180.0" style="-fx-background-color: #20A9CE;" text="New Customer" textFill="WHITE" />
             <Button layoutX="413.0" layoutY="556.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="180.0" style="-fx-background-color: #20A9CE;" text="Update Customer" textFill="WHITE" />
             <Button layoutX="614.0" layoutY="556.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="180.0" style="-fx-background-color: #20A9CE;" text="Delete Customer" textFill="WHITE" />
             <Button layoutX="806.0" layoutY="640.0" mnemonicParsing="false" onAction="#backToMain" prefHeight="45.0" prefWidth="180.0" style="-fx-background-color: #20A9CE;" text="Back to Main Menu" textFill="WHITE" />

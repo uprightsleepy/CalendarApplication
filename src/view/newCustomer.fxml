@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.newCustomerController">
+   <left>
+      <AnchorPane prefHeight="700.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
+         <Label layoutX="366.0" layoutY="43.0" prefHeight="51.0" prefWidth="268.0" text="New Customer" textFill="#20a9ce">
+            <font>
+               <Font name="Roboto Black" size="40.0" />
+            </font>
+         </Label>
+         <Label layoutX="56.0" layoutY="288.0" text="Name">
+            <font>
+               <Font name="Roboto Light" size="22.0" />
+            </font>
+         </Label>
+         <Label layoutX="54.0" layoutY="370.0" text="Address">
+            <font>
+               <Font name="Roboto Light" size="22.0" />
+            </font>
+         </Label>
+         <Label layoutX="537.0" layoutY="210.0" text="Postal Code">
+            <font>
+               <Font name="Roboto Light" size="22.0" />
+            </font>
+         </Label>
+         <Label layoutX="537.0" layoutY="286.0" text="Phone Number">
+            <font>
+               <Font name="Roboto Light" size="22.0" />
+            </font>
+         </Label>
+         <Label layoutX="257.0" layoutY="460.0" text="State / Province">
+            <font>
+               <Font name="Roboto Light" size="22.0" />
+            </font>
+         </Label>
+         <TextField fx:id="nameTF" layoutX="232.0" layoutY="290.0" prefHeight="26.0" prefWidth="229.0" promptText="Full Name" />
+         <TextField fx:id="addressTF" layoutX="230.0" layoutY="372.0" prefHeight="26.0" prefWidth="229.0" promptText="Street Address" />
+         <TextField fx:id="zipTF" layoutX="713.0" layoutY="212.0" prefHeight="26.0" prefWidth="229.0" promptText="Postal Code" />
+         <TextField fx:id="phoneTF" layoutX="713.0" layoutY="288.0" prefHeight="26.0" prefWidth="229.0" promptText="Phone Number" />
+         <Label layoutX="56.0" layoutY="215.0" text="ID">
+            <font>
+               <Font name="Roboto Light" size="22.0" />
+            </font>
+         </Label>
+         <TextField disable="true" editable="false" layoutX="232.0" layoutY="217.0" prefHeight="26.0" prefWidth="229.0" text="AUTO-GEN -- DISABLED">
+            <font>
+               <Font name="System Italic" size="12.0" />
+            </font>
+         </TextField>
+         <ComboBox layoutX="432.0" layoutY="463.0" prefHeight="26.0" prefWidth="234.0" promptText="Select" />
+         <Button layoutX="209.0" layoutY="563.0" mnemonicParsing="false" onAction="#addNewCustomer" prefHeight="59.0" prefWidth="192.0" style="-fx-background-color: #20a9ce;" text="Add New Customer" textFill="WHITE" />
+         <Button layoutX="599.0" layoutY="563.0" mnemonicParsing="false" onAction="#backToCustomerGUI" prefHeight="59.0" prefWidth="192.0" style="-fx-background-color: #20a9ce;" text="Cancel" textFill="WHITE" />
+         <Label layoutX="537.0" layoutY="370.0" text="Country">
+            <font>
+               <Font name="Roboto Light" size="22.0" />
+            </font>
+         </Label>
+         <ComboBox fx:id="countryList" layoutX="712.0" layoutY="373.0" prefHeight="26.0" prefWidth="234.0" promptText="Select">
+            <items>
+               <FXCollections fx:factory="observableArrayList">
+                  <String fx:value="United States" />
+                  <String fx:value="Canada" />
+                  <String fx:value="United Kingdom" />
+               </FXCollections>
+            </items>
+         </ComboBox>
+      </AnchorPane>
+   </left>
+</BorderPane>
