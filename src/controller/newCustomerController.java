@@ -1,6 +1,8 @@
 package controller;
 
-import DBAccess.DBCustomer;
+import DBAccess.DBCountries;
+import DBAccess.DBFirstLevelDivisions;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -8,13 +10,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import model.Countries;
 import model.Customer;
+import model.FirstLevelDivision;
 import utils.DBConnection;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Optional;
@@ -26,13 +29,16 @@ public class newCustomerController implements Initializable {
     public TextField addressTF;
     public TextField zipTF;
     public TextField phoneTF;
+    public ComboBox<Countries> countryList;
+
     public boolean added = false;
-    public ComboBox countryList;
+    public int index = 0;
+    public ComboBox<FirstLevelDivision> divisionsList;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-
+        populate();
     }
 
     public void backToCustomerGUI(ActionEvent actionEvent) throws IOException {
@@ -50,7 +56,7 @@ public class newCustomerController implements Initializable {
         }
     }
 
-    public void addNewCustomer(ActionEvent actionEvent) {
+    public void addNewCustomer() {
         String name = nameTF.getText();
         String address = addressTF.getText();
         String postalCode = zipTF.getText();
@@ -59,7 +65,7 @@ public class newCustomerController implements Initializable {
 
         try {
             Customer c = new Customer(0, name, address, postalCode, phoneNumber);
-            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+
             String sql = "INSERT INTO customers(Customer_ID, Customer_Name, Address, Postal_Code, Phone, Last_Update, Division_ID) VALUES(NULL,'" +
                     c.getName() + "','" + c.getAddress() + "','" + c.getPostalCode() + "','" + c.getPhone() + "','" + lastUpdate + "','60');";
 
@@ -81,7 +87,33 @@ public class newCustomerController implements Initializable {
         }
     }
 
-    public void removeCustomer(ActionEvent actionEvent) {
+    public void populate() {
+        ObservableList<Countries> countries = DBCountries.getAllCountries();
+        countryList.setItems(countries);
+    }
 
+    public void selectCountry() {
+
+        ObservableList<FirstLevelDivision> divisions;
+        index = countryList.getSelectionModel().getSelectedIndex();
+        System.out.println(index);
+
+        if(index == 0){
+
+            divisions = DBFirstLevelDivisions.getAllUSDivisions();
+            divisionsList.setItems(divisions);
+            divisionsList.getSelectionModel().selectFirst();
+        } else if(index == 1) {
+
+            divisions = DBFirstLevelDivisions.getAllUKDivisions();
+            divisionsList.setItems(divisions);
+            divisionsList.getSelectionModel().selectFirst();
+
+        } else {
+
+            divisions = DBFirstLevelDivisions.getAllCanadaDivisions();
+            divisionsList.setItems(divisions);
+            divisionsList.getSelectionModel().selectFirst();
+        }
     }
 }

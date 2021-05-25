@@ -63,6 +63,11 @@ public class customerGUIController implements Initializable {
         stage.show();
     }
 
+    public void deleteCustomer(ActionEvent actionEvent) throws IOException {
+        Customer customerToDelete = customerList.getSelectionModel().getSelectedItem();
+
+    }
+
     public void populate() throws NullPointerException{
 
         ObservableList<Customer> customers = DBCustomer.getAllCustomers();

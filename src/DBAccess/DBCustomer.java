@@ -62,4 +62,8 @@ public class DBCustomer {
 
         return customerList;
     }
+
+//    public static ObservableList<Customer> deleteCustomer() {
+//
+//    }
 }
