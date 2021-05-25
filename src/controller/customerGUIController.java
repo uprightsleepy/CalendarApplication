@@ -1,6 +1,5 @@
 package controller;
 
-import DBAccess.DBAppointments;
 import DBAccess.DBCustomer;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -11,11 +10,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import model.Appointment;
 import model.Customer;
+import utils.DBConnection;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -33,8 +34,8 @@ public class customerGUIController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        populate();
 
+        populate();
     }
 
     public void backToMain(ActionEvent actionEvent) throws IOException {
@@ -63,23 +64,49 @@ public class customerGUIController implements Initializable {
         stage.show();
     }
 
-    public void deleteCustomer(ActionEvent actionEvent) throws IOException {
-        Customer customerToDelete = customerList.getSelectionModel().getSelectedItem();
+    public void modCustomer(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/modCustomer.fxml")));
+        Stage stage = (Stage) ((Button) (actionEvent.getSource())).getScene().getWindow();
 
+        Scene scene = new Scene(root, 1000, 700);
+        stage.setTitle("Modify Customer");
+        stage.setScene(scene);
+
+        stage.show();
+    }
+
+    public void deleteCustomer() {
+
+        Customer customerToDelete = customerList.getSelectionModel().getSelectedItem();
+        if(customerToDelete == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Dialog");
+            alert.setContentText("There are no customers selected.");
+            alert.showAndWait();
+        } else {
+            try {
+                String sql = "DELETE FROM customers WHERE Customer_ID = " + customerToDelete.getId();
+
+                PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+                ps.executeUpdate();
+            } catch (NullPointerException | SQLException e) {
+                e.printStackTrace();
+            }
+
+            populate();
+        }
     }
 
     public void populate() throws NullPointerException{
 
         ObservableList<Customer> customers = DBCustomer.getAllCustomers();
-        for(Customer c : customers) {
-            System.out.println(customers);
+        System.out.println(customers);
 
-            customerList.setItems(customers);
-            idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
-            nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-            addressCol.setCellValueFactory(new PropertyValueFactory<>("address"));
-            postalCol.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
-            phoneCol.setCellValueFactory(new PropertyValueFactory<>("phone"));
-        }
+        customerList.setItems(customers);
+        idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        addressCol.setCellValueFactory(new PropertyValueFactory<>("address"));
+        postalCol.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
+        phoneCol.setCellValueFactory(new PropertyValueFactory<>("phone"));
     }
 }

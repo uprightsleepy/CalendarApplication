@@ -24,8 +24,8 @@
               </columns>
             </TableView>
             <Button layoutX="207.0" layoutY="556.0" mnemonicParsing="false" onAction="#addCustomer" prefHeight="45.0" prefWidth="180.0" style="-fx-background-color: #20A9CE;" text="New Customer" textFill="WHITE" />
-            <Button layoutX="413.0" layoutY="556.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="180.0" style="-fx-background-color: #20A9CE;" text="Update Customer" textFill="WHITE" />
-            <Button layoutX="614.0" layoutY="556.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="180.0" style="-fx-background-color: #20A9CE;" text="Delete Customer" textFill="WHITE" />
+            <Button layoutX="413.0" layoutY="556.0" mnemonicParsing="false" onAction="#modCustomer" prefHeight="45.0" prefWidth="180.0" style="-fx-background-color: #20A9CE;" text="Update Customer" textFill="WHITE" />
+            <Button layoutX="614.0" layoutY="556.0" mnemonicParsing="false" onAction="#deleteCustomer" prefHeight="45.0" prefWidth="180.0" style="-fx-background-color: #20A9CE;" text="Delete Customer" textFill="WHITE" />
             <Button layoutX="806.0" layoutY="640.0" mnemonicParsing="false" onAction="#backToMain" prefHeight="45.0" prefWidth="180.0" style="-fx-background-color: #20A9CE;" text="Back to Main Menu" textFill="WHITE" />
          </children></AnchorPane>
    </center>
