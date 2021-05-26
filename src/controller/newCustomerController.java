@@ -33,6 +33,7 @@ public class newCustomerController implements Initializable {
 
     public boolean added = false;
     public int index = 0;
+    public int divisionID = 0;
     public ComboBox<FirstLevelDivision> divisionsList;
 
     @Override
@@ -67,7 +68,8 @@ public class newCustomerController implements Initializable {
             Customer c = new Customer(0, name, address, postalCode, phoneNumber);
 
             String sql = "INSERT INTO customers(Customer_ID, Customer_Name, Address, Postal_Code, Phone, Last_Update, Division_ID) VALUES(NULL,'" +
-                    c.getName() + "','" + c.getAddress() + "','" + c.getPostalCode() + "','" + c.getPhone() + "','" + lastUpdate + "','60');";
+                    c.getName() + "','" + c.getAddress() + "','" + c.getPostalCode() + "','" + c.getPhone() + "','" + lastUpdate + "','" + String.valueOf(selectDivision()) + "');";
+
 
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
             ps.executeUpdate();
@@ -92,28 +94,42 @@ public class newCustomerController implements Initializable {
         countryList.setItems(countries);
     }
 
-    public void selectCountry() {
+    public int selectCountry() {
 
         ObservableList<FirstLevelDivision> divisions;
         index = countryList.getSelectionModel().getSelectedIndex();
-        System.out.println(index);
 
         if(index == 0){
 
             divisions = DBFirstLevelDivisions.getAllUSDivisions();
             divisionsList.setItems(divisions);
-            divisionsList.getSelectionModel().selectFirst();
         } else if(index == 1) {
 
             divisions = DBFirstLevelDivisions.getAllUKDivisions();
             divisionsList.setItems(divisions);
-            divisionsList.getSelectionModel().selectFirst();
-
         } else {
 
             divisions = DBFirstLevelDivisions.getAllCanadaDivisions();
             divisionsList.setItems(divisions);
-            divisionsList.getSelectionModel().selectFirst();
         }
+        return index;
+    }
+
+    public int selectDivision() {
+        String divisionName = divisionsList.getSelectionModel().getSelectedItem().getName();
+
+        try {
+            String sql = "SELECT Division_ID FROM first_level_divisions WHERE Division ='" + divisionName + "';";
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()) {
+                divisionID = rs.getInt("Division_ID");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        System.out.println(divisionID);
+        return divisionID;
     }
 }

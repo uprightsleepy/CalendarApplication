@@ -1,5 +1,6 @@
 package controller;
 
+import DBAccess.DBCountries;
 import DBAccess.DBCustomer;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -10,12 +11,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import model.Countries;
 import model.Customer;
 import utils.DBConnection;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Objects;
 import java.util.Optional;
@@ -30,7 +33,6 @@ public class customerGUIController implements Initializable {
     public TableColumn<Customer, String> postalCol;
     public TableColumn<Customer, String> phoneCol;
     public TableColumn<Customer, String> locationCol;
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

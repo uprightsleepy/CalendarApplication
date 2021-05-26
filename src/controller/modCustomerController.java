@@ -15,9 +15,12 @@ import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
 import model.Countries;
 import model.FirstLevelDivision;
+import utils.DBConnection;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -48,7 +51,7 @@ public class modCustomerController implements Initializable {
         }
     }
 
-    public void selectCountry(ActionEvent actionEvent) {
+    public void selectCountry() {
         ObservableList<FirstLevelDivision> divisions;
         index = countryList.getSelectionModel().getSelectedIndex();
         System.out.println(index);

@@ -51,7 +51,7 @@
                <Font name="System Italic" size="12.0" />
             </font>
          </TextField>
-         <ComboBox fx:id="divisionsList" layoutX="445.0" layoutY="461.0" prefHeight="26.0" prefWidth="234.0" promptText="No Country Selected" />
+         <ComboBox fx:id="divisionsList" layoutX="445.0" layoutY="461.0" onAction="#selectDivision" prefHeight="26.0" prefWidth="234.0" promptText="No Country Selected" />
          <Button layoutX="232.0" layoutY="572.0" mnemonicParsing="false" onAction="#addNewCustomer" prefHeight="59.0" prefWidth="192.0" style="-fx-background-color: #20a9ce;" text="Add New Customer" textFill="WHITE" />
          <Button layoutX="622.0" layoutY="572.0" mnemonicParsing="false" onAction="#backToCustomerGUI" prefHeight="59.0" prefWidth="192.0" style="-fx-background-color: #20a9ce;" text="Cancel" textFill="WHITE" />
          <Label layoutX="523.0" layoutY="371.0" text="Country">

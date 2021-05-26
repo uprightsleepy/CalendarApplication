@@ -2,20 +2,13 @@ package DBAccess;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Alert;
-import model.Countries;
 import model.Customer;
 import utils.DBConnection;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 
 public class DBCustomer {
-
-
 
     public static ObservableList<Customer> getAllCustomers() {
         ObservableList<Customer> customerList = FXCollections.observableArrayList();
@@ -41,8 +34,4 @@ public class DBCustomer {
 
         return customerList;
     }
-
-//    public static ObservableList<Customer> deleteCustomer() {
-//
-//    }
 }
