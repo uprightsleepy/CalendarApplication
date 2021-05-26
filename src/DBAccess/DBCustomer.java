@@ -24,7 +24,11 @@ public class DBCustomer {
                 String address = rs.getString("Address");
                 String postalCode = rs.getString("Postal_Code");
                 String phone = rs.getString("Phone");
-                Customer C = new Customer(customerID, customerName,address,postalCode,phone);
+                int divisionID = rs.getInt("Division_ID");
+                Customer C = new Customer(customerID, customerName,address,postalCode,phone, divisionID, "0");
+                int countryID = C.getDivisionID();
+                C.setCountryID(countryID);
+
 
                 customerList.add(C);
             }

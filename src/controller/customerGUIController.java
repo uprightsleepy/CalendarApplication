@@ -110,5 +110,6 @@ public class customerGUIController implements Initializable {
         addressCol.setCellValueFactory(new PropertyValueFactory<>("address"));
         postalCol.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
         phoneCol.setCellValueFactory(new PropertyValueFactory<>("phone"));
+        locationCol.setCellValueFactory(new PropertyValueFactory<>("country"));
     }
 }

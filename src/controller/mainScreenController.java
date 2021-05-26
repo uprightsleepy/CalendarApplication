@@ -16,10 +16,12 @@ import model.Appointment;
 import model.Countries;
 
 
-
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 
+import java.util.Date;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -58,6 +60,8 @@ public class mainScreenController implements Initializable {
             stage.setScene(scene);
 
             stage.show();
+
+            recordSignout();
         }
     }
 
@@ -88,5 +92,15 @@ public class mainScreenController implements Initializable {
             startCol.setCellValueFactory(new PropertyValueFactory<>("start"));
             endCol.setCellValueFactory(new PropertyValueFactory<>("end"));
         }
+    }
+
+    public void recordSignout() throws IOException{
+        Date date = new Date();
+
+        String str = "Logout recorded at " + date +" | Session Terminated via Logout Button";
+        BufferedWriter writer = new BufferedWriter(new FileWriter("src/login_activity.txt", true));
+        writer.append('\n');
+        writer.append(str);
+        writer.close();
     }
 }

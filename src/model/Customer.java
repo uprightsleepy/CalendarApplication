@@ -1,35 +1,14 @@
 package model;
 
-import utils.DBConnection;
-
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.Date;
-
 public class Customer {
     private int id;
     private String name;
     private String address;
     private String postalCode;
     private String phone;
-    private int countryID;
+    private String country;
     private int divisionID;
 
-    public int getCountryID() {
-        return countryID;
-    }
-
-    public void setCountryID(int countryID) {
-        this.countryID = countryID;
-    }
-
-    public int getDivisionID() {
-        return divisionID;
-    }
-
-    public void setDivisionID(int divisionID) {
-        this.divisionID = divisionID;
-    }
 
     public Customer(int id, String name, String address, String postalCode, String phone) {
         this.id = id;
@@ -39,23 +18,23 @@ public class Customer {
         this.phone = phone;
     }
 
-    public Customer(int id, String name, String address, String postalCode, String phone, int countryID) {
+    public Customer(int id, String name, String address, String postalCode, String phone, String country) {
         this.id = id;
         this.name = name;
         this.address = address;
         this.postalCode = postalCode;
         this.phone = phone;
-        this.countryID = countryID;
+        this.country = country;
     }
 
-    public Customer(int id, String name, String address, String postalCode, String phone, int divisionID, int countryID) {
+    public Customer(int id, String name, String address, String postalCode, String phone, int divisionID, String country) {
         this.id = id;
         this.name = name;
         this.address = address;
         this.postalCode = postalCode;
         this.phone = phone;
         this.divisionID = divisionID;
-        this.countryID = countryID;
+        this.country = country;
     }
 
     public int getId() {
@@ -97,6 +76,31 @@ public class Customer {
     public void setPhone(String phone) {
         this.phone = phone;
     }
+
+    public String getCountry() {
+
+        return country;
+    }
+
+    public String setCountryID(int divisionID) {
+        if(divisionID <= 54)
+            country = "US";
+        else if(divisionID >= 60 && divisionID <= 72)
+            country = "Canada";
+        else
+            country = "UK";
+
+        return country;
+    }
+
+    public int getDivisionID() {
+        return divisionID;
+    }
+
+    public void setDivisionID(int divisionID) {
+        this.divisionID = divisionID;
+    }
+
 }
 
 
