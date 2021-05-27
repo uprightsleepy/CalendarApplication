@@ -57,7 +57,7 @@ public class newCustomerController implements Initializable {
         }
     }
 
-    public void addNewCustomer() {
+    public void addNewCustomer(ActionEvent actionEvent) throws IOException {
         String name = nameTF.getText();
         String address = addressTF.getText();
         String postalCode = zipTF.getText();
@@ -81,14 +81,39 @@ public class newCustomerController implements Initializable {
             alert.showAndWait();
         }
 
-        if(added) {
+        if (added) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Success");
             alert.setContentText("Customer was successfully added to the database.");
             alert.showAndWait();
         }
+
+
+        ButtonType yes = new ButtonType("YES", ButtonBar.ButtonData.OK_DONE);
+        ButtonType no = new ButtonType("NO", ButtonBar.ButtonData.CANCEL_CLOSE);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION,"Would you like to add another customer?", yes,no);
+        alert.setTitle("Confirm Next Step");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.orElse(yes) == no) {
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/customerGUI.fxml")));
+            Stage stage = (Stage) ((Button) (actionEvent.getSource())).getScene().getWindow();
+
+            Scene scene = new Scene(root, 1000, 700);
+            stage.setTitle("Customer Menu");
+            stage.setScene(scene);
+
+            stage.show();
+        }
     }
 
+    public void clear() {
+        nameTF.clear();
+        addressTF.clear();
+        zipTF.clear();
+        phoneTF.clear();
+        countryList.getSelectionModel().clearSelection();
+        divisionsList.getSelectionModel().clearSelection();
+    }
     public void populate() {
         ObservableList<Countries> countries = DBCountries.getAllCountries();
         countryList.setItems(countries);
