@@ -60,9 +60,9 @@ public class mainScreenController implements Initializable {
             stage.setScene(scene);
 
             stage.show();
-
-            recordSignout();
         }
+
+        recordSignout();
     }
 
 
