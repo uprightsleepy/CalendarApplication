@@ -1,11 +1,12 @@
 package model;
 
-import java.sql.Date;
-import java.sql.Time;
-import java.sql.Timestamp;
+import utils.DBConnection;
+
+import java.sql.*;
 
 public class Appointment {
 
+    private Date date;
     private int appointmentID;
     private String title;
     private String desc;
@@ -15,6 +16,7 @@ public class Appointment {
     private Time start;
     private Time end;
     private int customerID;
+    private String customerName;
 
     public Appointment(int appointmentID, String title, String desc, String location, int contact, String type, Time start, Time end, int customerID) {
         this.appointmentID = appointmentID;
@@ -28,6 +30,37 @@ public class Appointment {
         this.customerID = customerID;
     }
 
+    public Appointment(int appointmentID, String customerName, String title, String desc, String location, int contact, String type, Time start, Time end, int customerID) {
+        this.appointmentID = appointmentID;
+        this.customerName = customerName;
+        this.title = title;
+        this.desc = desc;
+        this.location = location;
+        this.contact = contact;
+        this.type = type;
+        this.start = start;
+        this.end = end;
+        this.customerID = customerID;
+    }
+
+    public Appointment(int appointmentID, String customerName, String title, String desc, String location, int contact, String type, Time start, Time end, Date date, int customerID) {
+        this.appointmentID = appointmentID;
+        this.customerName = customerName;
+        this.title = title;
+        this.desc = desc;
+        this.location = location;
+        this.contact = contact;
+        this.type = type;
+        this.start = start;
+        this.end = end;
+        this.date = date;
+        this.customerID = customerID;
+    }
+
+    public Appointment() {
+
+    }
+
     public int getAppointmentID() {
         return appointmentID;
     }
@@ -38,6 +71,25 @@ public class Appointment {
 
     public String getTitle() {
         return title;
+    }
+
+    public String getCustomerName() {
+        try {
+            String sql = "SELECT Customer_Name FROM customers WHERE Customer_ID = " + customerID;
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()) {
+                customerName = rs.getString("Customer_Name");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
     }
 
     public void setTitle(String title) {
@@ -77,6 +129,7 @@ public class Appointment {
     }
 
     public Time getStart() {
+
         return start;
     }
 
@@ -98,5 +151,28 @@ public class Appointment {
 
     public void setCustomerID(int customerID) {
         this.customerID = customerID;
+    }
+
+    public Date getDate() {
+
+        try {
+
+            String sql = "SELECT CONVERT(Start, date) FROM appointments WHERE Appointment_ID = " + appointmentID + ";";
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+
+                date = rs.getDate("CONVERT(Start, date)");
+            }
+        } catch (SQLException e) {
+
+            e.printStackTrace();
+        }
+
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

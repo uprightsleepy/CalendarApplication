@@ -37,8 +37,8 @@
                </items>
            </ChoiceBox>
          <Button layoutX="42.0" layoutY="142.0" mnemonicParsing="false" onAction="#viewCustomerGUI" style="-fx-background-color: #20A9CE;" text="View Customers" textFill="WHITE" />
-         <Button layoutX="159.0" layoutY="142.0" mnemonicParsing="false" style="-fx-background-color: #20A9CE;" text="New Appointment" textFill="WHITE" />
-         <Button layoutX="287.0" layoutY="142.0" mnemonicParsing="false" style="-fx-background-color: #20A9CE;" text="Edit Appointment" textFill="WHITE" />
+         <Button layoutX="159.0" layoutY="142.0" mnemonicParsing="false" onAction="#newAppointmentGUI" style="-fx-background-color: #20A9CE;" text="New Appointment" textFill="WHITE" />
+         <Button layoutX="287.0" layoutY="142.0" mnemonicParsing="false" onAction="#updateAppointmentGUI" style="-fx-background-color: #20A9CE;" text="Edit Appointment" textFill="WHITE" />
          <Button layoutX="411.0" layoutY="142.0" mnemonicParsing="false" style="-fx-background-color: #20A9CE;" text="Delete Appointment" textFill="WHITE" />
          <Button layoutX="553.0" layoutY="142.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="108.0" style="-fx-background-color: #20A9CE;" text="Reports" textFill="WHITE" />
          <Button layoutX="40.0" layoutY="618.0" mnemonicParsing="false" onAction="#logout" prefHeight="26.0" prefWidth="85.0" style="-fx-background-color: #20A9CE;" text="Logout" textFill="WHITE" />

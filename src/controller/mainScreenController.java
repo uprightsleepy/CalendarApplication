@@ -1,7 +1,6 @@
 package controller;
 
 import DBAccess.DBAppointments;
-import DBAccess.DBCountries;
 import DBAccess.DBCustomer;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,7 +12,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.Appointment;
-import model.Countries;
 
 
 import java.io.BufferedWriter;
@@ -28,7 +26,6 @@ import java.util.ResourceBundle;
 
 public class mainScreenController implements Initializable {
 
-    public Label testDB;
     public ChoiceBox<String> calendarType;
 
     public TableView<Appointment> appointmentsList;
@@ -40,6 +37,9 @@ public class mainScreenController implements Initializable {
     public TableColumn<Appointment,String> dateCol;
     public TableColumn<Appointment,String> startCol;
     public TableColumn<Appointment,String> endCol;
+
+    Appointment appointmentToModify = new Appointment();
+    int appointmentToModifyIndex = 0;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -77,21 +77,57 @@ public class mainScreenController implements Initializable {
         stage.show();
     }
 
-    public void populate() throws NullPointerException{
+    public void newAppointmentGUI(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/newAppointment.fxml")));
+        Stage stage = (Stage) ((Button) (actionEvent.getSource())).getScene().getWindow();
+
+        Scene scene = new Scene(root, 1000, 700);
+        stage.setTitle("Add Appointment");
+        stage.setScene(scene);
+
+        stage.show();
+    }
+
+    public void updateAppointmentGUI(ActionEvent actionEvent) throws IOException {
+        appointmentToModify = appointmentsList.getSelectionModel().getSelectedItem();
+
+        if(appointmentToModify == null) {
+
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Dialog");
+            alert.setContentText("There are no appointments selected.");
+            alert.showAndWait();
+        } else{
+
+            appointmentToModify = appointmentsList.getSelectionModel().getSelectedItem();
+            appointmentToModifyIndex = DBAppointments.getAllAppointments().indexOf(appointmentToModify);
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/updateAppointment.fxml")));
+            Stage stage = (Stage)((Button)(actionEvent.getSource())).getScene().getWindow();
+
+            Scene scene = new Scene(root,1000,700);
+            stage.setTitle("Update Appointment");
+
+            stage.setScene(scene);
+            stage.show();
+        }
+    }
+
+    public void populate() throws NullPointerException {
 
         ObservableList<Appointment> appointments = DBAppointments.getAllAppointments();
-        for(Appointment a : appointments) {
-            System.out.println(appointments);
+        System.out.println(appointments);
 
-            appointmentsList.setItems(appointments);
-            idCol.setCellValueFactory(new PropertyValueFactory<>("appointmentID"));
-//            nameCol.setCellValueFactory(new PropertyValueFactory<>("Customer_Name"));
-            titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
-            descCol.setCellValueFactory(new PropertyValueFactory<>("desc"));
-            typeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
-            startCol.setCellValueFactory(new PropertyValueFactory<>("start"));
-            endCol.setCellValueFactory(new PropertyValueFactory<>("end"));
-        }
+        appointmentsList.setItems(appointments);
+        idCol.setCellValueFactory(new PropertyValueFactory<>("appointmentID"));
+        nameCol.setCellValueFactory(new PropertyValueFactory<>("customerName"));
+        titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
+        descCol.setCellValueFactory(new PropertyValueFactory<>("desc"));
+        typeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
+        dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
+        startCol.setCellValueFactory(new PropertyValueFactory<>("start"));
+        endCol.setCellValueFactory(new PropertyValueFactory<>("end"));
+
+        System.out.println(appointments.get(0).getCustomerName());
     }
 
     public void recordSignout() throws IOException{

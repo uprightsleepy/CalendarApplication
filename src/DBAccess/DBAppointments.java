@@ -3,7 +3,6 @@ package DBAccess;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Appointment;
-import model.Countries;
 import utils.DBConnection;
 
 import java.sql.*;
@@ -25,12 +24,17 @@ public class DBAppointments {
                 String location = rs.getString("Location");
                 int contact = rs.getInt("Contact_ID");
                 String type = rs.getString("Type");
-//                Date date = rs.getDate("Date");
                 Time start = rs.getTime("Start");
                 Time end = rs.getTime("End");
                 int customerID = rs.getInt("Customer_ID");
 
-                Appointment A = new Appointment(appointmentID,title,desc,location,contact,type,start,end,customerID);
+                Appointment A = new Appointment(appointmentID," ",title,desc,location,contact,type,start,end,null,customerID);
+
+                String customerName = A.getCustomerName();
+                A.setCustomerName(customerName);
+
+                Date date = A.getDate();
+                A.setDate(date);
 
                 appointmentsList.add(A);
             }
