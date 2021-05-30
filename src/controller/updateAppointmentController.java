@@ -24,6 +24,7 @@ public class updateAppointmentController implements Initializable {
 
 
     public void backToMain(ActionEvent actionEvent) throws IOException {
+
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "This will return to the Main Menu. Do you want to continue?");
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {

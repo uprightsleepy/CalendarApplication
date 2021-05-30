@@ -14,6 +14,7 @@ public class DBCustomer {
         ObservableList<Customer> customerList = FXCollections.observableArrayList();
 
         try {
+
             String sql = "SELECT * FROM customers";
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -25,14 +26,23 @@ public class DBCustomer {
                 String postalCode = rs.getString("Postal_Code");
                 String phone = rs.getString("Phone");
                 int divisionID = rs.getInt("Division_ID");
-                Customer C = new Customer(customerID, customerName,address,postalCode,phone, divisionID, "0");
-                int countryID = C.getDivisionID();
+
+                Customer C = new Customer(customerID, customerName,address,postalCode,phone, 0,0," ");
+
+
+                String division = C.getDivision(divisionID);
+                C.setDivision(division);
+
+                int countryID = C.getCountryID(divisionID);
                 C.setCountryID(countryID);
 
+                String country = C.getCountry();
+                C.setCountry(country);
 
                 customerList.add(C);
             }
         } catch (SQLException e) {
+
             e.printStackTrace();
         }
 

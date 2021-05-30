@@ -29,6 +29,8 @@ import java.util.ResourceBundle;
 public class modCustomerController implements Initializable {
 
     public int index = 0;
+    public int originalCountry = 0;
+    public int originalDivision = 0;
     public ComboBox<FirstLevelDivision> divisionsList;
     public ComboBox<Countries> countryList;
     public TextField nameTF;
@@ -39,9 +41,7 @@ public class modCustomerController implements Initializable {
     boolean added = false;
 
     private Customer modifiedCustomer = customerGUIController.getCustomerToModify();
-    String customerCountry = modifiedCustomer.getCountry();
 
-    int countryIndex = 0;
     int divisionID = 0;
 
     @Override
@@ -62,6 +62,18 @@ public class modCustomerController implements Initializable {
             stage.setScene(scene);
 
             stage.show();
+        }
+    }
+
+    public void setOriginalCountrySelection() {
+        originalCountry = modifiedCustomer.getCountryID(divisionID);
+
+        if(originalCountry == 1) {
+            countryList.getSelectionModel().select(0);
+        } else if(originalCountry == 2) {
+            countryList.getSelectionModel().select(1);
+        } else {
+            countryList.getSelectionModel().select(2);
         }
     }
 
@@ -90,6 +102,7 @@ public class modCustomerController implements Initializable {
     }
 
     public void populate() {
+
         nameTF.setText(modifiedCustomer.getName());
         addressTF.setText(modifiedCustomer.getAddress());
         zipTF.setText(modifiedCustomer.getPostalCode());
@@ -97,32 +110,19 @@ public class modCustomerController implements Initializable {
 
         ObservableList<Countries> countries = DBCountries.getAllCountries();
         countryList.setItems(countries);
-        countryList.getSelectionModel().select(getCountryIndex()-1);
 
+        setOriginalCountrySelection();
         getDivision();
-    }
-
-    public int getCountryIndex() {
-
-        if(customerCountry.equals("US")){
-            countryIndex = 1;
-        } else if(customerCountry.equals("UK")) {
-            countryIndex = 2;
-        } else {
-            countryIndex = 3;
-        }
-
-        return countryIndex;
     }
 
     public void getDivision() {
 
-        if(countryIndex == 1) {
+        if(originalCountry == 1) {
 
             divisionsList.setItems(DBFirstLevelDivisions.getAllUSDivisions());
             System.out.println(modifiedCustomer.getDivisionID());
-            divisionsList.getSelectionModel().selectFirst();
-        } else if(countryIndex == 2) {
+            divisionsList.getSelectionModel().select(modifiedCustomer.getDivisionID());
+        } else if(originalCountry == 2) {
 
             divisionsList.setItems(DBFirstLevelDivisions.getAllUKDivisions());
             System.out.println(modifiedCustomer.getDivisionID());
@@ -136,6 +136,7 @@ public class modCustomerController implements Initializable {
     }
 
     public void update(ActionEvent actionEvent) throws IOException {
+
         String name = nameTF.getText();
         String address = addressTF.getText();
         String postalCode = zipTF.getText();
@@ -143,6 +144,7 @@ public class modCustomerController implements Initializable {
         Timestamp lastUpdate = Timestamp.valueOf(LocalDateTime.now());
 
         try {
+
             Customer c = new Customer(modifiedCustomer.getId(), name, address, postalCode, phoneNumber,modifiedCustomer.getDivisionID());
 
             String sql = "UPDATE customers SET Customer_Name = '" + c.getName() + "', Address = '" + c.getAddress() + "', Postal_Code = '" +
@@ -154,6 +156,7 @@ public class modCustomerController implements Initializable {
             ps.executeUpdate();
             added = true;
         } catch (NumberFormatException | SQLException e) {
+
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error Dialog");
             e.printStackTrace();
@@ -161,6 +164,7 @@ public class modCustomerController implements Initializable {
         }
 
         if(added) {
+
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Success");
             alert.setContentText("Customer was successfully added to the database.");
@@ -178,19 +182,24 @@ public class modCustomerController implements Initializable {
     }
 
     public int selectDivision() {
+
         String divisionName = divisionsList.getSelectionModel().getSelectedItem().getName();
 
         try {
+
             String sql = "SELECT Division_ID FROM first_level_divisions WHERE Division ='" + divisionName + "';";
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
             while(rs.next()) {
+
                 divisionID = rs.getInt("Division_ID");
             }
         } catch (SQLException e) {
+
             e.printStackTrace();
         }
+
         System.out.println(divisionID);
         return divisionID;
     }

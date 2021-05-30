@@ -13,20 +13,23 @@
                   <Font size="40.0" />
                </font>
             </Label>
-            <TableView fx:id="customerList" layoutX="110.0" layoutY="123.0" prefHeight="400.0" prefWidth="780.0">
+            <TableView fx:id="customerList" layoutX="110.0" layoutY="140.0" prefHeight="400.0" prefWidth="780.0">
               <columns>
-                <TableColumn fx:id="idCol" prefWidth="130.0" text="Customer ID" />
-                  <TableColumn fx:id="nameCol" prefWidth="130.0" text="Name" />
-                  <TableColumn fx:id="addressCol" prefWidth="130.0" text="Address" />
-                  <TableColumn fx:id="postalCol" prefWidth="130.0" text="Postal Code" />
-                  <TableColumn fx:id="phoneCol" prefWidth="130.0" text="Phone Number" />
-                  <TableColumn fx:id="locationCol" prefWidth="130.0" text="Country" />
+                <TableColumn fx:id="idCol" prefWidth="111.4" text="Customer ID" />
+                  <TableColumn fx:id="nameCol" prefWidth="111.4" text="Name" />
+                  <TableColumn fx:id="addressCol" prefWidth="111.4" text="Address" />
+                  <TableColumn fx:id="postalCol" prefWidth="111.4" text="Postal Code" />
+                  <TableColumn fx:id="divisionCol" prefWidth="111.4" text="Division" />
+                  <TableColumn fx:id="countryCol" prefWidth="111.4" text="Country" />
+                  <TableColumn fx:id="phoneCol" prefWidth="111.4" text="Phone" />
               </columns>
             </TableView>
-            <Button layoutX="207.0" layoutY="556.0" mnemonicParsing="false" onAction="#addCustomer" prefHeight="45.0" prefWidth="180.0" style="-fx-background-color: #20A9CE;" text="New Customer" textFill="WHITE" />
-            <Button layoutX="413.0" layoutY="556.0" mnemonicParsing="false" onAction="#modCustomer" prefHeight="45.0" prefWidth="180.0" style="-fx-background-color: #20A9CE;" text="Update Customer" textFill="WHITE" />
-            <Button layoutX="614.0" layoutY="556.0" mnemonicParsing="false" onAction="#deleteCustomer" prefHeight="45.0" prefWidth="180.0" style="-fx-background-color: #20A9CE;" text="Delete Customer" textFill="WHITE" />
+            <Button layoutX="207.0" layoutY="573.0" mnemonicParsing="false" onAction="#addCustomer" prefHeight="45.0" prefWidth="180.0" style="-fx-background-color: #20A9CE;" text="New Customer" textFill="WHITE" />
+            <Button layoutX="413.0" layoutY="573.0" mnemonicParsing="false" onAction="#modCustomer" prefHeight="45.0" prefWidth="180.0" style="-fx-background-color: #20A9CE;" text="Update Customer" textFill="WHITE" />
+            <Button layoutX="614.0" layoutY="573.0" mnemonicParsing="false" onAction="#deleteCustomer" prefHeight="45.0" prefWidth="180.0" style="-fx-background-color: #20A9CE;" text="Delete Customer" textFill="WHITE" />
             <Button layoutX="806.0" layoutY="640.0" mnemonicParsing="false" onAction="#backToMain" prefHeight="45.0" prefWidth="180.0" style="-fx-background-color: #20A9CE;" text="Back to Main Menu" textFill="WHITE" />
+            <TextField layoutX="645.0" layoutY="108.0" promptText="Search for Customer" />
+            <Button layoutX="804.0" layoutY="108.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="86.0" text="Search" />
          </children></AnchorPane>
    </center>
 </BorderPane>

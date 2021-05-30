@@ -16,7 +16,7 @@
            </Label>
            <TableView fx:id="appointmentsList" layoutX="42.0" layoutY="193.0" prefHeight="400.0" prefWidth="916.0">
                <columns>
-                   <TableColumn fx:id="idCol" prefWidth="75.0" text="ID" />
+                   <TableColumn fx:id="idCol" prefWidth="75.0" text="Appt. ID" />
                    <TableColumn fx:id="nameCol" prefWidth="119.20001220703125" text="Customer Name" />
                    <TableColumn fx:id="titleCol" prefWidth="119.20001220703125" text="Title" />
                    <TableColumn fx:id="descCol" prefWidth="119.20001220703125" text="Description" />
@@ -26,7 +26,6 @@
                    <TableColumn fx:id="endCol" prefWidth="119.20001220703125" text="End Time" />
                </columns>
            </TableView>
-           <DatePicker layoutX="765.0" layoutY="142.0" prefHeight="26.0" prefWidth="175.0" style="-fx-background-color: #20A9CE;" />
            <ChoiceBox fx:id="calendarType" layoutX="810.0" layoutY="618.0" prefWidth="150.0" style="-fx-background-color: #20A9CE;" value="View All">
                <items>
                    <FXCollections fx:factory="observableArrayList">
@@ -42,6 +41,8 @@
          <Button layoutX="411.0" layoutY="142.0" mnemonicParsing="false" style="-fx-background-color: #20A9CE;" text="Delete Appointment" textFill="WHITE" />
          <Button layoutX="553.0" layoutY="142.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="108.0" style="-fx-background-color: #20A9CE;" text="Reports" textFill="WHITE" />
          <Button layoutX="40.0" layoutY="618.0" mnemonicParsing="false" onAction="#logout" prefHeight="26.0" prefWidth="85.0" style="-fx-background-color: #20A9CE;" text="Logout" textFill="WHITE" />
+         <TextField layoutX="745.0" layoutY="143.0" promptText="Find an Appointment" />
+         <Button layoutX="907.0" layoutY="143.0" mnemonicParsing="false" text="Search" />
        </AnchorPane>
    </top>
 </BorderPane>

@@ -19,6 +19,7 @@ public class Appointment {
     private String customerName;
 
     public Appointment(int appointmentID, String title, String desc, String location, int contact, String type, Time start, Time end, int customerID) {
+
         this.appointmentID = appointmentID;
         this.title = title;
         this.desc = desc;
@@ -31,6 +32,7 @@ public class Appointment {
     }
 
     public Appointment(int appointmentID, String customerName, String title, String desc, String location, int contact, String type, Time start, Time end, int customerID) {
+
         this.appointmentID = appointmentID;
         this.customerName = customerName;
         this.title = title;
@@ -44,6 +46,7 @@ public class Appointment {
     }
 
     public Appointment(int appointmentID, String customerName, String title, String desc, String location, int contact, String type, Time start, Time end, Date date, int customerID) {
+
         this.appointmentID = appointmentID;
         this.customerName = customerName;
         this.title = title;
@@ -62,37 +65,46 @@ public class Appointment {
     }
 
     public int getAppointmentID() {
+
         return appointmentID;
     }
 
     public void setAppointmentID(int appointmentID) {
+
         this.appointmentID = appointmentID;
     }
 
     public String getTitle() {
+
         return title;
     }
 
     public String getCustomerName() {
+
         try {
+
             String sql = "SELECT Customer_Name FROM customers WHERE Customer_ID = " + customerID;
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
             while(rs.next()) {
+
                 customerName = rs.getString("Customer_Name");
             }
         } catch (SQLException e) {
+
             e.printStackTrace();
         }
         return customerName;
     }
 
     public void setCustomerName(String customerName) {
+
         this.customerName = customerName;
     }
 
     public void setTitle(String title) {
+
         this.title = title;
     }
 
@@ -160,6 +172,7 @@ public class Appointment {
             String sql = "SELECT CONVERT(Start, date) FROM appointments WHERE Appointment_ID = " + appointmentID + ";";
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
+
             while(rs.next()) {
 
                 date = rs.getDate("CONVERT(Start, date)");

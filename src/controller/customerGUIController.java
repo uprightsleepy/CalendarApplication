@@ -29,7 +29,11 @@ public class customerGUIController implements Initializable {
     public TableColumn<Customer, String> addressCol;
     public TableColumn<Customer, String> postalCol;
     public TableColumn<Customer, String> phoneCol;
-    public TableColumn<Customer, String> locationCol;
+    public TableColumn<Customer, String> countryCol;
+    public TableColumn<Customer, String> divisionCol;
+
+    public TextField search;
+
     private static Customer customerToModify;
     private static int customerToModifyIndex;
 
@@ -123,7 +127,6 @@ public class customerGUIController implements Initializable {
     public void populate() throws NullPointerException{
 
         ObservableList<Customer> customers = DBCustomer.getAllCustomers();
-        System.out.println(customers);
 
         customerList.setItems(customers);
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -131,7 +134,8 @@ public class customerGUIController implements Initializable {
         addressCol.setCellValueFactory(new PropertyValueFactory<>("address"));
         postalCol.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
         phoneCol.setCellValueFactory(new PropertyValueFactory<>("phone"));
-        locationCol.setCellValueFactory(new PropertyValueFactory<>("country"));
+        countryCol.setCellValueFactory(new PropertyValueFactory<>("country"));
+        divisionCol.setCellValueFactory(new PropertyValueFactory<>("division"));
     }
 
     public static Customer getCustomerToModify() {
