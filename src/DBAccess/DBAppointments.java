@@ -6,11 +6,15 @@ import model.Appointment;
 import utils.DBConnection;
 
 import java.sql.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 
 public class DBAppointments {
 
     public static ObservableList<Appointment> getAllAppointments() {
         ObservableList<Appointment> appointmentsList = FXCollections.observableArrayList();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
 
         try {
             String sql = "SELECT * FROM appointments";
@@ -22,19 +26,32 @@ public class DBAppointments {
                 String title = rs.getString("Title");
                 String desc = rs.getString("Description");
                 String location = rs.getString("Location");
-                int contact = rs.getInt("Contact_ID");
+                String contact = rs.getString("Contact_ID");
                 String type = rs.getString("Type");
-                Time start = rs.getTime("Start");
-                Time end = rs.getTime("End");
                 int customerID = rs.getInt("Customer_ID");
+                
+                LocalDateTime start = rs.getTimestamp("Start").toLocalDateTime();
+                LocalDateTime end = rs.getTimestamp("End").toLocalDateTime();
 
-                Appointment A = new Appointment(appointmentID," ",title,desc,location,contact,type,start,end,null,customerID);
+                Appointment A = new Appointment();
+                A.setAppointmentID(appointmentID);
+                A.setTitle(title);
+                A.setDesc(desc);
+                A.setLocation(location);
+                A.setContact(contact);
+                A.setType(type);
+                A.setCustomerID(customerID);
+
+                A.setDate(A.getDate());
+
+                A.setStart(start);
+                A.setStartTime(A.getStartTime());
+
+                A.setEnd(end);
+                A.setEndTime(A.getEndTime());
 
                 String customerName = A.getCustomerName();
                 A.setCustomerName(customerName);
-
-                Date date = A.getDate();
-                A.setDate(date);
 
                 appointmentsList.add(A);
             }

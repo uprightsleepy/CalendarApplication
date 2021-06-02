@@ -1,7 +1,6 @@
 package controller;
 
 import DBAccess.DBAppointments;
-import DBAccess.DBCustomer;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -12,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.Appointment;
+import utils.DBConnection;
 
 
 import java.io.BufferedWriter;
@@ -19,6 +19,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.Objects;
 import java.util.Optional;
@@ -38,8 +40,8 @@ public class mainScreenController implements Initializable {
     public TableColumn<Appointment,String> startCol;
     public TableColumn<Appointment,String> endCol;
 
-    Appointment appointmentToModify = new Appointment();
-    int appointmentToModifyIndex = 0;
+    private static Appointment appointmentToModify;
+    private static int appointmentToModifyIndex;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -115,7 +117,6 @@ public class mainScreenController implements Initializable {
     public void populate() throws NullPointerException {
 
         ObservableList<Appointment> appointments = DBAppointments.getAllAppointments();
-        System.out.println(appointments);
 
         appointmentsList.setItems(appointments);
         idCol.setCellValueFactory(new PropertyValueFactory<>("appointmentID"));
@@ -124,10 +125,37 @@ public class mainScreenController implements Initializable {
         descCol.setCellValueFactory(new PropertyValueFactory<>("desc"));
         typeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
         dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
-        startCol.setCellValueFactory(new PropertyValueFactory<>("start"));
-        endCol.setCellValueFactory(new PropertyValueFactory<>("end"));
+        startCol.setCellValueFactory(new PropertyValueFactory<>("startTime"));
+        endCol.setCellValueFactory(new PropertyValueFactory<>("endTime"));
+    }
 
-        System.out.println(appointments.get(0).getCustomerName());
+    public void deleteAppointment() {
+
+        Appointment appointmentToDelete = appointmentsList.getSelectionModel().getSelectedItem();
+        if(appointmentToDelete == null) {
+
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Dialog");
+            alert.setContentText("There are no customers selected.");
+            alert.showAndWait();
+        } else {
+            try {
+
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Would you like to permanently delete this customer?");
+                Optional<ButtonType> result = alert.showAndWait();
+                if(result.isPresent() && result.get() == ButtonType.OK) {
+                    String sql = "DELETE FROM appointments WHERE Appointment_ID = " + appointmentToDelete.getAppointmentID();
+
+                    PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+                    ps.executeUpdate();
+                }
+            } catch (NullPointerException | SQLException e) {
+
+                e.printStackTrace();
+            }
+
+            populate();
+        }
     }
 
     public void recordSignout() throws IOException{
@@ -138,5 +166,13 @@ public class mainScreenController implements Initializable {
         writer.append('\n');
         writer.append(str);
         writer.close();
+    }
+
+    public static Appointment getAppointmentToModify() {
+        return appointmentToModify;
+    }
+
+    public static int getAppointmentToModifyIndex() {
+        return appointmentToModifyIndex;
     }
 }

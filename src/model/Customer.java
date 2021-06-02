@@ -150,7 +150,6 @@ public class Customer {
             e.printStackTrace();
         }
 
-        System.out.println(country);
         return country;
     }
 
