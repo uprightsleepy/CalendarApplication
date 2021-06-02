@@ -7,6 +7,7 @@ import utils.DBConnection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Locale;
 
 public class DBCustomer {
 
@@ -47,5 +48,29 @@ public class DBCustomer {
         }
 
         return customerList;
+    }
+
+    public static ObservableList<Customer> lookupCustomer(String customerName) {
+        ObservableList<Customer> customers = FXCollections.observableArrayList();
+
+        for(Customer c : DBCustomer.getAllCustomers()){
+            if(c.getName().contains(customerName) || c.getName().toLowerCase(Locale.ROOT).contains(customerName)) {
+                customers.add(c);
+            }
+        }
+
+        return customers;
+    }
+
+    public static ObservableList<Customer> lookupCustomer(int customerID) {
+        ObservableList<Customer> customers = FXCollections.observableArrayList();
+
+        for(Customer c : DBCustomer.getAllCustomers()) {
+            if(c.getId() == customerID) {
+                customers.add(c);
+            }
+        }
+
+        return customers;
     }
 }

@@ -32,7 +32,7 @@ public class customerGUIController implements Initializable {
     public TableColumn<Customer, String> countryCol;
     public TableColumn<Customer, String> divisionCol;
 
-    public TextField search;
+    public TextField searchField;
 
     private static Customer customerToModify;
     private static int customerToModifyIndex;
@@ -144,5 +144,25 @@ public class customerGUIController implements Initializable {
 
     public static int getCustomerToModifyIndex() {
         return customerToModifyIndex;
+    }
+
+    public void search() {
+        try {
+            int q = Integer.parseInt(searchField.getText());
+            ObservableList<Customer> customers = DBCustomer.lookupCustomer(q);
+            customerList.setItems(customers);
+
+            if(searchField.getText().isEmpty()) {
+                customerList.setItems(DBCustomer.getAllCustomers());
+            }
+        } catch (NumberFormatException e) {
+            String q = searchField.getText();
+            ObservableList<Customer> customers = DBCustomer.lookupCustomer(q);
+            customerList.setItems(customers);
+
+            if(searchField.getText().isEmpty()) {
+                customerList.setItems(DBCustomer.getAllCustomers());
+            }
+        }
     }
 }

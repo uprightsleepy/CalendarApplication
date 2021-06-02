@@ -28,8 +28,8 @@
             <Button layoutX="413.0" layoutY="573.0" mnemonicParsing="false" onAction="#modCustomer" prefHeight="45.0" prefWidth="180.0" style="-fx-background-color: #20A9CE;" text="Update Customer" textFill="WHITE" />
             <Button layoutX="614.0" layoutY="573.0" mnemonicParsing="false" onAction="#deleteCustomer" prefHeight="45.0" prefWidth="180.0" style="-fx-background-color: #20A9CE;" text="Delete Customer" textFill="WHITE" />
             <Button layoutX="806.0" layoutY="640.0" mnemonicParsing="false" onAction="#backToMain" prefHeight="45.0" prefWidth="180.0" style="-fx-background-color: #20A9CE;" text="Back to Main Menu" textFill="WHITE" />
-            <TextField layoutX="645.0" layoutY="108.0" promptText="Search for Customer" />
-            <Button layoutX="804.0" layoutY="108.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="86.0" text="Search" />
+            <TextField fx:id="searchField" layoutX="645.0" layoutY="108.0" onAction="#search" promptText="Search by ID or Name" />
+            <Button fx:id="search" layoutX="804.0" layoutY="108.0" mnemonicParsing="false" onAction="#search" prefHeight="25.0" prefWidth="86.0" text="Search" />
          </children></AnchorPane>
    </center>
 </BorderPane>
