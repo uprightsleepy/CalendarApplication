@@ -1,6 +1,7 @@
 package controller;
 
 import DBAccess.DBAppointments;
+import DBAccess.DBCustomer;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +12,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.Appointment;
+import model.Customer;
+import org.w3c.dom.Text;
 import utils.DBConnection;
 
 
@@ -39,6 +42,7 @@ public class mainScreenController implements Initializable {
     public TableColumn<Appointment,String> dateCol;
     public TableColumn<Appointment,String> startCol;
     public TableColumn<Appointment,String> endCol;
+    public TextField searchField;
 
     private static Appointment appointmentToModify;
     private static int appointmentToModifyIndex;
@@ -174,5 +178,25 @@ public class mainScreenController implements Initializable {
 
     public static int getAppointmentToModifyIndex() {
         return appointmentToModifyIndex;
+    }
+
+    public void search() {
+        try {
+            int q = Integer.parseInt(searchField.getText());
+            ObservableList<Appointment> appointments = DBAppointments.lookupAppointment(q);
+            appointmentsList.setItems(appointments);
+
+            if(searchField.getText().isEmpty()) {
+                appointmentsList.setItems(DBAppointments.getAllAppointments());
+            }
+        } catch (NumberFormatException e) {
+            String q = searchField.getText();
+            ObservableList<Appointment> appointments = DBAppointments.lookupAppointment(q);
+            appointmentsList.setItems(appointments);
+
+            if(searchField.getText().isEmpty()) {
+                appointmentsList.setItems(DBAppointments.getAllAppointments());
+            }
+        }
     }
 }

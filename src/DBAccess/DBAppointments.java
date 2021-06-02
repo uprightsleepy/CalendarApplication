@@ -3,11 +3,13 @@ package DBAccess;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Appointment;
+import model.Customer;
 import utils.DBConnection;
 
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 
 public class DBAppointments {
@@ -60,5 +62,29 @@ public class DBAppointments {
         }
 
         return appointmentsList;
+    }
+
+    public static ObservableList<Appointment> lookupAppointment(String appointmentTitle) {
+        ObservableList<Appointment> appointments = FXCollections.observableArrayList();
+
+        for(Appointment a : DBAppointments.getAllAppointments()){
+            if(a.getTitle().contains(appointmentTitle) || a.getTitle().toLowerCase(Locale.ROOT).contains(appointmentTitle)) {
+                appointments.add(a);
+            }
+        }
+
+        return appointments;
+    }
+
+    public static ObservableList<Appointment> lookupAppointment(int appointmentID) {
+        ObservableList<Appointment> appointments = FXCollections.observableArrayList();
+
+        for(Appointment a : DBAppointments.getAllAppointments()) {
+            if(a.getAppointmentID() == appointmentID) {
+                appointments.add(a);
+            }
+        }
+
+        return appointments;
     }
 }
