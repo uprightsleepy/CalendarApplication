@@ -31,7 +31,7 @@ public class DBAppointments {
                 String contact = rs.getString("Contact_ID");
                 String type = rs.getString("Type");
                 int customerID = rs.getInt("Customer_ID");
-                
+
                 LocalDateTime start = rs.getTimestamp("Start").toLocalDateTime();
                 LocalDateTime end = rs.getTimestamp("End").toLocalDateTime();
 

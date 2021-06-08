@@ -17,9 +17,7 @@ import utils.DBConnection;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.time.*;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -46,6 +44,9 @@ public class newAppointmentController implements Initializable {
     public TextField locationTF;
     public TextField typeTF;
     public TextArea descriptionTA;
+
+    LocalTime time = LocalTime.of(8,0);
+    private final ZoneId zoneId = ZoneId.systemDefault();
 
 
     @Override
@@ -95,7 +96,6 @@ public class newAppointmentController implements Initializable {
         LocalDate startDate = startingDate.getValue();
         LocalTime startTime = startTimePicker.getValue();
         LocalDateTime start = LocalDateTime.of(startDate,startTime);
-
         Timestamp startDB = Timestamp.valueOf(start);
 
         LocalDate endDate = endingDate.getValue();
@@ -105,13 +105,6 @@ public class newAppointmentController implements Initializable {
 
         Timestamp created = Timestamp.valueOf(LocalDateTime.now());
 
-        System.out.println(start);
-        System.out.println(startDB);
-
-        System.out.println();
-
-        System.out.println(end);
-        System.out.println(endDB);
         try {
 
             Appointment a = new Appointment();
@@ -124,7 +117,7 @@ public class newAppointmentController implements Initializable {
             a.setCustomerID(getCustomerID());
             a.setCreated(created.toLocalDateTime());
 
-            //needs to be LocalDateTime to add to "Start" and "End" columns in DB
+            //needs to be Timestamp to add to "Start" and "End" columns in DB
             String sql = "INSERT INTO appointments(Appointment_ID, Title, Description, Location, Type, Start, End, Create_Date, Customer_ID) VALUES(NULL,'" + a.getTitle() + "', '"
                     + a.getDesc() + "', '" + a.getLocation() + "', '" + a.getType() + "', '" + startDB +"', '" + endDB + "', '" + created + "'," + a.getCustomerID() + ");";
 
@@ -165,23 +158,11 @@ public class newAppointmentController implements Initializable {
     }
 
     public void addTimes() {
-        times.addAll((LocalTime.of(9,0)),
-                LocalTime.of(9,30),
-                LocalTime.of(10,0),
-                LocalTime.of(10,30),
-                LocalTime.of(11,0),
-                LocalTime.of(11,30),
-                LocalTime.of(12,0),
-                LocalTime.of(12,30),
-                LocalTime.of(13,0),
-                LocalTime.of(13,30),
-                LocalTime.of(14,0),
-                LocalTime.of(14,30),
-                LocalTime.of(15,0),
-                LocalTime.of(15,30),
-                LocalTime.of(16,0),
-                LocalTime.of(16,30),
-                LocalTime.of(17,0)
-        );
+
+        do {
+
+            times.add(time);
+            time = time.plusMinutes(30);
+        } while(!time.equals(LocalTime.of(19,30)));
     }
 }

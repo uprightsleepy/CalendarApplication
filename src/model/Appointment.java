@@ -3,8 +3,8 @@ package model;
 import utils.DBConnection;
 
 import java.sql.*;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.time.*;
+import java.util.TimeZone;
 
 public class Appointment {
 
@@ -19,10 +19,14 @@ public class Appointment {
 
     private LocalDateTime start;
     private LocalTime startTime;
+    private LocalDateTime dbStart;
+    private ZonedDateTime localTimeStart;
+    private LocalDateTime originalStart;
 
     private LocalDateTime end;
     private LocalTime endTime;
     private LocalDateTime created;
+    ZoneId localZone = ZoneId.of(TimeZone.getDefault().getID());
 
     public LocalDateTime getCreated() {
         return created;
@@ -180,6 +184,26 @@ public class Appointment {
         return date;
     }
 
+    public void getDisplayStart() {
+
+        try {
+
+            String sql = "SELECT Start FROM appointments WHERE Appointment_ID = " + appointmentID + ";";
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()) {
+
+                dbStart = rs.getTimestamp("Start").toLocalDateTime();
+                localTimeStart = ZonedDateTime.of(dbStart, localZone);
+            }
+        } catch (SQLException e) {
+
+            e.printStackTrace();
+        }
+        System.out.println("Local Time Start: " + localTimeStart);
+    }
+
     public LocalTime getStartTime() {
 
         try {
@@ -196,7 +220,6 @@ public class Appointment {
 
             e.printStackTrace();
         }
-
         return startTime;
     }
 

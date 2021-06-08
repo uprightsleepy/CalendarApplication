@@ -16,14 +16,15 @@
            </Label>
            <TableView fx:id="appointmentsList" layoutX="42.0" layoutY="193.0" prefHeight="400.0" prefWidth="916.0">
                <columns>
-                   <TableColumn fx:id="idCol" prefWidth="75.0" text="Appt. ID" />
-                   <TableColumn fx:id="nameCol" prefWidth="119.20001220703125" text="Customer Name" />
-                   <TableColumn fx:id="titleCol" prefWidth="119.20001220703125" text="Title" />
-                   <TableColumn fx:id="descCol" prefWidth="119.20001220703125" text="Description" />
-                   <TableColumn fx:id="typeCol" prefWidth="119.20001220703125" text="Type" />
-                   <TableColumn fx:id="dateCol" prefWidth="119.20001220703125" text="Date" />
-                   <TableColumn fx:id="startCol" prefWidth="119.20001220703125" text="Start Time" />
-                   <TableColumn fx:id="endCol" prefWidth="119.20001220703125" text="End Time" />
+                   <TableColumn fx:id="idCol" prefWidth="101.7" text="Appt. ID" />
+                   <TableColumn fx:id="nameCol" prefWidth="101.7" text="Customer Name" />
+                   <TableColumn fx:id="titleCol" prefWidth="101.7" text="Title" />
+                   <TableColumn fx:id="descCol" prefWidth="101.7" text="Description" />
+                   <TableColumn fx:id="typeCol" prefWidth="101.7" text="Type" />
+                   <TableColumn fx:id="dateCol" prefWidth="101.7" text="Date" />
+                   <TableColumn fx:id="startCol" prefWidth="101.7" text="Start Time" />
+                   <TableColumn fx:id="endCol" prefWidth="101.7" text="End Time" />
+               <TableColumn fx:id="custIdCol" prefWidth="101.7" text="Cust. ID" />
                </columns>
            </TableView>
            <ChoiceBox fx:id="calendarType" layoutX="810.0" layoutY="618.0" prefWidth="150.0" style="-fx-background-color: #20A9CE;" value="View All">

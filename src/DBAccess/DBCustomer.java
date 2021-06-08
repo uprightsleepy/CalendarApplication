@@ -12,6 +12,7 @@ import java.util.Locale;
 public class DBCustomer {
 
     public static ObservableList<Customer> getAllCustomers() {
+
         ObservableList<Customer> customerList = FXCollections.observableArrayList();
 
         try {
@@ -21,6 +22,7 @@ public class DBCustomer {
             ResultSet rs = ps.executeQuery();
 
             while(rs.next()) {
+
                 int customerID = rs.getInt("Customer_ID");
                 String customerName = rs.getString("Customer_Name");
                 String address = rs.getString("Address");
@@ -51,10 +53,13 @@ public class DBCustomer {
     }
 
     public static ObservableList<Customer> lookupCustomer(String customerName) {
+
         ObservableList<Customer> customers = FXCollections.observableArrayList();
 
-        for(Customer c : DBCustomer.getAllCustomers()){
+        for(Customer c : DBCustomer.getAllCustomers()) {
+
             if(c.getName().contains(customerName) || c.getName().toLowerCase(Locale.ROOT).contains(customerName)) {
+
                 customers.add(c);
             }
         }
@@ -63,10 +68,13 @@ public class DBCustomer {
     }
 
     public static ObservableList<Customer> lookupCustomer(int customerID) {
+
         ObservableList<Customer> customers = FXCollections.observableArrayList();
 
         for(Customer c : DBCustomer.getAllCustomers()) {
+
             if(c.getId() == customerID) {
+
                 customers.add(c);
             }
         }

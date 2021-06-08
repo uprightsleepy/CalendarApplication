@@ -8,28 +8,26 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-
 import java.io.*;
 import java.util.*;
-
 import javafx.stage.Stage;
 import model.User;
-
 import java.net.URL;
 
 public class loginController implements Initializable {
+
     public Label locationID;
     public TextField usernameTF;
     public PasswordField passwordTF;
     public Button loginButton;
-
     public boolean loginSuccessful = false;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Locale currentLocale = Locale.getDefault();
-        String country = currentLocale.getDisplayCountry();
-        locationID.setText(country);
+
+        TimeZone timezone = TimeZone.getDefault();
+        String zoneID = timezone.getID();
+        locationID.setText(zoneID);
     }
 
     public void login(ActionEvent actionEvent) throws IOException {
@@ -37,7 +35,9 @@ public class loginController implements Initializable {
         ObservableList<User> userList = DBUsers.getAllUsers();
 
         for(User user : userList) {
+
             if(!user.getUsername().equals(usernameTF.getText())) {
+
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error Dialog");
                 alert.setContentText("Incorrect Username. Please enter the correct login credentials.");
@@ -45,6 +45,7 @@ public class loginController implements Initializable {
 
                 recordAttempt();
             } else if(!user.getPassword().equals(passwordTF.getText())) {
+
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error Dialog");
                 alert.setContentText("Incorrect Password. Please enter the correct login credentials.");
@@ -52,6 +53,7 @@ public class loginController implements Initializable {
 
                 recordAttempt();
             } else {
+
                 loginSuccessful = true;
 
                 recordAttempt();
@@ -69,6 +71,7 @@ public class loginController implements Initializable {
     }
 
     public void recordAttempt() throws IOException{
+
         Date date = new Date();
 
         String str = "Login attempt recorded at " + date +" | Login Successful: " + loginSuccessful;

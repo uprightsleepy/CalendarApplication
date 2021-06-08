@@ -130,7 +130,7 @@ public class mainScreenController implements Initializable {
         typeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
         dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
         startCol.setCellValueFactory(new PropertyValueFactory<>("startTime"));
-        endCol.setCellValueFactory(new PropertyValueFactory<>("endTime"));
+//        endCol.setCellValueFactory(new PropertyValueFactory<>("endTime"));
     }
 
     public void deleteAppointment() {
@@ -143,6 +143,7 @@ public class mainScreenController implements Initializable {
             alert.setContentText("There are no customers selected.");
             alert.showAndWait();
         } else {
+
             try {
 
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Would you like to permanently delete this customer?");
@@ -163,6 +164,7 @@ public class mainScreenController implements Initializable {
     }
 
     public void recordSignout() throws IOException{
+
         Date date = new Date();
 
         String str = "Logout recorded at " + date +" | Session Terminated via Logout Button";
@@ -181,20 +183,25 @@ public class mainScreenController implements Initializable {
     }
 
     public void search() {
+
         try {
+
             int q = Integer.parseInt(searchField.getText());
             ObservableList<Appointment> appointments = DBAppointments.lookupAppointment(q);
             appointmentsList.setItems(appointments);
 
             if(searchField.getText().isEmpty()) {
+
                 appointmentsList.setItems(DBAppointments.getAllAppointments());
             }
         } catch (NumberFormatException e) {
+
             String q = searchField.getText();
             ObservableList<Appointment> appointments = DBAppointments.lookupAppointment(q);
             appointmentsList.setItems(appointments);
 
             if(searchField.getText().isEmpty()) {
+
                 appointmentsList.setItems(DBAppointments.getAllAppointments());
             }
         }

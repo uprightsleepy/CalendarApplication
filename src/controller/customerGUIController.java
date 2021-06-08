@@ -12,7 +12,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.Customer;
 import utils.DBConnection;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.PreparedStatement;
@@ -48,6 +47,7 @@ public class customerGUIController implements Initializable {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "This will return to the Main Menu. Do you want to continue?");
         Optional<ButtonType> result = alert.showAndWait();
         if(result.isPresent() && result.get() == ButtonType.OK) {
+
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/mainScreen.fxml")));
             Stage stage = (Stage)((Button)(actionEvent.getSource())).getScene().getWindow();
 
@@ -72,6 +72,7 @@ public class customerGUIController implements Initializable {
     }
 
     public void modCustomer(ActionEvent actionEvent) throws IOException {
+
         customerToModify = customerList.getSelectionModel().getSelectedItem();
 
         if(customerToModify == null) {
@@ -105,11 +106,14 @@ public class customerGUIController implements Initializable {
             alert.setContentText("There are no customers selected.");
             alert.showAndWait();
         } else {
+
             try {
 
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Would you like to permanently delete this customer?");
                 Optional<ButtonType> result = alert.showAndWait();
+
                 if(result.isPresent() && result.get() == ButtonType.OK) {
+
                     String sql = "DELETE FROM customers WHERE Customer_ID = " + customerToDelete.getId();
 
                     PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
@@ -139,28 +143,35 @@ public class customerGUIController implements Initializable {
     }
 
     public static Customer getCustomerToModify() {
+
         return customerToModify;
     }
 
     public static int getCustomerToModifyIndex() {
+
         return customerToModifyIndex;
     }
 
     public void search() {
+
         try {
+
             int q = Integer.parseInt(searchField.getText());
             ObservableList<Customer> customers = DBCustomer.lookupCustomer(q);
             customerList.setItems(customers);
 
             if(searchField.getText().isEmpty()) {
+
                 customerList.setItems(DBCustomer.getAllCustomers());
             }
         } catch (NumberFormatException e) {
+
             String q = searchField.getText();
             ObservableList<Customer> customers = DBCustomer.lookupCustomer(q);
             customerList.setItems(customers);
 
             if(searchField.getText().isEmpty()) {
+
                 customerList.setItems(DBCustomer.getAllCustomers());
             }
         }
