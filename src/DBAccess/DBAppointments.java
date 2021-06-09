@@ -7,16 +7,20 @@ import model.Customer;
 import utils.DBConnection;
 
 import java.sql.*;
-import java.time.LocalDateTime;
+import java.text.SimpleDateFormat;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 
 public class DBAppointments {
 
+    private static ZoneOffset local = ZoneId.systemDefault().getRules().getOffset(Instant.now());
+    private static DateTimeFormatter formatter;
+
     public static ObservableList<Appointment> getAllAppointments() {
+
         ObservableList<Appointment> appointmentsList = FXCollections.observableArrayList();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
 
         try {
             String sql = "SELECT * FROM appointments";
@@ -32,27 +36,21 @@ public class DBAppointments {
                 String type = rs.getString("Type");
                 int customerID = rs.getInt("Customer_ID");
 
-                LocalDateTime start = rs.getTimestamp("Start").toLocalDateTime();
-                LocalDateTime end = rs.getTimestamp("End").toLocalDateTime();
+                OffsetDateTime start = rs.getTimestamp("Start").toLocalDateTime().atOffset(local);
 
-                Appointment A = new Appointment();
-                A.setAppointmentID(appointmentID);
-                A.setTitle(title);
-                A.setDesc(desc);
-                A.setLocation(location);
-                A.setContact(contact);
-                A.setType(type);
-                A.setCustomerID(customerID);
+                OffsetDateTime end = rs.getTimestamp("End").toLocalDateTime().atOffset(local);
 
-                A.setDate(A.getDate());
+                Appointment A = new Appointment(appointmentID,title,desc,location,contact,type,customerID);
+                Date date = A.getDate();
+                A.setDate(date);
 
-                A.setStart(start);
+                A.setStart(start.toLocalDateTime());
                 A.setStartTime(A.getStartTime());
 
-                A.setEnd(end);
-                A.setEndTime(A.getEndTime());
+                A.setEnd(end.toLocalDateTime());
 
                 String customerName = A.getCustomerName();
+
                 A.setCustomerName(customerName);
 
                 appointmentsList.add(A);

@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.time.*;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -47,7 +48,7 @@ public class newAppointmentController implements Initializable {
 
     LocalTime time = LocalTime.of(8,0);
     private final ZoneId zoneId = ZoneId.systemDefault();
-
+    private final DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -96,12 +97,18 @@ public class newAppointmentController implements Initializable {
         LocalDate startDate = startingDate.getValue();
         LocalTime startTime = startTimePicker.getValue();
         LocalDateTime start = LocalDateTime.of(startDate,startTime);
+
         Timestamp startDB = Timestamp.valueOf(start);
+        ZonedDateTime testStart = startDB.toInstant().atZone(ZoneId.of("UTC"));
+        Timestamp startConverted = Timestamp.valueOf(testStart.format(format));
 
         LocalDate endDate = endingDate.getValue();
         LocalTime endTime = endTimePicker.getValue();
         LocalDateTime end = LocalDateTime.of(endDate,endTime);
+
         Timestamp endDB = Timestamp.valueOf(end);
+        ZonedDateTime testEnd = endDB.toInstant().atZone(ZoneId.of("UTC"));
+        Timestamp endConverted = Timestamp.valueOf(testEnd.format(format));
 
         Timestamp created = Timestamp.valueOf(LocalDateTime.now());
 
@@ -119,7 +126,7 @@ public class newAppointmentController implements Initializable {
 
             //needs to be Timestamp to add to "Start" and "End" columns in DB
             String sql = "INSERT INTO appointments(Appointment_ID, Title, Description, Location, Type, Start, End, Create_Date, Customer_ID) VALUES(NULL,'" + a.getTitle() + "', '"
-                    + a.getDesc() + "', '" + a.getLocation() + "', '" + a.getType() + "', '" + startDB +"', '" + endDB + "', '" + created + "'," + a.getCustomerID() + ");";
+                    + a.getDesc() + "', '" + a.getLocation() + "', '" + a.getType() + "', '" + startConverted +"', '" + endConverted + "', '" + created + "'," + a.getCustomerID() + ");";
 
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
             ps.executeUpdate();
@@ -143,11 +150,13 @@ public class newAppointmentController implements Initializable {
     public int getCustomerID() {
 
         try {
+
             String sql = "SELECT Customer_ID FROM customers WHERE Customer_Name = '" + customerName + "';";
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
+
                 customerID = rs.getInt("Customer_ID");
             }
         } catch (SQLException e) {

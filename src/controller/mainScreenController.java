@@ -1,7 +1,6 @@
 package controller;
 
 import DBAccess.DBAppointments;
-import DBAccess.DBCustomer;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -12,8 +11,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.Appointment;
-import model.Customer;
-import org.w3c.dom.Text;
 import utils.DBConnection;
 
 
@@ -130,7 +127,7 @@ public class mainScreenController implements Initializable {
         typeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
         dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
         startCol.setCellValueFactory(new PropertyValueFactory<>("startTime"));
-//        endCol.setCellValueFactory(new PropertyValueFactory<>("endTime"));
+        endCol.setCellValueFactory(new PropertyValueFactory<>("endTime"));
     }
 
     public void deleteAppointment() {
