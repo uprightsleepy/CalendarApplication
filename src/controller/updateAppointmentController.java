@@ -1,5 +1,6 @@
 package controller;
 
+import DBAccess.DBContacts;
 import DBAccess.DBCustomer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.Appointment;
+import model.Contact;
 import model.Customer;
 import utils.DBConnection;
 
@@ -20,19 +22,22 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class updateAppointmentController implements Initializable {
+
+    private final DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     private Appointment modifiedAppointment = mainScreenController.getAppointmentToModify();
+    LocalTime time = LocalTime.of(8,0);
 
     ObservableList<LocalTime> times = FXCollections.observableArrayList();
 
     public ComboBox<String> customerList;
+    public ComboBox<String> contactList;
 
     public ComboBox<LocalTime> startTimePicker;
     public ComboBox<LocalTime> endTimePicker;
@@ -41,7 +46,10 @@ public class updateAppointmentController implements Initializable {
     public DatePicker endingDate;
 
     public String customerName;
-    public int customerID;
+    public int customerID = modifiedAppointment.getCustomerID();
+
+    public String contactName;
+    private int contactID = modifiedAppointment.getContactID();
 
     boolean added = false;
 
@@ -78,13 +86,13 @@ public class updateAppointmentController implements Initializable {
         titleTF.setText(modifiedAppointment.getTitle());
         descriptionTA.setText(modifiedAppointment.getDesc());
         locationTF.setText(modifiedAppointment.getLocation());
-        contactTF.setText(modifiedAppointment.getContact());
         typeTF.setText(modifiedAppointment.getType());
 
         startingDate.setValue(modifiedAppointment.getStart().toLocalDate());
         endingDate.setValue(modifiedAppointment.getEnd().toLocalDate());
 
         ObservableList<Customer> customers = DBCustomer.getAllCustomers();
+        ObservableList<Contact> contacts = DBContacts.getAllContacts();
 
         for(Customer c:customers) {
             customerName = c.getName();
@@ -92,12 +100,18 @@ public class updateAppointmentController implements Initializable {
         }
         customerList.getSelectionModel().select(modifiedAppointment.getCustomerName());
 
+
+        for(Contact contact : contacts) {
+            contactName = contact.getName();
+            contactList.getItems().add(contactName);
+        }
+        contactList.getSelectionModel().select(getContactName());
+
         addTimes();
         startTimePicker.setItems(times);
         startTimePicker.getSelectionModel().select(modifiedAppointment.getStartTime());
         endTimePicker.setItems(times);
         endTimePicker.getSelectionModel().select(modifiedAppointment.getEndTime());
-
     }
 
     public void addAppointment(ActionEvent actionEvent) throws IOException {
@@ -105,8 +119,11 @@ public class updateAppointmentController implements Initializable {
         String title = titleTF.getText();
         String description = descriptionTA.getText();
         String location = locationTF.getText();
-        String contact = contactTF.getText();
-        String customer = customerList.getSelectionModel().getSelectedItem();
+
+        customerName = customerList.getSelectionModel().getSelectedItem();
+
+        contactName = contactList.getSelectionModel().getSelectedItem();
+
         String type = typeTF.getText();
 
         LocalDate startDate = startingDate.getValue();
@@ -114,36 +131,35 @@ public class updateAppointmentController implements Initializable {
         LocalDateTime start = LocalDateTime.of(startDate,startTime);
 
         Timestamp startDB = Timestamp.valueOf(start);
+        ZonedDateTime testStart = startDB.toInstant().atZone(ZoneId.of("UTC"));
+        Timestamp startConverted = Timestamp.valueOf(testStart.format(format));
 
         LocalDate endDate = endingDate.getValue();
         LocalTime endTime = endTimePicker.getValue();
         LocalDateTime end = LocalDateTime.of(endDate,endTime);
+
         Timestamp endDB = Timestamp.valueOf(end);
+        ZonedDateTime testEnd = endDB.toInstant().atZone(ZoneId.of("UTC"));
+        Timestamp endConverted = Timestamp.valueOf(testEnd.format(format));
 
         Timestamp created = Timestamp.valueOf(LocalDateTime.now());
 
-        System.out.println(start);
-        System.out.println(startDB);
-
-        System.out.println();
-
-        System.out.println(end);
-        System.out.println(endDB);
         try {
 
             Appointment a = new Appointment();
             a.setTitle(title);
             a.setDesc(description);
             a.setLocation(location);
-            a.setContact(contact);
-            a.setCustomerName(customer);
+            a.setContactID(getContactID());
+            a.setCustomerName(customerName);
             a.setType(type);
             a.setCustomerID(getCustomerID());
 
             //needs to be LocalDateTime to add to "Start" and "End" columns in DB
             String sql = "UPDATE appointments SET Title = '" + a.getTitle() + "', Description = '" + a.getDesc() + "', Location = '" +
-                    a.getLocation() +"', Type = '" + a.getType() + "', Start = '" + startDB  + "', End = '" + endDB + "', Create_Date = NULL, Created_By = 'application', Last_Update = '"
-                    + created + "' WHERE Appointment_ID = " + modifiedAppointment.getAppointmentID() +";";
+                    a.getLocation() +"', Type = '" + a.getType() + "', Start = '" + startConverted  + "', End = '" + endConverted + "', Create_Date = NULL, Created_By = 'application', Last_Update = '"
+                    + created + "', Customer_ID =" + a.getCustomerID() + ", Contact_ID = " + a.getContactID()+ " WHERE Appointment_ID = " + modifiedAppointment.getAppointmentID() +";";
+
 
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
             ps.executeUpdate();
@@ -181,24 +197,49 @@ public class updateAppointmentController implements Initializable {
         return customerID;
     }
 
+    public int getContactID() {
+
+        try {
+
+            String sql = "SELECT Contact_ID FROM contacts WHERE Contact_Name = '" + contactName + "';";
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                contactID = rs.getInt("Contact_ID");
+            }
+        } catch (SQLException e) {
+
+            e.printStackTrace();
+        }
+        return contactID;
+    }
+
+    public String getContactName() {
+
+        try {
+
+            String sql = "SELECT Contact_Name FROM contacts WHERE Contact_ID = '" + contactID + "';";
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                contactName = rs.getString("Contact_Name");
+            }
+        } catch (SQLException e) {
+
+            e.printStackTrace();
+        }
+        return contactName;
+    }
+
     public void addTimes() {
-        times.addAll((LocalTime.of(9,0)),
-                LocalTime.of(9,30),
-                LocalTime.of(10,0),
-                LocalTime.of(10,30),
-                LocalTime.of(11,0),
-                LocalTime.of(11,30),
-                LocalTime.of(12,0),
-                LocalTime.of(12,30),
-                LocalTime.of(13,0),
-                LocalTime.of(13,30),
-                LocalTime.of(14,0),
-                LocalTime.of(14,30),
-                LocalTime.of(15,0),
-                LocalTime.of(15,30),
-                LocalTime.of(16,0),
-                LocalTime.of(16,30),
-                LocalTime.of(17,0)
-        );
+        do {
+
+            times.add(time);
+            time = time.plusMinutes(30);
+        } while(!time.equals(LocalTime.of(19,30)));
     }
 }

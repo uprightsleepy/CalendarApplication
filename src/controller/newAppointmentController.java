@@ -1,5 +1,6 @@
 package controller;
 
+import DBAccess.DBContacts;
 import DBAccess.DBCustomer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,15 +12,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.Appointment;
+import model.Contact;
 import model.Customer;
 import utils.DBConnection;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -28,6 +28,7 @@ public class newAppointmentController implements Initializable {
     ObservableList<LocalTime> times = FXCollections.observableArrayList();
 
     public ComboBox<String> customerList;
+    public ComboBox<String> contactList;
 
     public ComboBox<LocalTime> startTimePicker;
     public ComboBox<LocalTime> endTimePicker;
@@ -38,13 +39,16 @@ public class newAppointmentController implements Initializable {
     public String customerName;
     public int customerID;
 
+    public String contactName;
+    public int contactID;
+
     boolean added = false;
 
-    public TextField contactTF;
     public TextField titleTF;
     public TextField locationTF;
     public TextField typeTF;
     public TextArea descriptionTA;
+
 
     LocalTime time = LocalTime.of(8,0);
     private final ZoneId zoneId = ZoneId.systemDefault();
@@ -74,10 +78,15 @@ public class newAppointmentController implements Initializable {
     public void populate() {
 
         ObservableList<Customer> customers = DBCustomer.getAllCustomers();
+        ObservableList<Contact> contacts = DBContacts.getAllContacts();
 
         for(Customer c:customers) {
             customerName = c.getName();
             customerList.getItems().add(customerName);
+        }
+
+        for(Contact contact:contacts) {
+            contactList.getItems().add(contact.getName());
         }
 
         addTimes();
@@ -90,7 +99,7 @@ public class newAppointmentController implements Initializable {
         String title = titleTF.getText();
         String description = descriptionTA.getText();
         String location = locationTF.getText();
-        String contact = contactTF.getText();
+        contactName = contactList.getSelectionModel().getSelectedItem();
         String customer = customerList.getSelectionModel().getSelectedItem();
         String type = typeTF.getText();
 
@@ -118,15 +127,16 @@ public class newAppointmentController implements Initializable {
             a.setTitle(title);
             a.setDesc(description);
             a.setLocation(location);
-            a.setContact(contact);
+            a.setContactID(getContactID());
             a.setCustomerName(customer);
             a.setType(type);
             a.setCustomerID(getCustomerID());
             a.setCreated(created.toLocalDateTime());
 
             //needs to be Timestamp to add to "Start" and "End" columns in DB
-            String sql = "INSERT INTO appointments(Appointment_ID, Title, Description, Location, Type, Start, End, Create_Date, Customer_ID) VALUES(NULL,'" + a.getTitle() + "', '"
-                    + a.getDesc() + "', '" + a.getLocation() + "', '" + a.getType() + "', '" + startConverted +"', '" + endConverted + "', '" + created + "'," + a.getCustomerID() + ");";
+            String sql = "INSERT INTO appointments(Appointment_ID, Title, Description, Location, Type, Start, End, Create_Date, Customer_ID, Contact_ID) VALUES(NULL,'" + a.getTitle() + "', '"
+                    + a.getDesc() + "', '" + a.getLocation() + "', '" + a.getType() + "', '" + startConverted +"', '" + endConverted + "', '" + created + "'," + a.getCustomerID() + ", " +
+                    a.getContactID()+");";
 
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
             ps.executeUpdate();
@@ -164,6 +174,25 @@ public class newAppointmentController implements Initializable {
             e.printStackTrace();
         }
         return customerID;
+    }
+
+    public int getContactID() {
+
+        try {
+
+            String sql = "SELECT Contact_ID FROM contacts WHERE Contact_Name = '" + contactName + "';";
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                contactID = rs.getInt("Contact_ID");
+            }
+        } catch (SQLException e) {
+
+            e.printStackTrace();
+        }
+        return contactID;
     }
 
     public void addTimes() {

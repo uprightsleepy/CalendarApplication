@@ -53,7 +53,6 @@
                     <Font name="Roboto Light" size="22.0" />
                 </font>
             </Label>
-            <TextField fx:id="contactTF" layoutX="691.0" layoutY="198.0" prefHeight="26.0" prefWidth="229.0" promptText="Contact Information" />
             <Label layoutX="515.0" layoutY="253.0" text="Type">
                 <font>
                     <Font name="Roboto Light" size="22.0" />
@@ -74,6 +73,7 @@
             <ComboBox fx:id="startTimePicker" layoutX="291.0" layoutY="454.0" prefHeight="26.0" prefWidth="180.0" promptText="Select a Time" />
             <DatePicker fx:id="endingDate" layoutX="691.0" layoutY="417.0" prefHeight="26.0" prefWidth="179.0" promptText="Select a Date" />
             <ComboBox fx:id="endTimePicker" layoutX="691.0" layoutY="453.0" prefHeight="26.0" prefWidth="180.0" promptText="Select a Time" />
+         <ComboBox fx:id="contactList" layoutX="689.0" layoutY="198.0" prefHeight="26.0" prefWidth="234.0" promptText="Select a Contact" />
         </AnchorPane>
     </left>
 </BorderPane>

@@ -15,14 +15,13 @@ public class Appointment {
     private String title;
     private String desc;
     private String location;
-    private String contact;
+    private int contactID;
     private String type;
+
+    private String contactName;
 
     private LocalDateTime start;
     private LocalTime startTime;
-    private LocalDateTime dbStart;
-    private ZonedDateTime localTimeStart;
-    private LocalDateTime originalStart;
 
     private LocalDateTime end;
     private LocalTime endTime;
@@ -30,12 +29,12 @@ public class Appointment {
     ZoneId localZone = ZoneId.of(TimeZone.getDefault().getID());
     private final DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-    public Appointment(int appointmentID, String title, String desc, String location, String contact, String type, int customerID) {
+    public Appointment(int appointmentID, String title, String desc, String location, int contactID, String type, int customerID) {
         this.appointmentID = appointmentID;
         this.title = title;
         this.desc = desc;
         this.location = location;
-        this.contact = contact;
+        this.contactID = contactID;
         this.type = type;
         this.customerID = customerID;
     }
@@ -51,26 +50,26 @@ public class Appointment {
     private int customerID;
     private String customerName;
 
-    public Appointment(int appointmentID, String title, String desc, String location, String contact, String type, LocalDateTime start, LocalDateTime end, int customerID) {
+    public Appointment(int appointmentID, String title, String desc, String location, int contactID, String type, LocalDateTime start, LocalDateTime end, int customerID) {
 
         this.appointmentID = appointmentID;
         this.title = title;
         this.desc = desc;
         this.location = location;
-        this.contact = contact;
+        this.contactID = contactID;
         this.type = type;
         this.start = start;
         this.end = end;
         this.customerID = customerID;
     }
 
-    public Appointment(int appointmentID, String title, String desc, String location, String contact, String type, LocalTime startTime, LocalTime endTime, int customerID) {
+    public Appointment(int appointmentID, String title, String desc, String location, int contactID, String type, LocalTime startTime, LocalTime endTime, int customerID) {
 
         this.appointmentID = appointmentID;
         this.title = title;
         this.desc = desc;
         this.location = location;
-        this.contact = contact;
+        this.contactID = contactID;
         this.type = type;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -152,12 +151,12 @@ public class Appointment {
         this.location = location;
     }
 
-    public String getContact() {
-        return contact;
+    public int getContactID() {
+        return contactID;
     }
 
-    public void setContact(String contact) {
-        this.contact = contact;
+    public void setContactID(int contactID) {
+        this.contactID = contactID;
     }
 
     public String getType() {

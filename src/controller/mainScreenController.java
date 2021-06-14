@@ -39,6 +39,7 @@ public class mainScreenController implements Initializable {
     public TableColumn<Appointment,String> dateCol;
     public TableColumn<Appointment,String> startCol;
     public TableColumn<Appointment,String> endCol;
+    public TableColumn<Appointment,String> custIdCol;
     public TextField searchField;
 
     private static Appointment appointmentToModify;
@@ -128,6 +129,7 @@ public class mainScreenController implements Initializable {
         dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
         startCol.setCellValueFactory(new PropertyValueFactory<>("startTime"));
         endCol.setCellValueFactory(new PropertyValueFactory<>("endTime"));
+        custIdCol.setCellValueFactory(new PropertyValueFactory<>("customerID"));
     }
 
     public void deleteAppointment() {

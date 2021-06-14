@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.collections.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
@@ -27,15 +25,6 @@
                <TableColumn fx:id="custIdCol" prefWidth="101.7" text="Cust. ID" />
                </columns>
            </TableView>
-           <ChoiceBox fx:id="calendarType" layoutX="810.0" layoutY="618.0" prefWidth="150.0" style="-fx-background-color: #20A9CE;" value="View All">
-               <items>
-                   <FXCollections fx:factory="observableArrayList">
-                       <String fx:value="Week" />
-                       <String fx:value="Month" />
-                       <String fx:value="View All" />
-                   </FXCollections>
-               </items>
-           </ChoiceBox>
          <Button layoutX="42.0" layoutY="142.0" mnemonicParsing="false" onAction="#viewCustomerGUI" style="-fx-background-color: #20A9CE;" text="View Customers" textFill="WHITE" />
          <Button layoutX="159.0" layoutY="142.0" mnemonicParsing="false" onAction="#newAppointmentGUI" style="-fx-background-color: #20A9CE;" text="New Appointment" textFill="WHITE" />
          <Button layoutX="287.0" layoutY="142.0" mnemonicParsing="false" onAction="#updateAppointmentGUI" style="-fx-background-color: #20A9CE;" text="Edit Appointment" textFill="WHITE" />
@@ -44,6 +33,7 @@
          <Button layoutX="40.0" layoutY="618.0" mnemonicParsing="false" onAction="#logout" prefHeight="26.0" prefWidth="85.0" style="-fx-background-color: #20A9CE;" text="Logout" textFill="WHITE" />
          <TextField fx:id="searchField" layoutX="745.0" layoutY="143.0" onAction="#search" promptText="Search by ID or Title" />
          <Button fx:id="search" layoutX="907.0" layoutY="143.0" mnemonicParsing="false" onAction="#search" text="Search" />
+         <ComboBox layoutX="808.0" layoutY="606.0" prefWidth="150.0" promptText="Select View Filter" />
        </AnchorPane>
    </top>
 </BorderPane>

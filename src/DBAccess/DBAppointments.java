@@ -3,11 +3,8 @@ package DBAccess;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Appointment;
-import model.Customer;
 import utils.DBConnection;
-
 import java.sql.*;
-import java.text.SimpleDateFormat;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
@@ -15,7 +12,7 @@ import java.util.Locale;
 
 public class DBAppointments {
 
-    private static ZoneOffset local = ZoneId.systemDefault().getRules().getOffset(Instant.now());
+    private static final ZoneOffset local = ZoneId.systemDefault().getRules().getOffset(Instant.now());
     private static DateTimeFormatter formatter;
 
     public static ObservableList<Appointment> getAllAppointments() {
@@ -32,7 +29,7 @@ public class DBAppointments {
                 String title = rs.getString("Title");
                 String desc = rs.getString("Description");
                 String location = rs.getString("Location");
-                String contact = rs.getString("Contact_ID");
+                int contact = rs.getInt("Contact_ID");
                 String type = rs.getString("Type");
                 int customerID = rs.getInt("Customer_ID");
 
