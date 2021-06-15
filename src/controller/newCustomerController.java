@@ -68,8 +68,10 @@ public class newCustomerController implements Initializable {
             Customer c = new Customer(0, name, address, postalCode, phoneNumber);
 
             String sql = "INSERT INTO customers(Customer_ID, Customer_Name, Address, Postal_Code, Phone, Last_Update, Division_ID) VALUES(NULL,'" +
-                    c.getName() + "','" + c.getAddress() + "','" + c.getPostalCode() + "','" + c.getPhone() + "','" + lastUpdate + "','" + String.valueOf(selectDivision()) + "');";
+                    c.getName() + "','" + c.getAddress() + "','" + c.getPostalCode() + "','" + c.getPhone() + "','" + lastUpdate + "'," + selectDivision() + ");";
 
+            c.setDivisionID(selectDivision());
+            System.out.println("Division ID: " + c.getDivisionID());
 
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
             ps.executeUpdate();

@@ -17,6 +17,7 @@ public class Customer {
     private int countryID;
     private int divisionID;
     private String division;
+    private boolean isBusy = false;
 
 
     public String getDivision() {
@@ -205,6 +206,14 @@ public class Customer {
 
     public void setDivisionID(int divisionID) {
         this.divisionID = divisionID;
+    }
+
+    public boolean isBusy() {
+        return isBusy;
+    }
+
+    public void setBusy(boolean busy) {
+        isBusy = busy;
     }
 }
 

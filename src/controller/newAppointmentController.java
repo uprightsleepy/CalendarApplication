@@ -37,6 +37,7 @@ public class newAppointmentController implements Initializable {
     public DatePicker endingDate;
 
     public String customerName;
+    public String customer;
     public int customerID;
 
     public String contactName;
@@ -51,7 +52,6 @@ public class newAppointmentController implements Initializable {
 
 
     LocalTime time = LocalTime.of(8,0);
-    private final ZoneId zoneId = ZoneId.systemDefault();
     private final DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     @Override
@@ -94,13 +94,13 @@ public class newAppointmentController implements Initializable {
         endTimePicker.setItems(times);
     }
 
-    public void addNewAppointment(ActionEvent actionEvent) throws IOException {
+    public void addNewAppointment() {
 
         String title = titleTF.getText();
         String description = descriptionTA.getText();
         String location = locationTF.getText();
         contactName = contactList.getSelectionModel().getSelectedItem();
-        String customer = customerList.getSelectionModel().getSelectedItem();
+        customer = customerList.getSelectionModel().getSelectedItem();
         String type = typeTF.getText();
 
         LocalDate startDate = startingDate.getValue();
@@ -129,11 +129,16 @@ public class newAppointmentController implements Initializable {
             a.setLocation(location);
             a.setContactID(getContactID());
             a.setCustomerName(customer);
+
+            System.out.println("Customer name = " + customer);
+
             a.setType(type);
+
             a.setCustomerID(getCustomerID());
+            System.out.println("Customer ID = " + a.getCustomerID());
+
             a.setCreated(created.toLocalDateTime());
 
-            //needs to be Timestamp to add to "Start" and "End" columns in DB
             String sql = "INSERT INTO appointments(Appointment_ID, Title, Description, Location, Type, Start, End, Create_Date, Customer_ID, Contact_ID) VALUES(NULL,'" + a.getTitle() + "', '"
                     + a.getDesc() + "', '" + a.getLocation() + "', '" + a.getType() + "', '" + startConverted +"', '" + endConverted + "', '" + created + "'," + a.getCustomerID() + ", " +
                     a.getContactID()+");";
@@ -161,7 +166,7 @@ public class newAppointmentController implements Initializable {
 
         try {
 
-            String sql = "SELECT Customer_ID FROM customers WHERE Customer_Name = '" + customerName + "';";
+            String sql = "SELECT Customer_ID FROM customers WHERE Customer_Name = '" + customer + "';";
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 

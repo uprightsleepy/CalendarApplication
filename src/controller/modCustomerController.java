@@ -14,7 +14,6 @@ import model.Countries;
 import model.Customer;
 import model.FirstLevelDivision;
 import utils.DBConnection;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.PreparedStatement;
@@ -30,7 +29,6 @@ public class modCustomerController implements Initializable {
 
     public int index = 0;
     public int originalCountry = 0;
-    public int originalDivision = 0;
     public ComboBox<FirstLevelDivision> divisionsList;
     public ComboBox<Countries> countryList;
     public TextField nameTF;
@@ -42,7 +40,10 @@ public class modCustomerController implements Initializable {
 
     private Customer modifiedCustomer = customerGUIController.getCustomerToModify();
 
-    int divisionID = 0;
+    public int originalDivision = modifiedCustomer.getDivisionID();
+
+    int divisionID;
+    String divisionName;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -51,9 +52,13 @@ public class modCustomerController implements Initializable {
     }
 
     public void backToCustomerGUI(ActionEvent actionEvent) throws IOException {
+
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "This will return to the Customer Menu. Do you want to continue?");
+
         Optional<ButtonType> result = alert.showAndWait();
+
         if(result.isPresent() && result.get() == ButtonType.OK) {
+
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/customerGUI.fxml")));
             Stage stage = (Stage)((Button)(actionEvent.getSource())).getScene().getWindow();
 
@@ -66,18 +71,23 @@ public class modCustomerController implements Initializable {
     }
 
     public void setOriginalCountrySelection() {
+
         originalCountry = modifiedCustomer.getCountryID(divisionID);
 
         if(originalCountry == 1) {
+
             countryList.getSelectionModel().select(0);
         } else if(originalCountry == 2) {
+
             countryList.getSelectionModel().select(1);
         } else {
+
             countryList.getSelectionModel().select(2);
         }
     }
 
     public void selectCountry() {
+
         ObservableList<FirstLevelDivision> divisions;
         index = countryList.getSelectionModel().getSelectedIndex();
 
@@ -107,6 +117,7 @@ public class modCustomerController implements Initializable {
         addressTF.setText(modifiedCustomer.getAddress());
         zipTF.setText(modifiedCustomer.getPostalCode());
         phoneTF.setText(modifiedCustomer.getPhone());
+        System.out.println("Original Division: " + modifiedCustomer.getDivisionID());
 
         ObservableList<Countries> countries = DBCountries.getAllCountries();
         countryList.setItems(countries);
@@ -120,18 +131,12 @@ public class modCustomerController implements Initializable {
         if(originalCountry == 1) {
 
             divisionsList.setItems(DBFirstLevelDivisions.getAllUSDivisions());
-            System.out.println(modifiedCustomer.getDivisionID());
-            divisionsList.getSelectionModel().select(modifiedCustomer.getDivisionID());
         } else if(originalCountry == 2) {
 
             divisionsList.setItems(DBFirstLevelDivisions.getAllUKDivisions());
-            System.out.println(modifiedCustomer.getDivisionID());
-            divisionsList.getSelectionModel().selectFirst();
         } else {
 
             divisionsList.setItems(DBFirstLevelDivisions.getAllCanadaDivisions());
-            System.out.println(modifiedCustomer.getDivisionID());
-            divisionsList.getSelectionModel().selectFirst();
         }
     }
 
@@ -149,8 +154,6 @@ public class modCustomerController implements Initializable {
 
             String sql = "UPDATE customers SET Customer_Name = '" + c.getName() + "', Address = '" + c.getAddress() + "', Postal_Code = '" +
                     c.getPostalCode() +"', Phone = '" + c.getPhone() + "', Last_Update = '" + lastUpdate + "', Division_ID = " + selectDivision() + " WHERE Customer_ID =" + c.getId() + ";";
-
-            System.out.println(sql);
 
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
             ps.executeUpdate();
@@ -193,7 +196,7 @@ public class modCustomerController implements Initializable {
 
             while(rs.next()) {
 
-                divisionID = rs.getInt("Division_ID");
+                originalDivision = rs.getInt("Division_ID");
             }
         } catch (SQLException e) {
 
@@ -201,6 +204,26 @@ public class modCustomerController implements Initializable {
         }
 
         System.out.println(divisionID);
-        return divisionID;
+        return originalDivision;
+    }
+
+    public String getDivisionName() {
+
+        try {
+
+            String sql = "SELECT Division FROM first_level_divisions WHERE Division_ID =" + divisionID + ";";
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()) {
+
+                divisionName = rs.getString("Division");
+            }
+        } catch (SQLException e) {
+
+            e.printStackTrace();
+        }
+
+        return divisionName;
     }
 }

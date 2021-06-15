@@ -155,7 +155,6 @@ public class updateAppointmentController implements Initializable {
             a.setType(type);
             a.setCustomerID(getCustomerID());
 
-            //needs to be LocalDateTime to add to "Start" and "End" columns in DB
             String sql = "UPDATE appointments SET Title = '" + a.getTitle() + "', Description = '" + a.getDesc() + "', Location = '" +
                     a.getLocation() +"', Type = '" + a.getType() + "', Start = '" + startConverted  + "', End = '" + endConverted + "', Create_Date = NULL, Created_By = 'application', Last_Update = '"
                     + created + "', Customer_ID =" + a.getCustomerID() + ", Contact_ID = " + a.getContactID()+ " WHERE Appointment_ID = " + modifiedAppointment.getAppointmentID() +";";

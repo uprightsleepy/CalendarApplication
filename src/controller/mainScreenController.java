@@ -12,23 +12,17 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.Appointment;
 import utils.DBConnection;
-
-
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
-
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.Date;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.time.*;
+import java.time.temporal.ChronoUnit;
+import java.util.*;
 
 public class mainScreenController implements Initializable {
-
-    public ChoiceBox<String> calendarType;
 
     public TableView<Appointment> appointmentsList;
     public TableColumn<Appointment,Integer> idCol;
@@ -40,15 +34,21 @@ public class mainScreenController implements Initializable {
     public TableColumn<Appointment,String> startCol;
     public TableColumn<Appointment,String> endCol;
     public TableColumn<Appointment,String> custIdCol;
+    public ComboBox<String> calendarView;
+
+    LocalDateTime currentTime = LocalDateTime.now();
+
     public TextField searchField;
+    public Label appointmentMessage;
 
     private static Appointment appointmentToModify;
     private static int appointmentToModifyIndex;
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         populate();
-
+        checkTimes();
     }
 
     public void logout(ActionEvent actionEvent) throws IOException {
@@ -130,6 +130,7 @@ public class mainScreenController implements Initializable {
         startCol.setCellValueFactory(new PropertyValueFactory<>("startTime"));
         endCol.setCellValueFactory(new PropertyValueFactory<>("endTime"));
         custIdCol.setCellValueFactory(new PropertyValueFactory<>("customerID"));
+//        calendarView.getItems().addAll("Week", "Month", "Year");
     }
 
     public void deleteAppointment() {
@@ -202,6 +203,19 @@ public class mainScreenController implements Initializable {
             if(searchField.getText().isEmpty()) {
 
                 appointmentsList.setItems(DBAppointments.getAllAppointments());
+            }
+        }
+    }
+
+    public void checkTimes() {
+        for(Appointment a : appointmentsList.getItems()) {
+
+            if((a.getStartTime().until(currentTime, ChronoUnit.MINUTES)) <= 15) {
+
+                appointmentMessage.setText("Appointment ID " + a.getAppointmentID() + " | " + a.getDate() + " " + a.getStartTime());
+            } else {
+
+                appointmentMessage.setText("No Upcoming Appointments");
             }
         }
     }

@@ -33,7 +33,14 @@
          <Button layoutX="40.0" layoutY="618.0" mnemonicParsing="false" onAction="#logout" prefHeight="26.0" prefWidth="85.0" style="-fx-background-color: #20A9CE;" text="Logout" textFill="WHITE" />
          <TextField fx:id="searchField" layoutX="745.0" layoutY="143.0" onAction="#search" promptText="Search by ID or Title" />
          <Button fx:id="search" layoutX="907.0" layoutY="143.0" mnemonicParsing="false" onAction="#search" text="Search" />
-         <ComboBox layoutX="808.0" layoutY="606.0" prefWidth="150.0" promptText="Select View Filter" />
+         <Label fx:id="appointmentMessage" alignment="CENTER" contentDisplay="BOTTOM" layoutX="235.0" layoutY="613.0" prefHeight="36.0" prefWidth="530.0" text="No Upcoming Appointments">
+            <font>
+               <Font name="Roboto Light" size="20.0" />
+            </font>
+         </Label>
+         <RadioButton fx:id="allRadio" layoutX="894.0" layoutY="605.0" mnemonicParsing="false" text="View All" />
+         <RadioButton fx:id="monthRadio" layoutX="826.0" layoutY="605.0" mnemonicParsing="false" text="Month" />
+         <RadioButton fx:id="weekRadio" layoutX="760.0" layoutY="605.0" mnemonicParsing="false" text="Week" />
        </AnchorPane>
    </top>
 </BorderPane>

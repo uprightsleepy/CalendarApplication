@@ -99,6 +99,7 @@ public class customerGUIController implements Initializable {
     public void deleteCustomer() {
 
         Customer customerToDelete = customerList.getSelectionModel().getSelectedItem();
+
         if(customerToDelete == null) {
 
             Alert alert = new Alert(Alert.AlertType.ERROR);
