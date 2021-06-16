@@ -20,7 +20,7 @@ public class Customer {
     private boolean isBusy = false;
 
 
-    public String getDivision() {
+    public String getDivisionName() {
         return division;
     }
 
@@ -185,7 +185,7 @@ public class Customer {
         return divisionID;
     }
 
-    public String getDivision(int divisionID) {
+    public String getDivisionName(int divisionID) {
 
         try {
 

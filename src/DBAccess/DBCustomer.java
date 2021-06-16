@@ -33,7 +33,7 @@ public class DBCustomer {
                 Customer C = new Customer(customerID, customerName,address,postalCode,phone, 0,0," ");
 
 
-                String division = C.getDivision(divisionID);
+                String division = C.getDivisionName(divisionID);
                 C.setDivision(division);
 
                 int countryID = C.getCountryID(divisionID);

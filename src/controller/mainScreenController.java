@@ -130,7 +130,6 @@ public class mainScreenController implements Initializable {
         startCol.setCellValueFactory(new PropertyValueFactory<>("startTime"));
         endCol.setCellValueFactory(new PropertyValueFactory<>("endTime"));
         custIdCol.setCellValueFactory(new PropertyValueFactory<>("customerID"));
-//        calendarView.getItems().addAll("Week", "Month", "Year");
     }
 
     public void deleteAppointment() {
@@ -146,7 +145,7 @@ public class mainScreenController implements Initializable {
 
             try {
 
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Would you like to permanently delete this customer?");
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Would you like to permanently delete this appointment?");
                 Optional<ButtonType> result = alert.showAndWait();
                 if(result.isPresent() && result.get() == ButtonType.OK) {
                     String sql = "DELETE FROM appointments WHERE Appointment_ID = " + appointmentToDelete.getAppointmentID();
@@ -158,8 +157,11 @@ public class mainScreenController implements Initializable {
 
                 e.printStackTrace();
             }
-
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Appointment Deleted");
+            alert.setContentText("Appointment ID "+ String.valueOf(appointmentToDelete.getAppointmentID()) + ", " + appointmentToDelete.getType() + " | successfully deleted.");
             populate();
+            alert.showAndWait();
         }
     }
 

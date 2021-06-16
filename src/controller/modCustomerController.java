@@ -27,8 +27,8 @@ import java.util.ResourceBundle;
 
 public class modCustomerController implements Initializable {
 
-    public int index = 0;
-    public int originalCountry = 0;
+    public int index;
+    public int originalCountry;
     public ComboBox<FirstLevelDivision> divisionsList;
     public ComboBox<Countries> countryList;
     public TextField nameTF;
@@ -38,7 +38,7 @@ public class modCustomerController implements Initializable {
 
     boolean added = false;
 
-    private Customer modifiedCustomer = customerGUIController.getCustomerToModify();
+    private final Customer modifiedCustomer = customerGUIController.getCustomerToModify();
 
     public int originalDivision = modifiedCustomer.getDivisionID();
 
@@ -47,6 +47,8 @@ public class modCustomerController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        System.out.println("Original Division: " + originalDivision);
 
         populate();
     }
@@ -117,7 +119,6 @@ public class modCustomerController implements Initializable {
         addressTF.setText(modifiedCustomer.getAddress());
         zipTF.setText(modifiedCustomer.getPostalCode());
         phoneTF.setText(modifiedCustomer.getPhone());
-        System.out.println("Original Division: " + modifiedCustomer.getDivisionID());
 
         ObservableList<Countries> countries = DBCountries.getAllCountries();
         countryList.setItems(countries);

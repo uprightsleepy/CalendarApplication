@@ -140,7 +140,7 @@ public class customerGUIController implements Initializable {
         postalCol.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
         phoneCol.setCellValueFactory(new PropertyValueFactory<>("phone"));
         countryCol.setCellValueFactory(new PropertyValueFactory<>("country"));
-        divisionCol.setCellValueFactory(new PropertyValueFactory<>("division"));
+        divisionCol.setCellValueFactory(new PropertyValueFactory<>("divisionName"));
     }
 
     public static Customer getCustomerToModify() {

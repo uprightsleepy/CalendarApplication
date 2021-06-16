@@ -6,14 +6,12 @@ import model.Appointment;
 import utils.DBConnection;
 import java.sql.*;
 import java.time.*;
-import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 
 public class DBAppointments {
 
     private static final ZoneOffset local = ZoneId.systemDefault().getRules().getOffset(Instant.now());
-    private static DateTimeFormatter formatter;
 
     public static ObservableList<Appointment> getAllAppointments() {
 
@@ -25,6 +23,7 @@ public class DBAppointments {
             ResultSet rs = ps.executeQuery();
 
             while(rs.next()) {
+
                 int appointmentID = rs.getInt("Appointment_ID");
                 String title = rs.getString("Title");
                 String desc = rs.getString("Description");
@@ -53,6 +52,7 @@ public class DBAppointments {
                 appointmentsList.add(A);
             }
         } catch (SQLException e) {
+
             e.printStackTrace();
         }
 
@@ -60,10 +60,13 @@ public class DBAppointments {
     }
 
     public static ObservableList<Appointment> lookupAppointment(String appointmentTitle) {
+
         ObservableList<Appointment> appointments = FXCollections.observableArrayList();
 
         for(Appointment a : DBAppointments.getAllAppointments()){
+
             if(a.getTitle().contains(appointmentTitle) || a.getTitle().toLowerCase(Locale.ROOT).contains(appointmentTitle)) {
+
                 appointments.add(a);
             }
         }
@@ -72,10 +75,13 @@ public class DBAppointments {
     }
 
     public static ObservableList<Appointment> lookupAppointment(int appointmentID) {
+
         ObservableList<Appointment> appointments = FXCollections.observableArrayList();
 
         for(Appointment a : DBAppointments.getAllAppointments()) {
+
             if(a.getAppointmentID() == appointmentID) {
+
                 appointments.add(a);
             }
         }
