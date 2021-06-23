@@ -17,6 +17,11 @@ public class Customer {
     private int countryID;
     private int divisionID;
     private String division;
+
+    private int appointmentID = 0;
+    private int[] appointmentList;
+    int i = 0;
+
     private boolean isBusy = false;
 
 
@@ -222,13 +227,26 @@ public class Customer {
         this.divisionID = divisionID;
     }
 
-    public boolean isBusy() {
+    public boolean checkAppointments(int customerID) {
+
+        try {
+
+            String sql = "SELECT Appointment_ID FROM appointments WHERE Customer_ID = " + customerID + ";";
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()) {
+
+                appointmentID = rs.getInt("Appointment_ID");
+
+                isBusy = !rs.isBeforeFirst();
+            }
+        } catch (SQLException e) {
+
+            e.printStackTrace();
+        }
+
         return isBusy;
     }
 
-    public void setBusy(boolean busy) {
-        isBusy = busy;
-    }
 }
-
-

@@ -1,6 +1,7 @@
 package controller;
 
 import DBAccess.DBAppointments;
+import DBAccess.DBCustomer;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +12,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.Appointment;
+import model.Customer;
 import utils.DBConnection;
 import java.io.BufferedWriter;
 import java.io.FileWriter;

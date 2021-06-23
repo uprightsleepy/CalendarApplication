@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -107,6 +108,12 @@ public class customerGUIController implements Initializable {
             alert.setTitle("Error Dialog");
             alert.setContentText("There are no customers selected.");
             alert.showAndWait();
+        } else if(customerToDelete.checkAppointments(customerToDelete.getId())) {
+
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Dialog");
+            alert.setContentText("Can not delete a customer that has appointments.");
+            alert.showAndWait();
         } else {
 
             try {
@@ -133,9 +140,6 @@ public class customerGUIController implements Initializable {
     public void populate() throws NullPointerException{
 
         ObservableList<Customer> customers = DBCustomer.getAllCustomers();
-        for(Customer c : customers) {
-            System.out.println(c.getName() + "'s Division: " + c.getDivisionID());
-        }
 
         customerList.setItems(customers);
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));

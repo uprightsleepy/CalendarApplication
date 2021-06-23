@@ -11,6 +11,8 @@ public class Appointment {
 
     private Date date;
 
+    private boolean isBusy = false;
+
     private int appointmentID;
     private String title;
     private String desc;
@@ -18,14 +20,12 @@ public class Appointment {
     private int contactID;
     private String type;
 
-    private String contactName;
-
     private LocalDateTime start;
     private LocalTime startTime;
-
     private LocalDateTime end;
     private LocalTime endTime;
     private LocalDateTime created;
+
     ZoneId localZone = ZoneId.of(TimeZone.getDefault().getID());
     private final DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
