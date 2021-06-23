@@ -84,6 +84,7 @@ public class customerGUIController implements Initializable {
         } else{
 
             customerToModify = customerList.getSelectionModel().getSelectedItem();
+            System.out.println("First_Level_Division ID: " + customerToModify.getDivisionID());
             customerToModifyIndex = DBCustomer.getAllCustomers().indexOf(customerToModify);
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/modCustomer.fxml")));
             Stage stage = (Stage)((Button)(actionEvent.getSource())).getScene().getWindow();
@@ -132,6 +133,9 @@ public class customerGUIController implements Initializable {
     public void populate() throws NullPointerException{
 
         ObservableList<Customer> customers = DBCustomer.getAllCustomers();
+        for(Customer c : customers) {
+            System.out.println(c.getName() + "'s Division: " + c.getDivisionID());
+        }
 
         customerList.setItems(customers);
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));

@@ -44,7 +44,6 @@ public class mainScreenController implements Initializable {
     private static Appointment appointmentToModify;
     private static int appointmentToModifyIndex;
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         populate();
@@ -87,6 +86,17 @@ public class mainScreenController implements Initializable {
 
         Scene scene = new Scene(root, 1000, 700);
         stage.setTitle("Add Appointment");
+        stage.setScene(scene);
+
+        stage.show();
+    }
+
+    public void loadReportOptions(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/reports.fxml")));
+        Stage stage = (Stage) ((Button) (actionEvent.getSource())).getScene().getWindow();
+
+        Scene scene = new Scene(root, 1000, 700);
+        stage.setTitle("Reports");
         stage.setScene(scene);
 
         stage.show();

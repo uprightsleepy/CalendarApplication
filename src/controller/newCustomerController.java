@@ -96,6 +96,7 @@ public class newCustomerController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+
     public void populate() {
         ObservableList<Countries> countries = DBCountries.getAllCountries();
         countryList.setItems(countries);

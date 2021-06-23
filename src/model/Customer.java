@@ -182,6 +182,20 @@ public class Customer {
     }
 
     public int getDivisionID() {
+
+        try {
+
+            String sql = "SELECT Division_ID FROM customers WHERE Customer_ID = " + id + ";";
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+
+                divisionID = rs.getInt("Division_ID");
+            }
+        } catch (SQLException e) {
+
+            e.printStackTrace();
+        }
         return divisionID;
     }
 

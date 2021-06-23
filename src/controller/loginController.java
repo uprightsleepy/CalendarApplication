@@ -10,20 +10,40 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import java.io.*;
 import java.util.*;
+
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import model.User;
+
 import java.net.URL;
 
 public class loginController implements Initializable {
 
     public Label locationID;
+    public Label username;
+    public Label password;
+
     public TextField usernameTF;
     public PasswordField passwordTF;
     public Button loginButton;
     public boolean loginSuccessful = false;
+    public ImageView leftPanel;
+    Image frenchPanel = new Image("side_panel_fr.png");
+
+    Locale defaultLocale = Locale.getDefault();
+    ResourceBundle bundle = ResourceBundle.getBundle("MessageBundle", Locale.US);
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        if(defaultLocale.getDisplayLanguage().equals("French")) {
+            bundle = ResourceBundle.getBundle("MessageBundle", Locale.FRANCE);
+            usernameTF.setPromptText(bundle.getString("username"));
+            passwordTF.setPromptText(bundle.getString("password"));
+            loginButton.setText(bundle.getString("login"));
+            leftPanel.setImage(frenchPanel);
+        }
 
         TimeZone timezone = TimeZone.getDefault();
         String zoneID = timezone.getID();
