@@ -21,8 +21,6 @@ import java.net.URL;
 public class loginController implements Initializable {
 
     public Label locationID;
-    public Label username;
-    public Label password;
 
     public TextField usernameTF;
     public PasswordField passwordTF;
@@ -38,7 +36,8 @@ public class loginController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         if(defaultLocale.getDisplayLanguage().equals("French")) {
-            bundle = ResourceBundle.getBundle("MessageBundle", Locale.FRANCE);
+
+            bundle = ResourceBundle.getBundle("MessageBundle", Locale.CANADA_FRENCH);
             usernameTF.setPromptText(bundle.getString("username"));
             passwordTF.setPromptText(bundle.getString("password"));
             loginButton.setText(bundle.getString("login"));
@@ -59,16 +58,16 @@ public class loginController implements Initializable {
             if(!user.getUsername().equals(usernameTF.getText())) {
 
                 Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error Dialog");
-                alert.setContentText("Incorrect Username. Please enter the correct login credentials.");
+                alert.setTitle(bundle.getString("errorTitle"));
+                alert.setContentText(bundle.getString("usernameError"));
                 alert.showAndWait();
 
                 recordAttempt();
             } else if(!user.getPassword().equals(passwordTF.getText())) {
 
                 Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error Dialog");
-                alert.setContentText("Incorrect Password. Please enter the correct login credentials.");
+                alert.setTitle(bundle.getString("errorTitle"));
+                alert.setContentText(bundle.getString("passwordError"));
                 alert.showAndWait();
 
                 recordAttempt();
