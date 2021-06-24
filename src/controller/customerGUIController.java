@@ -16,7 +16,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.Arrays;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -80,7 +79,7 @@ public class customerGUIController implements Initializable {
 
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error Dialog");
-            alert.setContentText("There are no products selected.");
+            alert.setContentText("There are no customers selected.");
             alert.showAndWait();
         } else{
 
@@ -134,6 +133,11 @@ public class customerGUIController implements Initializable {
             }
 
             populate();
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Customer Deleted");
+            alert.setContentText("Customer ID "+ String.valueOf(customerToDelete.getId()) + ", " + customerToDelete.getName() + " | successfully deleted.");
+            alert.showAndWait();
         }
     }
 

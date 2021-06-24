@@ -33,6 +33,8 @@ public class newAppointmentController implements Initializable {
     public ComboBox<LocalTime> startTimePicker;
     public ComboBox<LocalTime> endTimePicker;
 
+    public ComboBox<String> typeList;
+
     public DatePicker startingDate;
     public DatePicker endingDate;
 
@@ -92,6 +94,8 @@ public class newAppointmentController implements Initializable {
         addTimes();
         startTimePicker.setItems(times);
         endTimePicker.setItems(times);
+
+        typeList.getItems().addAll("Planning Session", "De-Briefing", "Info-Sharing", "Decision Making", "Workshop", "Team Building");
     }
 
     public void addNewAppointment() {
@@ -101,7 +105,7 @@ public class newAppointmentController implements Initializable {
         String location = locationTF.getText();
         contactName = contactList.getSelectionModel().getSelectedItem();
         customer = customerList.getSelectionModel().getSelectedItem();
-        String type = typeTF.getText();
+        String type = typeList.getSelectionModel().getSelectedItem();
 
         LocalDate startDate = startingDate.getValue();
         LocalTime startTime = startTimePicker.getValue();

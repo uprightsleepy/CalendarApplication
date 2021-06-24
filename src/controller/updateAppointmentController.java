@@ -38,6 +38,7 @@ public class updateAppointmentController implements Initializable {
 
     public ComboBox<String> customerList;
     public ComboBox<String> contactList;
+    public ComboBox<String> typeList;
 
     public ComboBox<LocalTime> startTimePicker;
     public ComboBox<LocalTime> endTimePicker;
@@ -86,7 +87,8 @@ public class updateAppointmentController implements Initializable {
         titleTF.setText(modifiedAppointment.getTitle());
         descriptionTA.setText(modifiedAppointment.getDesc());
         locationTF.setText(modifiedAppointment.getLocation());
-        typeTF.setText(modifiedAppointment.getType());
+        typeList.getItems().addAll("Planning Session", "De-Briefing", "Info-Sharing", "Decision Making", "Workshop", "Team Building");
+        typeList.getSelectionModel().select(modifiedAppointment.getType());
 
         startingDate.setValue(modifiedAppointment.getStart().toLocalDate());
         endingDate.setValue(modifiedAppointment.getEnd().toLocalDate());
@@ -124,7 +126,7 @@ public class updateAppointmentController implements Initializable {
 
         contactName = contactList.getSelectionModel().getSelectedItem();
 
-        String type = typeTF.getText();
+        String type = typeList.getSelectionModel().getSelectedItem();
 
         LocalDate startDate = startingDate.getValue();
         LocalTime startTime = startTimePicker.getValue();
