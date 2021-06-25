@@ -25,6 +25,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class newAppointmentController implements Initializable {
+
     ObservableList<LocalTime> times = FXCollections.observableArrayList();
 
     public ComboBox<String> customerList;
@@ -49,7 +50,6 @@ public class newAppointmentController implements Initializable {
 
     public TextField titleTF;
     public TextField locationTF;
-    public TextField typeTF;
     public TextArea descriptionTA;
 
 
@@ -63,8 +63,10 @@ public class newAppointmentController implements Initializable {
     }
 
     public void backToMain(ActionEvent actionEvent) throws IOException {
+
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "This will return to the Main Menu. Do you want to continue?");
         Optional<ButtonType> result = alert.showAndWait();
+
         if(result.isPresent() && result.get() == ButtonType.OK) {
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/mainScreen.fxml")));
             Stage stage = (Stage)((Button)(actionEvent.getSource())).getScene().getWindow();

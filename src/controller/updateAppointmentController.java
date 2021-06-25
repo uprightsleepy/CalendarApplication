@@ -15,7 +15,6 @@ import model.Appointment;
 import model.Contact;
 import model.Customer;
 import utils.DBConnection;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.PreparedStatement;

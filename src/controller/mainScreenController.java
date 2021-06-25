@@ -34,7 +34,6 @@ public class mainScreenController implements Initializable {
     public TableColumn<Appointment,String> startCol;
     public TableColumn<Appointment,String> endCol;
     public TableColumn<Appointment,String> custIdCol;
-    public ComboBox<String> calendarView;
 
     LocalDateTime currentTime = LocalDateTime.now();
 

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.contactScheduleController">
+    <center>
+        <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <Button layoutX="806.0" layoutY="640.0" mnemonicParsing="false" onAction="#backToMain" prefHeight="45.0" prefWidth="180.0" style="-fx-background-color: #20A9CE;" text="Back to Main Menu" textFill="WHITE" />
+         <Label layoutX="148.0" layoutY="113.0" prefHeight="25.0" prefWidth="154.0" text="Anika Costa">
+            <font>
+               <Font name="Roboto Light" size="18.0" />
+            </font>
+         </Label>
+         <TableView fx:id="ACList" layoutX="145.0" layoutY="145.0" prefHeight="130.0" prefWidth="710.0">
+           <columns>
+             <TableColumn fx:id="idCol" prefWidth="101.4" text="Appt. ID" />
+             <TableColumn fx:id="titleCol" prefWidth="101.4" text="Title" />
+               <TableColumn fx:id="typeCol" prefWidth="101.4" text="Type" />
+               <TableColumn fx:id="descCol" prefWidth="101.4" text="Description" />
+               <TableColumn fx:id="startCol" prefWidth="101.4" text="Start" />
+               <TableColumn fx:id="endCol" prefWidth="101.4" text="End" />
+               <TableColumn fx:id="custIdCol" prefWidth="101.4" text="Cust. ID" />
+           </columns>
+         </TableView>
+         <Label layoutX="337.0" layoutY="23.0" prefHeight="64.0" prefWidth="326.0" text="Contact Schedules" textFill="#20a9ce">
+            <font>
+               <Font size="40.0" />
+            </font></Label>
+         <Label layoutX="148.0" layoutY="288.0" prefHeight="25.0" prefWidth="154.0" text="Daniel Garcia">
+            <font>
+               <Font name="Roboto Light" size="18.0" />
+            </font>
+         </Label>
+         <TableView fx:id="DGList" layoutX="145.0" layoutY="320.0" prefHeight="130.0" prefWidth="710.0">
+            <columns>
+               <TableColumn fx:id="DGidCol" prefWidth="101.4" text="Appt. ID" />
+               <TableColumn fx:id="DGtitleCol" prefWidth="101.4" text="Title" />
+               <TableColumn fx:id="DGtypeCol" prefWidth="101.4" text="Type" />
+               <TableColumn fx:id="DGdescCol" prefWidth="101.4" text="Description" />
+               <TableColumn fx:id="DGstartCol" prefWidth="101.4" text="Start" />
+               <TableColumn fx:id="DGendCol" prefWidth="101.4" text="End" />
+               <TableColumn fx:id="DGcustIdCol" prefWidth="101.4" text="Cust. ID" />
+            </columns>
+         </TableView>
+         <Label layoutX="148.0" layoutY="460.0" prefHeight="25.0" prefWidth="154.0" text="Li Lee">
+            <font>
+               <Font name="Roboto Light" size="18.0" />
+            </font>
+         </Label>
+         <TableView fx:id="LLList" layoutX="145.0" layoutY="492.0" prefHeight="130.0" prefWidth="710.0">
+            <columns>
+               <TableColumn fx:id="LLidCol" prefWidth="101.4" text="Appt. ID" />
+               <TableColumn fx:id="LLtitleCol" prefWidth="101.4" text="Title" />
+               <TableColumn fx:id="LLtypeCol" prefWidth="101.4" text="Type" />
+               <TableColumn fx:id="LLdescCol" prefWidth="101.4" text="Description" />
+               <TableColumn fx:id="LLstartCol" prefWidth="101.4" text="Start" />
+               <TableColumn fx:id="LLendCol" prefWidth="101.4" text="End" />
+               <TableColumn fx:id="LLcustIdCol" prefWidth="101.4" text="Cust. ID" />
+            </columns>
+         </TableView>
+        </AnchorPane>
+    </center>
+</BorderPane>

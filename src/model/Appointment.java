@@ -39,6 +39,14 @@ public class Appointment {
         this.customerID = customerID;
     }
 
+    public Appointment(int appointmentID, String title, String desc, String type, int customerID) {
+        this.appointmentID = appointmentID;
+        this.title = title;
+        this.desc = desc;
+        this.type = type;
+        this.customerID = customerID;
+    }
+
     public LocalDateTime getCreated() {
         return created;
     }
