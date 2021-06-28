@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.contactScheduleController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.customerAppointmentsController">
     <center>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <Button layoutX="806.0" layoutY="640.0" mnemonicParsing="false" onAction="#backToMain" prefHeight="45.0" prefWidth="180.0" style="-fx-background-color: #20A9CE;" text="Back to Main Menu" textFill="WHITE" />
@@ -47,33 +47,33 @@
                <Font name="Roboto Light" size="18.0" />
             </font>
          </Label>
-         <ComboBox layoutX="266.0" layoutY="506.0" prefWidth="150.0" promptText="Select a Month" />
-         <Label layoutX="471.0" layoutY="219.0" prefHeight="17.0" prefWidth="81.0" text="Label">
+         <ComboBox fx:id="monthSelector" layoutX="266.0" layoutY="506.0" onAction="#setMonthSelector" prefWidth="150.0" promptText="Select a Month" />
+         <Label fx:id="psLabel" layoutX="471.0" layoutY="219.0" prefHeight="17.0" prefWidth="81.0" text="0">
             <font>
                <Font name="Roboto Light" size="18.0" />
             </font>
          </Label>
-         <Label layoutX="471.0" layoutY="264.0" prefHeight="17.0" prefWidth="81.0" text="Label">
+         <Label fx:id="dbLabel" layoutX="471.0" layoutY="264.0" prefHeight="17.0" prefWidth="81.0" text="0">
             <font>
                <Font name="Roboto Light" size="18.0" />
             </font>
          </Label>
-         <Label layoutX="471.0" layoutY="314.0" prefHeight="17.0" prefWidth="81.0" text="Label">
+         <Label fx:id="isLabel" layoutX="471.0" layoutY="314.0" prefHeight="17.0" prefWidth="81.0" text="0">
             <font>
                <Font name="Roboto Light" size="18.0" />
             </font>
          </Label>
-         <Label layoutX="471.0" layoutY="362.0" prefHeight="17.0" prefWidth="81.0" text="Label">
+         <Label fx:id="dmLabel" layoutX="471.0" layoutY="362.0" prefHeight="17.0" prefWidth="81.0" text="0">
             <font>
                <Font name="Roboto Light" size="18.0" />
             </font>
          </Label>
-         <Label layoutX="471.0" layoutY="409.0" prefHeight="17.0" prefWidth="81.0" text="Label">
+         <Label fx:id="wLabel" layoutX="471.0" layoutY="409.0" prefHeight="17.0" prefWidth="81.0" text="0">
             <font>
                <Font name="Roboto Light" size="18.0" />
             </font>
          </Label>
-         <Label layoutX="471.0" layoutY="456.0" prefHeight="17.0" prefWidth="81.0" text="Label">
+         <Label fx:id="tbLabel" layoutX="471.0" layoutY="456.0" prefHeight="17.0" prefWidth="81.0" text="0">
             <font>
                <Font name="Roboto Light" size="18.0" />
             </font>

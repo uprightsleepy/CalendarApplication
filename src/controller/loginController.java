@@ -27,13 +27,18 @@ public class loginController implements Initializable {
     public Button loginButton;
     public boolean loginSuccessful = false;
     public ImageView leftPanel;
+
     Image frenchPanel = new Image("side_panel_fr.png");
 
     Locale defaultLocale = Locale.getDefault();
     ResourceBundle bundle = ResourceBundle.getBundle("MessageBundle", Locale.US);
 
+    int attempt = 0;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        attempt = 0;
 
         if(defaultLocale.getDisplayLanguage().equals("French")) {
 
@@ -71,10 +76,20 @@ public class loginController implements Initializable {
                 alert.showAndWait();
 
                 recordAttempt();
+            } else if (user.getPassword().equals(passwordTF.getText()) && user.getUsername().equals(usernameTF.getText()) && attempt > 2){
+
+                susLogin();
+
+                Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/mainScreen.fxml")));
+                Stage stage = (Stage)((Button)(actionEvent.getSource())).getScene().getWindow();
+
+                Scene scene = new Scene(root,1000,700);
+                stage.setTitle("Customer View");
+                stage.setScene(scene);
+                stage.show();
             } else {
 
                 loginSuccessful = true;
-
                 recordAttempt();
 
                 Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/mainScreen.fxml")));
@@ -94,6 +109,18 @@ public class loginController implements Initializable {
         Date date = new Date();
 
         String str = "Login attempt recorded at " + date +" | Login Successful: " + loginSuccessful;
+        BufferedWriter writer = new BufferedWriter(new FileWriter("src/login_activity.txt", true));
+        writer.append('\n');
+        writer.append(str);
+        writer.close();
+        attempt++;
+    }
+
+    public void susLogin() throws IOException{
+
+        Date date = new Date();
+
+        String str = "Suspicious Successful Login attempt recorded at " + date;
         BufferedWriter writer = new BufferedWriter(new FileWriter("src/login_activity.txt", true));
         writer.append('\n');
         writer.append(str);

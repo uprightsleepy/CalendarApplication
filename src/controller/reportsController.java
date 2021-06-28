@@ -33,6 +33,16 @@ public class reportsController implements Initializable {
         stage.show();
     }
 
+    public void customerAppointments(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/customerAppointments.fxml")));
+        Stage stage = (Stage) ((Button) (actionEvent.getSource())).getScene().getWindow();
+
+        Scene scene = new Scene(root, 1000, 700);
+        stage.setTitle("Customer Appointments");
+        stage.setScene(scene);
+        stage.show();
+    }
+
     public void backToMain(ActionEvent actionEvent) throws IOException {
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "This will return to the Main Menu. Do you want to continue?");

@@ -13,13 +13,15 @@ public class Appointment {
 
     private boolean isBusy = false;
 
+
+    private int customerID;
+    private String customerName;
     private int appointmentID;
     private String title;
     private String desc;
     private String location;
     private int contactID;
     private String type;
-
     private LocalDateTime start;
     private LocalTime startTime;
     private LocalDateTime end;
@@ -55,8 +57,6 @@ public class Appointment {
         this.created = created;
     }
 
-    private int customerID;
-    private String customerName;
 
     public Appointment(int appointmentID, String title, String desc, String location, int contactID, String type, LocalDateTime start, LocalDateTime end, int customerID) {
 
@@ -144,42 +144,52 @@ public class Appointment {
     }
 
     public String getDesc() {
+
         return desc;
     }
 
     public void setDesc(String desc) {
+
         this.desc = desc;
     }
 
     public String getLocation() {
+
         return location;
     }
 
     public void setLocation(String location) {
+
         this.location = location;
     }
 
     public int getContactID() {
+
         return contactID;
     }
 
     public void setContactID(int contactID) {
+
         this.contactID = contactID;
     }
 
     public String getType() {
+
         return type;
     }
 
     public void setType(String type) {
+
         this.type = type;
     }
 
     public int getCustomerID() {
+
         return customerID;
     }
 
     public void setCustomerID(int customerID) {
+
         this.customerID = customerID;
     }
 
@@ -254,30 +264,42 @@ public class Appointment {
     }
 
     public void setDate(Date date) {
+
         this.date = date;
     }
 
     public LocalDateTime getStart() {
+
         return start;
     }
 
     public void setStart(LocalDateTime start) {
+
         this.start = start;
     }
 
     public LocalDateTime getEnd() {
+
         return end;
     }
 
     public void setEnd(LocalDateTime end) {
+
         this.end = end;
     }
 
     public void setStartTime(LocalTime startTime) {
+
         this.startTime = startTime;
     }
 
     public void setEndTime(LocalTime endTime) {
+
         this.endTime = endTime;
+    }
+
+    public Month getMonth(LocalDateTime start){
+
+        return start.getMonth();
     }
 }

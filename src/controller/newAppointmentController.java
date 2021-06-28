@@ -1,5 +1,6 @@
 package controller;
 
+import DBAccess.DBAppointments;
 import DBAccess.DBContacts;
 import DBAccess.DBCustomer;
 import javafx.collections.FXCollections;
@@ -55,6 +56,7 @@ public class newAppointmentController implements Initializable {
 
     LocalTime time = LocalTime.of(8,0);
     private final DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    ObservableList<Appointment> appointments = DBAppointments.getAllAppointments();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
