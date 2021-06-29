@@ -47,7 +47,6 @@ public class customerAppointmentsController implements Initializable {
 
     public void populate() {
 
-//        monthSelector.getItems().addAll("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
         monthSelector.getItems().addAll(Month.JANUARY, Month.FEBRUARY, Month.MARCH, Month.APRIL, Month.MAY, Month.JUNE, Month.JULY, Month.AUGUST,
                 Month.SEPTEMBER, Month.OCTOBER, Month.NOVEMBER, Month.DECEMBER);
     }

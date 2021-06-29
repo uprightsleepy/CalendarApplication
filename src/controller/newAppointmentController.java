@@ -28,6 +28,7 @@ import java.util.ResourceBundle;
 public class newAppointmentController implements Initializable {
 
     ObservableList<LocalTime> times = FXCollections.observableArrayList();
+    ObservableList<Appointment> appointments = DBAppointments.getAllAppointments();
 
     public ComboBox<String> customerList;
     public ComboBox<String> contactList;
@@ -56,7 +57,6 @@ public class newAppointmentController implements Initializable {
 
     LocalTime time = LocalTime.of(8,0);
     private final DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-    ObservableList<Appointment> appointments = DBAppointments.getAllAppointments();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -81,6 +81,18 @@ public class newAppointmentController implements Initializable {
         }
     }
 
+    public void sendBack(ActionEvent actionEvent) throws IOException {
+
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/mainScreen.fxml")));
+            Stage stage = (Stage)((Button)(actionEvent.getSource())).getScene().getWindow();
+
+            Scene scene = new Scene(root,1000,700);
+            stage.setTitle("Main Menu");
+            stage.setScene(scene);
+
+            stage.show();
+    }
+
     public void populate() {
 
         ObservableList<Customer> customers = DBCustomer.getAllCustomers();
@@ -102,7 +114,7 @@ public class newAppointmentController implements Initializable {
         typeList.getItems().addAll("Planning Session", "De-Briefing", "Info-Sharing", "Decision Making", "Workshop", "Team Building");
     }
 
-    public void addNewAppointment() {
+    public void addNewAppointment(ActionEvent actionEvent) throws IOException {
 
         String title = titleTF.getText();
         String description = descriptionTA.getText();
@@ -129,6 +141,7 @@ public class newAppointmentController implements Initializable {
 
         Timestamp created = Timestamp.valueOf(LocalDateTime.now());
 
+
         try {
 
             Appointment a = new Appointment();
@@ -137,23 +150,39 @@ public class newAppointmentController implements Initializable {
             a.setLocation(location);
             a.setContactID(getContactID());
             a.setCustomerName(customer);
-
-            System.out.println("Customer name = " + customer);
-
             a.setType(type);
 
+            for(Appointment b: appointments) {
+
+                if (testStart.toLocalDateTime().equals(b.getStart())) {
+
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error Dialog");
+                    alert.setContentText("Cannot add an appointment at the same time as another appointment.");
+                    alert.showAndWait();
+                    return;
+                } if(start.isAfter(end) || start.equals(end)) {
+
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error Dialog");
+                    alert.setContentText("Start time must be set before the ending time of the appointment.");
+                    alert.showAndWait();
+                    return;
+                }
+            }
+
+            a.setStart(start);
+            a.setEnd(end);
             a.setCustomerID(getCustomerID());
-            System.out.println("Customer ID = " + a.getCustomerID());
-
-            a.setCreated(created.toLocalDateTime());
-
             String sql = "INSERT INTO appointments(Appointment_ID, Title, Description, Location, Type, Start, End, Create_Date, Customer_ID, Contact_ID) VALUES(NULL,'" + a.getTitle() + "', '"
-                    + a.getDesc() + "', '" + a.getLocation() + "', '" + a.getType() + "', '" + startConverted +"', '" + endConverted + "', '" + created + "'," + a.getCustomerID() + ", " +
-                    a.getContactID()+");";
+                    + a.getDesc() + "', '" + a.getLocation() + "', '" + a.getType() + "', '" + startConverted + "', '" + endConverted + "', '" + created + "'," + a.getCustomerID() + ", " +
+                    a.getContactID() + ");";
 
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
             ps.executeUpdate();
+
             added = true;
+            a.setCreated(created.toLocalDateTime());
         } catch (NumberFormatException | SQLException e) {
 
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -163,10 +192,12 @@ public class newAppointmentController implements Initializable {
         }
 
         if (added) {
+
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Success");
             alert.setContentText("Appointment was successfully added to the database.");
             alert.showAndWait();
+            sendBack(actionEvent);
         }
     }
 

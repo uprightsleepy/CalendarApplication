@@ -1,5 +1,6 @@
 package controller;
 
+import DBAccess.DBAppointments;
 import DBAccess.DBContacts;
 import DBAccess.DBCustomer;
 import javafx.collections.FXCollections;
@@ -30,10 +31,11 @@ import java.util.ResourceBundle;
 public class updateAppointmentController implements Initializable {
 
     private final DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-    private Appointment modifiedAppointment = mainScreenController.getAppointmentToModify();
+    private final Appointment modifiedAppointment = mainScreenController.getAppointmentToModify();
     LocalTime time = LocalTime.of(8,0);
 
     ObservableList<LocalTime> times = FXCollections.observableArrayList();
+    ObservableList<Appointment> appointments = DBAppointments.getAllAppointments();
 
     public ComboBox<String> customerList;
     public ComboBox<String> contactList;
@@ -83,6 +85,7 @@ public class updateAppointmentController implements Initializable {
     }
 
     public void populate() {
+
         titleTF.setText(modifiedAppointment.getTitle());
         descriptionTA.setText(modifiedAppointment.getDesc());
         locationTF.setText(modifiedAppointment.getLocation());
@@ -156,6 +159,18 @@ public class updateAppointmentController implements Initializable {
             a.setType(type);
             a.setCustomerID(getCustomerID());
 
+            for(Appointment b: appointments) {
+
+                if (testStart.toLocalDateTime().equals(b.getStart())) {
+
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error Dialog");
+                    alert.setContentText("Cannot add an appointment at the same time as another appointment.");
+                    alert.showAndWait();
+                    return;
+                }
+            }
+
             String sql = "UPDATE appointments SET Title = '" + a.getTitle() + "', Description = '" + a.getDesc() + "', Location = '" +
                     a.getLocation() +"', Type = '" + a.getType() + "', Start = '" + startConverted  + "', End = '" + endConverted + "', Create_Date = NULL, Created_By = 'application', Last_Update = '"
                     + created + "', Customer_ID =" + a.getCustomerID() + ", Contact_ID = " + a.getContactID()+ " WHERE Appointment_ID = " + modifiedAppointment.getAppointmentID() +";";
@@ -177,6 +192,7 @@ public class updateAppointmentController implements Initializable {
             alert.setTitle("Success");
             alert.setContentText("Appointment was successfully updated.");
             alert.showAndWait();
+            sendBack(actionEvent);
         }
     }
 
@@ -241,5 +257,17 @@ public class updateAppointmentController implements Initializable {
             times.add(time);
             time = time.plusMinutes(30);
         } while(!time.equals(LocalTime.of(19,30)));
+    }
+
+    public void sendBack(ActionEvent actionEvent) throws IOException {
+
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/mainScreen.fxml")));
+        Stage stage = (Stage)((Button)(actionEvent.getSource())).getScene().getWindow();
+
+        Scene scene = new Scene(root,1000,700);
+        stage.setTitle("Main Menu");
+        stage.setScene(scene);
+
+        stage.show();
     }
 }

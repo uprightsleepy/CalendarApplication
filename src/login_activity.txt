@@ -512,3 +512,37 @@ Login attempt recorded at Sun Jun 27 16:41:17 PDT 2021 | Login Successful: false
 Login attempt recorded at Sun Jun 27 16:41:19 PDT 2021 | Login Successful: false
 Suspicious Successful Login attempt recorded at Sun Jun 27 16:41:21 PDT 2021
 Logout recorded at Sun Jun 27 16:41:27 PDT 2021 | Session Terminated via Logout Button
+Login attempt recorded at Sun Jun 27 20:10:08 PDT 2021 | Login Successful: true
+Login attempt recorded at Sun Jun 27 20:42:43 PDT 2021 | Login Successful: true
+Login attempt recorded at Sun Jun 27 20:44:33 PDT 2021 | Login Successful: true
+Login attempt recorded at Sun Jun 27 20:45:47 PDT 2021 | Login Successful: true
+Login attempt recorded at Sun Jun 27 20:46:47 PDT 2021 | Login Successful: true
+Login attempt recorded at Sun Jun 27 20:49:00 PDT 2021 | Login Successful: true
+Login attempt recorded at Sun Jun 27 20:50:28 PDT 2021 | Login Successful: true
+Login attempt recorded at Sun Jun 27 20:51:50 PDT 2021 | Login Successful: true
+Login attempt recorded at Sun Jun 27 20:58:55 PDT 2021 | Login Successful: true
+Login attempt recorded at Sun Jun 27 21:00:51 PDT 2021 | Login Successful: true
+Login attempt recorded at Sun Jun 27 21:02:34 PDT 2021 | Login Successful: true
+Login attempt recorded at Sun Jun 27 21:03:05 PDT 2021 | Login Successful: true
+Login attempt recorded at Sun Jun 27 21:04:00 PDT 2021 | Login Successful: true
+Login attempt recorded at Sun Jun 27 21:06:14 PDT 2021 | Login Successful: true
+Login attempt recorded at Sun Jun 27 21:07:50 PDT 2021 | Login Successful: true
+Login attempt recorded at Sun Jun 27 21:11:26 PDT 2021 | Login Successful: true
+Logout recorded at Sun Jun 27 21:14:07 PDT 2021 | Session Terminated via Logout Button
+Login attempt recorded at Sun Jun 27 21:14:10 PDT 2021 | Login Successful: true
+Login attempt recorded at Sun Jun 27 21:20:10 PDT 2021 | Login Successful: true
+Login attempt recorded at Sun Jun 27 21:21:35 PDT 2021 | Login Successful: true
+Login attempt recorded at Mon Jun 28 19:48:49 PDT 2021 | Login Successful: true
+Login attempt recorded at Mon Jun 28 19:50:19 PDT 2021 | Login Successful: true
+Login attempt recorded at Mon Jun 28 19:51:12 PDT 2021 | Login Successful: true
+Login attempt recorded at Mon Jun 28 19:52:22 PDT 2021 | Login Successful: true
+Login attempt recorded at Mon Jun 28 19:53:17 PDT 2021 | Login Successful: true
+Login attempt recorded at Mon Jun 28 19:55:53 PDT 2021 | Login Successful: true
+Login attempt recorded at Mon Jun 28 19:59:52 PDT 2021 | Login Successful: true
+Logout recorded at Mon Jun 28 20:01:28 PDT 2021 | Session Terminated via Logout Button
+Login attempt recorded at Mon Jun 28 20:01:30 PDT 2021 | Login Successful: true
+Login attempt recorded at Mon Jun 28 20:04:43 PDT 2021 | Login Successful: true
+Login attempt recorded at Mon Jun 28 20:07:19 PDT 2021 | Login Successful: true
+Login attempt recorded at Mon Jun 28 20:08:21 PDT 2021 | Login Successful: true
+Login attempt recorded at Mon Jun 28 20:29:50 PDT 2021 | Login Successful: true
+Login attempt recorded at Mon Jun 28 20:44:55 PDT 2021 | Login Successful: true
