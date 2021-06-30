@@ -100,17 +100,17 @@ public class customerAppointmentsController implements Initializable {
         }
     }
 
-    public void backToMain(ActionEvent actionEvent) throws IOException {
+    public void backToReports(ActionEvent actionEvent) throws IOException {
 
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "This will return to the Main Menu. Do you want to continue?");
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "This will return to the Reports Menu. Do you want to continue?");
         Optional<ButtonType> result = alert.showAndWait();
 
         if(result.isPresent() && result.get() == ButtonType.OK) {
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/mainScreen.fxml")));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/reports.fxml")));
             Stage stage = (Stage)((Button)(actionEvent.getSource())).getScene().getWindow();
 
             Scene scene = new Scene(root,1000,700);
-            stage.setTitle("Main Menu");
+            stage.setTitle("Report Selector");
             stage.setScene(scene);
 
             stage.show();

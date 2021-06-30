@@ -168,6 +168,20 @@ public class updateAppointmentController implements Initializable {
                     alert.setContentText("Cannot add an appointment at the same time as another appointment.");
                     alert.showAndWait();
                     return;
+                } if(start.isAfter(end) || start.equals(end)) {
+
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error Dialog");
+                    alert.setContentText("Start time must be set before the ending time of the appointment.");
+                    alert.showAndWait();
+                    return;
+                } if(checkWeekend(testStart.toLocalDate()) || checkWeekend(testEnd.toLocalDate())) {
+
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error Dialog");
+                    alert.setContentText("Unable to schedule appointments on the weekend.");
+                    alert.showAndWait();
+                    return;
                 }
             }
 
@@ -269,5 +283,10 @@ public class updateAppointmentController implements Initializable {
         stage.setScene(scene);
 
         stage.show();
+    }
+
+    public static boolean checkWeekend(LocalDate date) {
+        DayOfWeek d = date.getDayOfWeek();
+        return d == DayOfWeek.SATURDAY || d == DayOfWeek.SUNDAY;
     }
 }

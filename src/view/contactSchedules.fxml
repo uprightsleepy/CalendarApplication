@@ -7,7 +7,7 @@
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.contactScheduleController">
     <center>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-            <Button layoutX="806.0" layoutY="640.0" mnemonicParsing="false" onAction="#backToMain" prefHeight="45.0" prefWidth="180.0" style="-fx-background-color: #20A9CE;" text="Back to Main Menu" textFill="WHITE" />
+            <Button layoutX="806.0" layoutY="640.0" mnemonicParsing="false" onAction="#backToReports" prefHeight="45.0" prefWidth="180.0" style="-fx-background-color: #20A9CE;" text="Back to Reports Menu" textFill="WHITE" />
          <Label layoutX="148.0" layoutY="113.0" prefHeight="25.0" prefWidth="154.0" text="Anika Costa">
             <font>
                <Font name="Roboto Light" size="18.0" />

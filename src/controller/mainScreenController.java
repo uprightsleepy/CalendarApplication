@@ -35,6 +35,11 @@ public class mainScreenController implements Initializable {
     public TableColumn<Appointment,String> endCol;
     public TableColumn<Appointment,String> custIdCol;
 
+    final ToggleGroup group = new ToggleGroup();
+    public RadioButton weekRadio;
+    public RadioButton monthRadio;
+    public RadioButton allRadio;
+
     LocalDateTime currentTime = LocalDateTime.now();
 
     public TextField searchField;
@@ -129,15 +134,19 @@ public class mainScreenController implements Initializable {
 
         ObservableList<Appointment> appointments = DBAppointments.getAllAppointments();
 
+        weekRadio.setToggleGroup(group);
+        monthRadio.setToggleGroup(group);
+        allRadio.setToggleGroup(group);
+        allRadio.setSelected(true);
+
         appointmentsList.setItems(appointments);
         idCol.setCellValueFactory(new PropertyValueFactory<>("appointmentID"));
-        nameCol.setCellValueFactory(new PropertyValueFactory<>("customerName"));
+        nameCol.setCellValueFactory(new PropertyValueFactory<>("contactName"));
         titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
         descCol.setCellValueFactory(new PropertyValueFactory<>("desc"));
         typeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
-        dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
-        startCol.setCellValueFactory(new PropertyValueFactory<>("startTime"));
-        endCol.setCellValueFactory(new PropertyValueFactory<>("endTime"));
+        startCol.setCellValueFactory(new PropertyValueFactory<>("startDateTime"));
+        endCol.setCellValueFactory(new PropertyValueFactory<>("endDateTime"));
         custIdCol.setCellValueFactory(new PropertyValueFactory<>("customerID"));
     }
 
@@ -161,16 +170,19 @@ public class mainScreenController implements Initializable {
 
                     PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
                     ps.executeUpdate();
+
+
+                    Alert complete = new Alert(Alert.AlertType.INFORMATION);
+                    complete.setTitle("Appointment Deleted");
+                    complete.setContentText("Appointment ID "+ String.valueOf(appointmentToDelete.getAppointmentID()) + ", " + appointmentToDelete.getType() + " | successfully deleted.");
+                    complete.showAndWait();
                 }
             } catch (NullPointerException | SQLException e) {
 
                 e.printStackTrace();
             }
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Appointment Deleted");
-            alert.setContentText("Appointment ID "+ String.valueOf(appointmentToDelete.getAppointmentID()) + ", " + appointmentToDelete.getType() + " | successfully deleted.");
+
             populate();
-            alert.showAndWait();
         }
     }
 
@@ -229,5 +241,11 @@ public class mainScreenController implements Initializable {
                 appointmentMessage.setText("No Upcoming Appointments");
             }
         }
+    }
+
+    public void sortByMonth() {
+        dateCol.setSortType(TableColumn.SortType.DESCENDING);
+        appointmentsList.getSortOrder().add(dateCol);
+        appointmentsList.sort();
     }
 }

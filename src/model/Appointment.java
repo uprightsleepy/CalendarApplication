@@ -20,10 +20,17 @@ public class Appointment {
     private String title;
     private String desc;
     private String location;
+
     private int contactID;
+    private String contactName;
+
     private String type;
     private LocalDateTime start;
     private LocalTime startTime;
+
+    private String startDateTime;
+    private String endDateTime;
+
     private LocalDateTime end;
     private LocalTime endTime;
     private LocalDateTime created;
@@ -133,6 +140,25 @@ public class Appointment {
         return customerName;
     }
 
+    public String getContactName() {
+
+        try {
+
+            String sql = "SELECT Contact_Name FROM contacts WHERE Contact_ID = " + contactID;
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()) {
+
+                contactName = rs.getString("Contact_Name");
+            }
+        } catch (SQLException e) {
+
+            e.printStackTrace();
+        }
+        return contactName;
+    }
+
     public void setCustomerName(String customerName) {
 
         this.customerName = customerName;
@@ -236,6 +262,56 @@ public class Appointment {
         }
 
         return startTime;
+    }
+
+    public String getStartDateTime() {
+
+        try {
+
+            String sql = "SELECT Start FROM appointments WHERE Appointment_ID = " + appointmentID + ";";
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()) {
+
+                Timestamp start = rs.getTimestamp("Start"); //UTC
+                ZonedDateTime temp = ZonedDateTime.of(start.toLocalDateTime(),ZoneId.of("UTC"));
+                ZonedDateTime startTemp = temp.toInstant().atZone(ZoneId.of(localZone.toString()));
+                Timestamp startConverted = Timestamp.valueOf(startTemp.format(format));
+
+                startDateTime = startConverted.toLocalDateTime().format(format);
+            }
+        } catch (SQLException e) {
+
+            e.printStackTrace();
+        }
+
+        return startDateTime;
+    }
+
+    public String getEndDateTime() {
+
+        try {
+
+            String sql = "SELECT End FROM appointments WHERE Appointment_ID = " + appointmentID + ";";
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()) {
+
+                Timestamp start = rs.getTimestamp("End"); //UTC
+                ZonedDateTime temp = ZonedDateTime.of(start.toLocalDateTime(),ZoneId.of("UTC"));
+                ZonedDateTime endTemp = temp.toInstant().atZone(ZoneId.of(localZone.toString()));
+                Timestamp endConverted = Timestamp.valueOf(endTemp.format(format));
+
+                endDateTime = endConverted.toLocalDateTime().format(format);
+            }
+        } catch (SQLException e) {
+
+            e.printStackTrace();
+        }
+
+        return endDateTime;
     }
 
     public LocalTime getEndTime() {

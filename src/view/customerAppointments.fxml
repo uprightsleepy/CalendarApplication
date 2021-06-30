@@ -7,7 +7,7 @@
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.customerAppointmentsController">
     <center>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-            <Button layoutX="806.0" layoutY="640.0" mnemonicParsing="false" onAction="#backToMain" prefHeight="45.0" prefWidth="180.0" style="-fx-background-color: #20A9CE;" text="Back to Main Menu" textFill="WHITE" />
+            <Button layoutX="806.0" layoutY="640.0" mnemonicParsing="false" onAction="#backToReports" prefHeight="45.0" prefWidth="180.0" style="-fx-background-color: #20A9CE;" text="Back to Reports Menu" textFill="WHITE" />
             <Label layoutX="284.0" layoutY="27.0" prefHeight="64.0" prefWidth="433.0" text="Customer Appointments" textFill="#20a9ce">
                 <font>
                     <Font size="40.0" />

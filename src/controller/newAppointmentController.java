@@ -55,8 +55,9 @@ public class newAppointmentController implements Initializable {
     public TextArea descriptionTA;
 
 
-    LocalTime time = LocalTime.of(8,0);
+
     private final DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    LocalTime time = LocalTime.of(8,0);
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -97,6 +98,7 @@ public class newAppointmentController implements Initializable {
 
         ObservableList<Customer> customers = DBCustomer.getAllCustomers();
         ObservableList<Contact> contacts = DBContacts.getAllContacts();
+        addTimes();
 
         for(Customer c:customers) {
             customerName = c.getName();
@@ -127,9 +129,13 @@ public class newAppointmentController implements Initializable {
         LocalTime startTime = startTimePicker.getValue();
         LocalDateTime start = LocalDateTime.of(startDate,startTime);
 
+
         Timestamp startDB = Timestamp.valueOf(start);
         ZonedDateTime testStart = startDB.toInstant().atZone(ZoneId.of("UTC"));
         Timestamp startConverted = Timestamp.valueOf(testStart.format(format));
+
+        ZonedDateTime estStart = startDB.toInstant().atZone(ZoneId.of("America/New_York"));
+        Timestamp estStartConverted = Timestamp.valueOf(estStart.format(format));
 
         LocalDate endDate = endingDate.getValue();
         LocalTime endTime = endTimePicker.getValue();
@@ -138,6 +144,9 @@ public class newAppointmentController implements Initializable {
         Timestamp endDB = Timestamp.valueOf(end);
         ZonedDateTime testEnd = endDB.toInstant().atZone(ZoneId.of("UTC"));
         Timestamp endConverted = Timestamp.valueOf(testEnd.format(format));
+
+        ZonedDateTime estEnd = endDB.toInstant().atZone(ZoneId.of("America/New_York"));
+        Timestamp estEndConverted = Timestamp.valueOf(estEnd.format(format));
 
         Timestamp created = Timestamp.valueOf(LocalDateTime.now());
 
@@ -168,14 +177,21 @@ public class newAppointmentController implements Initializable {
                     alert.setContentText("Start time must be set before the ending time of the appointment.");
                     alert.showAndWait();
                     return;
+                } if(checkWeekend(testStart.toLocalDate()) || checkWeekend(testEnd.toLocalDate())) {
+
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error Dialog");
+                    alert.setContentText("Unable to schedule appointments on the weekend.");
+                    alert.showAndWait();
+                    return;
                 }
             }
 
             a.setStart(start);
             a.setEnd(end);
             a.setCustomerID(getCustomerID());
-            String sql = "INSERT INTO appointments(Appointment_ID, Title, Description, Location, Type, Start, End, Create_Date, Customer_ID, Contact_ID) VALUES(NULL,'" + a.getTitle() + "', '"
-                    + a.getDesc() + "', '" + a.getLocation() + "', '" + a.getType() + "', '" + startConverted + "', '" + endConverted + "', '" + created + "'," + a.getCustomerID() + ", " +
+            String sql = "INSERT INTO appointments(Appointment_ID, Title, Description, Location, Type, Start, End, Create_Date, Customer_ID, User_ID, Contact_ID) VALUES(NULL,'" + a.getTitle() + "', '"
+                    + a.getDesc() + "', '" + a.getLocation() + "', '" + a.getType() + "', '" + startConverted + "', '" + endConverted + "', '" + created + "'," + a.getCustomerID() + ", 1, " +
                     a.getContactID() + ");";
 
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
@@ -242,9 +258,13 @@ public class newAppointmentController implements Initializable {
     public void addTimes() {
 
         do {
-
             times.add(time);
             time = time.plusMinutes(30);
         } while(!time.equals(LocalTime.of(19,30)));
+    }
+
+    public static boolean checkWeekend(LocalDate dateChoice) {
+        DayOfWeek day = dateChoice.getDayOfWeek();
+        return day == DayOfWeek.SATURDAY || day == DayOfWeek.SUNDAY;
     }
 }

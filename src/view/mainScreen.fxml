@@ -14,15 +14,14 @@
            </Label>
            <TableView fx:id="appointmentsList" layoutX="42.0" layoutY="193.0" prefHeight="400.0" prefWidth="916.0">
                <columns>
-                   <TableColumn fx:id="idCol" prefWidth="101.7" text="Appt. ID" />
-                   <TableColumn fx:id="nameCol" prefWidth="101.7" text="Customer Name" />
-                   <TableColumn fx:id="titleCol" prefWidth="101.7" text="Title" />
-                   <TableColumn fx:id="descCol" prefWidth="101.7" text="Description" />
-                   <TableColumn fx:id="typeCol" prefWidth="101.7" text="Type" />
-                   <TableColumn fx:id="dateCol" prefWidth="101.7" text="Date" />
-                   <TableColumn fx:id="startCol" prefWidth="101.7" text="Start Time" />
-                   <TableColumn fx:id="endCol" prefWidth="101.7" text="End Time" />
-               <TableColumn fx:id="custIdCol" prefWidth="101.7" text="Cust. ID" />
+                   <TableColumn fx:id="idCol" prefWidth="106.0" text="Appt. ID" />
+                   <TableColumn fx:id="nameCol" prefWidth="106.0" text="Contact" />
+                   <TableColumn fx:id="titleCol" prefWidth="106.0" text="Title" />
+                   <TableColumn fx:id="descCol" prefWidth="106.0" text="Description" />
+                   <TableColumn fx:id="typeCol" prefWidth="106.0" text="Type" />
+                   <TableColumn fx:id="startCol" prefWidth="140.0" text="Start Date &amp; Time" />
+                   <TableColumn fx:id="endCol" prefWidth="140.0" text="End Date &amp; Time" />
+               <TableColumn fx:id="custIdCol" prefWidth="106.0" text="Cust. ID" />
                </columns>
            </TableView>
          <Button layoutX="42.0" layoutY="142.0" mnemonicParsing="false" onAction="#viewCustomerGUI" style="-fx-background-color: #20A9CE;" text="View Customers" textFill="WHITE" />
@@ -39,7 +38,7 @@
             </font>
          </Label>
          <RadioButton fx:id="allRadio" layoutX="894.0" layoutY="605.0" mnemonicParsing="false" text="View All" />
-         <RadioButton fx:id="monthRadio" layoutX="826.0" layoutY="605.0" mnemonicParsing="false" text="Month" />
+         <RadioButton fx:id="monthRadio" layoutX="826.0" layoutY="605.0" mnemonicParsing="false" onAction="#sortByMonth" text="Month" />
          <RadioButton fx:id="weekRadio" layoutX="760.0" layoutY="605.0" mnemonicParsing="false" text="Week" />
        </AnchorPane>
    </top>
