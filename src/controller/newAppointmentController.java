@@ -20,7 +20,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.time.*;
+import java.time.chrono.ChronoZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.Temporal;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -53,8 +56,6 @@ public class newAppointmentController implements Initializable {
     public TextField titleTF;
     public TextField locationTF;
     public TextArea descriptionTA;
-
-
 
     private final DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     LocalTime time = LocalTime.of(8,0);
@@ -109,7 +110,6 @@ public class newAppointmentController implements Initializable {
             contactList.getItems().add(contact.getName());
         }
 
-        addTimes();
         startTimePicker.setItems(times);
         endTimePicker.setItems(times);
 
@@ -129,13 +129,12 @@ public class newAppointmentController implements Initializable {
         LocalTime startTime = startTimePicker.getValue();
         LocalDateTime start = LocalDateTime.of(startDate,startTime);
 
-
         Timestamp startDB = Timestamp.valueOf(start);
         ZonedDateTime testStart = startDB.toInstant().atZone(ZoneId.of("UTC"));
         Timestamp startConverted = Timestamp.valueOf(testStart.format(format));
 
-        ZonedDateTime estStart = startDB.toInstant().atZone(ZoneId.of("America/New_York"));
-        Timestamp estStartConverted = Timestamp.valueOf(estStart.format(format));
+        ZonedDateTime startETTemp = startDB.toInstant().atZone(ZoneId.of("America/New_York"));
+        Timestamp startET = Timestamp.valueOf(startETTemp.format(format));
 
         LocalDate endDate = endingDate.getValue();
         LocalTime endTime = endTimePicker.getValue();
@@ -145,11 +144,11 @@ public class newAppointmentController implements Initializable {
         ZonedDateTime testEnd = endDB.toInstant().atZone(ZoneId.of("UTC"));
         Timestamp endConverted = Timestamp.valueOf(testEnd.format(format));
 
-        ZonedDateTime estEnd = endDB.toInstant().atZone(ZoneId.of("America/New_York"));
-        Timestamp estEndConverted = Timestamp.valueOf(estEnd.format(format));
+        ZonedDateTime endETTemp = endDB.toInstant().atZone(ZoneId.of("America/New_York"));
+        Timestamp endET = Timestamp.valueOf(endETTemp.format(format));
+
 
         Timestamp created = Timestamp.valueOf(LocalDateTime.now());
-
 
         try {
 
@@ -184,6 +183,15 @@ public class newAppointmentController implements Initializable {
                     alert.setContentText("Unable to schedule appointments on the weekend.");
                     alert.showAndWait();
                     return;
+                } if(startET.after(Timestamp.valueOf(LocalDateTime.of(startDate, LocalTime.of(22,0)).format(format))) ||
+                        startET.before(Timestamp.valueOf(LocalDateTime.of(startDate, LocalTime.of(8,0)).format(format))) ||
+                        endET.after(Timestamp.valueOf(LocalDateTime.of(startDate, LocalTime.of(22,0)).format(format)))) {
+
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error Dialog");
+                    alert.setContentText("Can not schedule appointment before 8:00am EST or after 10:00pm EST.");
+                    alert.showAndWait();
+                    return;
                 }
             }
 
@@ -212,7 +220,7 @@ public class newAppointmentController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Success");
             alert.setContentText("Appointment was successfully added to the database.");
-            alert.showAndWait();
+            alert.showAndWait().filter(response -> response == ButtonType.OK);
             sendBack(actionEvent);
         }
     }
@@ -260,7 +268,7 @@ public class newAppointmentController implements Initializable {
         do {
             times.add(time);
             time = time.plusMinutes(30);
-        } while(!time.equals(LocalTime.of(19,30)));
+        } while(!time.equals(LocalTime.of(22,30)));
     }
 
     public static boolean checkWeekend(LocalDate dateChoice) {
