@@ -9,10 +9,18 @@ import java.time.*;
 import java.util.Locale;
 
 
+/**
+ * The type Db appointments.
+ */
 public class DBAppointments {
 
     private static final ZoneOffset local = ZoneId.systemDefault().getRules().getOffset(Instant.now());
 
+    /**
+     * Gets all appointments.
+     *
+     * @return the all appointments
+     */
     public static ObservableList<Appointment> getAllAppointments() {
 
         ObservableList<Appointment> appointmentsList = FXCollections.observableArrayList();
@@ -59,13 +67,19 @@ public class DBAppointments {
         return appointmentsList;
     }
 
-    public static ObservableList<Appointment> lookupAppointment(String appointmentTitle) {
+    /**
+     * Lookup appointment observable list.
+     *
+     * @param appointmentType the appointment type
+     * @return the observable list
+     */
+    public static ObservableList<Appointment> lookupAppointment(String appointmentType) {
 
         ObservableList<Appointment> appointments = FXCollections.observableArrayList();
 
         for(Appointment a : DBAppointments.getAllAppointments()){
 
-            if(a.getTitle().contains(appointmentTitle) || a.getTitle().toLowerCase(Locale.ROOT).contains(appointmentTitle)) {
+            if(a.getType().contains(appointmentType) || a.getType().toLowerCase(Locale.ROOT).contains(appointmentType)) {
 
                 appointments.add(a);
             }
@@ -74,6 +88,12 @@ public class DBAppointments {
         return appointments;
     }
 
+    /**
+     * Lookup appointment observable list.
+     *
+     * @param appointmentID the appointment id
+     * @return the observable list
+     */
     public static ObservableList<Appointment> lookupAppointment(int appointmentID) {
 
         ObservableList<Appointment> appointments = FXCollections.observableArrayList();

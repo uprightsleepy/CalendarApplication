@@ -25,24 +25,63 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**
+ * The type Mod customer controller.
+ */
 public class modCustomerController implements Initializable {
 
+    /**
+     * The Index.
+     */
     public int index;
+    /**
+     * The Original country.
+     */
     public int originalCountry;
+    /**
+     * The Divisions list.
+     */
     public ComboBox<FirstLevelDivision> divisionsList;
+    /**
+     * The Country list.
+     */
     public ComboBox<Countries> countryList;
+    /**
+     * The Name tf.
+     */
     public TextField nameTF;
+    /**
+     * The Address tf.
+     */
     public TextField addressTF;
+    /**
+     * The Zip tf.
+     */
     public TextField zipTF;
+    /**
+     * The Phone tf.
+     */
     public TextField phoneTF;
 
+    /**
+     * The Added.
+     */
     boolean added = false;
 
     private final Customer modifiedCustomer = customerGUIController.getCustomerToModify();
 
+    /**
+     * The Original division.
+     */
     public int originalDivision = modifiedCustomer.getDivisionID();
 
+    /**
+     * The Division id.
+     */
     int divisionID;
+    /**
+     * The Division name.
+     */
     String divisionName;
 
     @Override
@@ -53,6 +92,12 @@ public class modCustomerController implements Initializable {
         populate();
     }
 
+    /**
+     * Back to customer gui.
+     *
+     * @param actionEvent the action event
+     * @throws IOException the io exception
+     */
     public void backToCustomerGUI(ActionEvent actionEvent) throws IOException {
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "This will return to the Customer Menu. Do you want to continue?");
@@ -72,6 +117,9 @@ public class modCustomerController implements Initializable {
         }
     }
 
+    /**
+     * Sets original country selection.
+     */
     public void setOriginalCountrySelection() {
 
         originalCountry = modifiedCustomer.getCountryID(divisionID);
@@ -88,6 +136,9 @@ public class modCustomerController implements Initializable {
         }
     }
 
+    /**
+     * Select country.
+     */
     public void selectCountry() {
 
         ObservableList<FirstLevelDivision> divisions;
@@ -113,6 +164,9 @@ public class modCustomerController implements Initializable {
         }
     }
 
+    /**
+     * Populate.
+     */
     public void populate() {
 
         nameTF.setText(modifiedCustomer.getName());
@@ -127,6 +181,9 @@ public class modCustomerController implements Initializable {
         getDivision();
     }
 
+    /**
+     * Gets division.
+     */
     public void getDivision() {
 
         if(originalCountry == 1) {
@@ -141,6 +198,12 @@ public class modCustomerController implements Initializable {
         }
     }
 
+    /**
+     * Update.
+     *
+     * @param actionEvent the action event
+     * @throws IOException the io exception
+     */
     public void update(ActionEvent actionEvent) throws IOException {
 
         String name = nameTF.getText();
@@ -185,6 +248,11 @@ public class modCustomerController implements Initializable {
         stage.show();
     }
 
+    /**
+     * Select division int.
+     *
+     * @return the int
+     */
     public int selectDivision() {
 
         String divisionName = divisionsList.getSelectionModel().getSelectedItem().getName();
@@ -208,6 +276,11 @@ public class modCustomerController implements Initializable {
         return originalDivision;
     }
 
+    /**
+     * Gets division name.
+     *
+     * @return the division name
+     */
     public String getDivisionName() {
 
         try {

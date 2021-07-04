@@ -10,7 +10,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * The type Db first level divisions.
+ */
 public class DBFirstLevelDivisions {
+    /**
+     * Gets all first level divisions.
+     *
+     * @return the all first level divisions
+     */
     public static ObservableList<FirstLevelDivision> getAllFirstLevelDivisions() {
         ObservableList<FirstLevelDivision> fldList = FXCollections.observableArrayList();
 
@@ -33,6 +41,11 @@ public class DBFirstLevelDivisions {
         return fldList;
     }
 
+    /**
+     * Gets all us divisions.
+     *
+     * @return the all us divisions
+     */
     public static ObservableList<FirstLevelDivision> getAllUSDivisions() {
         ObservableList<FirstLevelDivision> fldList = FXCollections.observableArrayList();
 
@@ -55,6 +68,11 @@ public class DBFirstLevelDivisions {
         return fldList;
     }
 
+    /**
+     * Gets all uk divisions.
+     *
+     * @return the all uk divisions
+     */
     public static ObservableList<FirstLevelDivision> getAllUKDivisions() {
         ObservableList<FirstLevelDivision> fldList = FXCollections.observableArrayList();
 
@@ -77,6 +95,11 @@ public class DBFirstLevelDivisions {
         return fldList;
     }
 
+    /**
+     * Gets all canada divisions.
+     *
+     * @return the all canada divisions
+     */
     public static ObservableList<FirstLevelDivision> getAllCanadaDivisions() {
         ObservableList<FirstLevelDivision> fldList = FXCollections.observableArrayList();
 

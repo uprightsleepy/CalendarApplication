@@ -9,8 +9,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * The type Db users.
+ */
 public class DBUsers {
 
+    /**
+     * Gets all users.
+     *
+     * @return the all users
+     */
     public static ObservableList<User> getAllUsers() {
         ObservableList<User> userList = FXCollections.observableArrayList();
 

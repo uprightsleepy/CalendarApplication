@@ -19,33 +19,108 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**
+ * The type Contact schedule controller.
+ */
 public class contactScheduleController implements Initializable {
 
+    /**
+     * The Ac list.
+     */
     public TableView<Appointment> ACList;
+    /**
+     * The Id col.
+     */
     public TableColumn<Appointment,Integer> idCol;
+    /**
+     * The Title col.
+     */
     public TableColumn<Appointment,String> titleCol;
+    /**
+     * The Desc col.
+     */
     public TableColumn<Appointment,String> descCol;
+    /**
+     * The Type col.
+     */
     public TableColumn<Appointment,String> typeCol;
+    /**
+     * The Start col.
+     */
     public TableColumn<Appointment,String> startCol;
+    /**
+     * The End col.
+     */
     public TableColumn<Appointment,String> endCol;
+    /**
+     * The Cust id col.
+     */
     public TableColumn<Appointment,Integer> custIdCol;
 
+    /**
+     * The Dg list.
+     */
     public TableView<Appointment> DGList;
+    /**
+     * The D gid col.
+     */
     public TableColumn<Appointment,Integer> DGidCol;
+    /**
+     * The D gtitle col.
+     */
     public TableColumn<Appointment,String> DGtitleCol;
+    /**
+     * The D gdesc col.
+     */
     public TableColumn<Appointment,String> DGdescCol;
+    /**
+     * The D gtype col.
+     */
     public TableColumn<Appointment,String> DGtypeCol;
+    /**
+     * The D gstart col.
+     */
     public TableColumn<Appointment,String> DGstartCol;
+    /**
+     * The D gend col.
+     */
     public TableColumn<Appointment,String> DGendCol;
+    /**
+     * The D gcust id col.
+     */
     public TableColumn<Appointment,Integer> DGcustIdCol;
 
+    /**
+     * The Ll list.
+     */
     public TableView<Appointment> LLList;
+    /**
+     * The L lid col.
+     */
     public TableColumn<Appointment,Integer> LLidCol;
+    /**
+     * The L ltitle col.
+     */
     public TableColumn<Appointment,String> LLtitleCol;
+    /**
+     * The L ldesc col.
+     */
     public TableColumn<Appointment,String> LLdescCol;
+    /**
+     * The L ltype col.
+     */
     public TableColumn<Appointment,String> LLtypeCol;
+    /**
+     * The L lstart col.
+     */
     public TableColumn<Appointment,String> LLstartCol;
+    /**
+     * The L lend col.
+     */
     public TableColumn<Appointment,String> LLendCol;
+    /**
+     * The L lcust id col.
+     */
     public TableColumn<Appointment,Integer> LLcustIdCol;
 
     @Override
@@ -53,6 +128,9 @@ public class contactScheduleController implements Initializable {
         populate();
     }
 
+    /**
+     * Populate.
+     */
     public void populate() {
 
         ObservableList<Contact> contacts = DBContacts.getAllContacts();
@@ -97,6 +175,12 @@ public class contactScheduleController implements Initializable {
         }
     }
 
+    /**
+     * Back to reports.
+     *
+     * @param actionEvent the action event
+     * @throws IOException the io exception
+     */
     public void backToReports(ActionEvent actionEvent) throws IOException {
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "This will return to the Reports Menu. Do you want to continue?");

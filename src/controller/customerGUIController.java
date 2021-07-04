@@ -20,17 +20,47 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**
+ * The type Customer gui controller.
+ */
 public class customerGUIController implements Initializable {
 
+    /**
+     * The Customer list.
+     */
     public TableView<Customer> customerList;
+    /**
+     * The Id col.
+     */
     public TableColumn<Customer, Integer> idCol;
+    /**
+     * The Name col.
+     */
     public TableColumn<Customer, String> nameCol;
+    /**
+     * The Address col.
+     */
     public TableColumn<Customer, String> addressCol;
+    /**
+     * The Postal col.
+     */
     public TableColumn<Customer, String> postalCol;
+    /**
+     * The Phone col.
+     */
     public TableColumn<Customer, String> phoneCol;
+    /**
+     * The Country col.
+     */
     public TableColumn<Customer, String> countryCol;
+    /**
+     * The Division col.
+     */
     public TableColumn<Customer, String> divisionCol;
 
+    /**
+     * The Search field.
+     */
     public TextField searchField;
 
     private static Customer customerToModify;
@@ -42,6 +72,12 @@ public class customerGUIController implements Initializable {
         populate();
     }
 
+    /**
+     * Back to main.
+     *
+     * @param actionEvent the action event
+     * @throws IOException the io exception
+     */
     public void backToMain(ActionEvent actionEvent) throws IOException {
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "This will return to the Main Menu. Do you want to continue?");
@@ -59,6 +95,12 @@ public class customerGUIController implements Initializable {
         }
     }
 
+    /**
+     * Add customer.
+     *
+     * @param actionEvent the action event
+     * @throws IOException the io exception
+     */
     public void addCustomer(ActionEvent actionEvent) throws IOException {
 
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/newCustomer.fxml")));
@@ -71,6 +113,12 @@ public class customerGUIController implements Initializable {
         stage.show();
     }
 
+    /**
+     * Mod customer.
+     *
+     * @param actionEvent the action event
+     * @throws IOException the io exception
+     */
     public void modCustomer(ActionEvent actionEvent) throws IOException {
 
         customerToModify = customerList.getSelectionModel().getSelectedItem();
@@ -97,6 +145,9 @@ public class customerGUIController implements Initializable {
         }
     }
 
+    /**
+     * Delete customer.
+     */
     public void deleteCustomer() {
 
         Customer customerToDelete = customerList.getSelectionModel().getSelectedItem();
@@ -141,6 +192,11 @@ public class customerGUIController implements Initializable {
         }
     }
 
+    /**
+     * Populate.
+     *
+     * @throws NullPointerException the null pointer exception
+     */
     public void populate() throws NullPointerException{
 
         ObservableList<Customer> customers = DBCustomer.getAllCustomers();
@@ -155,16 +211,29 @@ public class customerGUIController implements Initializable {
         divisionCol.setCellValueFactory(new PropertyValueFactory<>("divisionName"));
     }
 
+    /**
+     * Gets customer to modify.
+     *
+     * @return the customer to modify
+     */
     public static Customer getCustomerToModify() {
 
         return customerToModify;
     }
 
+    /**
+     * Gets customer to modify index.
+     *
+     * @return the customer to modify index
+     */
     public static int getCustomerToModifyIndex() {
 
         return customerToModifyIndex;
     }
 
+    /**
+     * Search.
+     */
     public void search() {
 
         try {

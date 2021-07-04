@@ -1,6 +1,7 @@
 package controller;
 
 import DBAccess.DBAppointments;
+
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -19,30 +20,103 @@ import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.*;
-import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalField;
+import java.time.temporal.WeekFields;
 import java.util.*;
 
+/**
+ * The type Main screen controller.
+ */
 public class mainScreenController implements Initializable {
 
+    /**
+     * The Appointments list.
+     */
     public TableView<Appointment> appointmentsList;
+    /**
+     * The Id col.
+     */
     public TableColumn<Appointment,Integer> idCol;
+    /**
+     * The Name col.
+     */
     public TableColumn<Appointment,String> nameCol;
+    /**
+     * The Title col.
+     */
     public TableColumn<Appointment,String> titleCol;
+    /**
+     * The Desc col.
+     */
     public TableColumn<Appointment,String> descCol;
+    /**
+     * The Type col.
+     */
     public TableColumn<Appointment,String> typeCol;
+    /**
+     * The Date col.
+     */
     public TableColumn<Appointment,String> dateCol;
+    /**
+     * The Start col.
+     */
     public TableColumn<Appointment,String> startCol;
+    /**
+     * The End col.
+     */
     public TableColumn<Appointment,String> endCol;
+    /**
+     * The Cust id col.
+     */
     public TableColumn<Appointment,String> custIdCol;
 
-    final ToggleGroup group = new ToggleGroup();
-    public RadioButton weekRadio;
-    public RadioButton monthRadio;
-    public RadioButton allRadio;
+    /**
+     * The Sort week selecton.
+     */
+    boolean sortWeekSelecton = false;
 
+    /**
+     * The Group.
+     */
+    final ToggleGroup group = new ToggleGroup();
+    /**
+     * The Week radio.
+     */
+    public RadioButton weekRadio;
+    /**
+     * The Month radio.
+     */
+    public RadioButton monthRadio;
+    /**
+     * The All radio.
+     */
+    public RadioButton allRadio;
+    /**
+     * The Sort list.
+     */
+    public ComboBox<String> sortList;
+    /**
+     * The Sort button.
+     */
+    public Button sortButton;
+
+    /**
+     * The Test.
+     */
+    LocalDate test = null;
+
+    /**
+     * The Current time.
+     */
     LocalDateTime currentTime = LocalDateTime.now();
 
+    /**
+     * The Search field.
+     */
     public TextField searchField;
+    /**
+     * The Appointment message.
+     */
     public Label appointmentMessage;
 
     private static Appointment appointmentToModify;
@@ -54,6 +128,12 @@ public class mainScreenController implements Initializable {
         checkTimes();
     }
 
+    /**
+     * Logout.
+     *
+     * @param actionEvent the action event
+     * @throws IOException the io exception
+     */
     public void logout(ActionEvent actionEvent) throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you'd like to logout?");
         Optional<ButtonType> result = alert.showAndWait();
@@ -73,6 +153,12 @@ public class mainScreenController implements Initializable {
     }
 
 
+    /**
+     * View customer gui.
+     *
+     * @param actionEvent the action event
+     * @throws IOException the io exception
+     */
     public void viewCustomerGUI(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/customerGUI.fxml")));
         Stage stage = (Stage) ((Button) (actionEvent.getSource())).getScene().getWindow();
@@ -84,6 +170,12 @@ public class mainScreenController implements Initializable {
         stage.show();
     }
 
+    /**
+     * New appointment gui.
+     *
+     * @param actionEvent the action event
+     * @throws IOException the io exception
+     */
     public void newAppointmentGUI(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/newAppointment.fxml")));
         Stage stage = (Stage) ((Button) (actionEvent.getSource())).getScene().getWindow();
@@ -95,6 +187,12 @@ public class mainScreenController implements Initializable {
         stage.show();
     }
 
+    /**
+     * Load report options.
+     *
+     * @param actionEvent the action event
+     * @throws IOException the io exception
+     */
     public void loadReportOptions(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/reports.fxml")));
         Stage stage = (Stage) ((Button) (actionEvent.getSource())).getScene().getWindow();
@@ -106,6 +204,12 @@ public class mainScreenController implements Initializable {
         stage.show();
     }
 
+    /**
+     * Update appointment gui.
+     *
+     * @param actionEvent the action event
+     * @throws IOException the io exception
+     */
     public void updateAppointmentGUI(ActionEvent actionEvent) throws IOException {
         appointmentToModify = appointmentsList.getSelectionModel().getSelectedItem();
 
@@ -130,9 +234,15 @@ public class mainScreenController implements Initializable {
         }
     }
 
+    /**
+     * Populate.
+     *
+     * @throws NullPointerException the null pointer exception
+     */
     public void populate() throws NullPointerException {
 
         ObservableList<Appointment> appointments = DBAppointments.getAllAppointments();
+        System.out.println(currentTime);
 
         weekRadio.setToggleGroup(group);
         monthRadio.setToggleGroup(group);
@@ -150,6 +260,9 @@ public class mainScreenController implements Initializable {
         custIdCol.setCellValueFactory(new PropertyValueFactory<>("customerID"));
     }
 
+    /**
+     * Delete appointment.
+     */
     public void deleteAppointment() {
 
         Appointment appointmentToDelete = appointmentsList.getSelectionModel().getSelectedItem();
@@ -186,6 +299,11 @@ public class mainScreenController implements Initializable {
         }
     }
 
+    /**
+     * Record signout.
+     *
+     * @throws IOException the io exception
+     */
     public void recordSignout() throws IOException{
 
         Date date = new Date();
@@ -197,14 +315,27 @@ public class mainScreenController implements Initializable {
         writer.close();
     }
 
+    /**
+     * Gets appointment to modify.
+     *
+     * @return the appointment to modify
+     */
     public static Appointment getAppointmentToModify() {
         return appointmentToModify;
     }
 
+    /**
+     * Gets appointment to modify index.
+     *
+     * @return the appointment to modify index
+     */
     public static int getAppointmentToModifyIndex() {
         return appointmentToModifyIndex;
     }
 
+    /**
+     * Search.
+     */
     public void search() {
 
         try {
@@ -230,12 +361,20 @@ public class mainScreenController implements Initializable {
         }
     }
 
+    /**
+     * Check times.
+     */
     public void checkTimes() {
         for(Appointment a : appointmentsList.getItems()) {
 
-            if((a.getStartTime().until(currentTime, ChronoUnit.MINUTES)) <= 15) {
+            LocalDateTime appointmentTime = LocalDateTime.of(a.getDate().toLocalDate(),a.getStartTime());
+            Duration diff = Duration.between(currentTime, appointmentTime);
+            long minutes = diff.toMinutes();
+
+            if(minutes <= 15 && minutes >= 0) {
 
                 appointmentMessage.setText("Appointment ID " + a.getAppointmentID() + " | " + a.getDate() + " " + a.getStartTime());
+                return;
             } else {
 
                 appointmentMessage.setText("No Upcoming Appointments");
@@ -243,9 +382,73 @@ public class mainScreenController implements Initializable {
         }
     }
 
+    /**
+     * Sort by month.
+     */
     public void sortByMonth() {
-        dateCol.setSortType(TableColumn.SortType.DESCENDING);
-        appointmentsList.getSortOrder().add(dateCol);
-        appointmentsList.sort();
+
+        sortList.setDisable(false);
+        sortButton.setDisable(false);
+        sortList.getItems().clear();
+        sortList.getItems().addAll("JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER");
+    }
+
+    /**
+     * View all.
+     */
+    public void viewAll() {
+
+        sortList.getItems().clear();
+        sortList.setDisable(true);
+        sortButton.setDisable(true);
+        weekRadio.setSelected(false);
+        monthRadio.setSelected(false);
+        populate();
+    }
+
+    /**
+     * Sort by week.
+     */
+    public void sortByWeek() {
+
+        sortList.getItems().clear();
+        for(int i = 0; i <53; i++) {
+            sortList.getItems().add(String.valueOf(i));
+        }
+        sortList.setDisable(false);
+        sortButton.setDisable(false);
+    }
+
+    /**
+     * Sort.
+     */
+    public void sort() {
+
+        ObservableList<Appointment> appointments = DBAppointments.getAllAppointments();
+        appointmentsList.getItems().clear();
+
+        String selection = sortList.getSelectionModel().getSelectedItem();
+
+        if(weekRadio.isSelected()) {
+            for(Appointment a:appointments) {
+
+                test = a.getDate().toLocalDate();
+                TemporalField weekOfYear = WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear();
+                int weekNumber = test.get(weekOfYear);
+                if(weekNumber == Integer.parseInt(selection)) {
+                    appointmentsList.getItems().add(a);
+                }
+            }
+        } if(monthRadio.isSelected()) {
+            for(Appointment a: appointments) {
+
+                test = a.getDate().toLocalDate();
+                Month month = test.getMonth();
+                System.out.println(month);
+                if(selection.equals(month.toString())) {
+                    appointmentsList.getItems().add(a);
+                }
+            }
+        }
     }
 }

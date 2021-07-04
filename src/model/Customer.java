@@ -6,6 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * The type Customer.
+ */
 public class Customer {
 
     private int id;
@@ -20,19 +23,41 @@ public class Customer {
 
     private int appointmentID = 0;
     private int[] appointmentList;
+    /**
+     * The .
+     */
     int i = 0;
 
     private boolean isBusy = false;
 
 
+    /**
+     * Gets division name.
+     *
+     * @return the division name
+     */
     public String getDivisionName() {
         return division;
     }
 
+    /**
+     * Sets division.
+     *
+     * @param division the division
+     */
     public void setDivision(String division) {
         this.division = division;
     }
 
+    /**
+     * Instantiates a new Customer.
+     *
+     * @param id         the id
+     * @param name       the name
+     * @param address    the address
+     * @param postalCode the postal code
+     * @param phone      the phone
+     */
     public Customer(int id, String name, String address, String postalCode, String phone) {
         this.id = id;
         this.name = name;
@@ -41,6 +66,16 @@ public class Customer {
         this.phone = phone;
     }
 
+    /**
+     * Instantiates a new Customer.
+     *
+     * @param id         the id
+     * @param name       the name
+     * @param address    the address
+     * @param postalCode the postal code
+     * @param phone      the phone
+     * @param country    the country
+     */
     public Customer(int id, String name, String address, String postalCode, String phone, String country) {
         this.id = id;
         this.name = name;
@@ -50,6 +85,16 @@ public class Customer {
         this.country = country;
     }
 
+    /**
+     * Instantiates a new Customer.
+     *
+     * @param id         the id
+     * @param name       the name
+     * @param address    the address
+     * @param postalCode the postal code
+     * @param phone      the phone
+     * @param divisionID the division id
+     */
     public Customer(int id, String name, String address, String postalCode, String phone, int divisionID) {
         this.id = id;
         this.name = name;
@@ -59,6 +104,17 @@ public class Customer {
         this.divisionID = divisionID;
     }
 
+    /**
+     * Instantiates a new Customer.
+     *
+     * @param id         the id
+     * @param name       the name
+     * @param address    the address
+     * @param postalCode the postal code
+     * @param phone      the phone
+     * @param divisionID the division id
+     * @param country    the country
+     */
     public Customer(int id, String name, String address, String postalCode, String phone, int divisionID, String country) {
         this.id = id;
         this.name = name;
@@ -69,6 +125,18 @@ public class Customer {
         this.country = country;
     }
 
+    /**
+     * Instantiates a new Customer.
+     *
+     * @param id         the id
+     * @param name       the name
+     * @param address    the address
+     * @param postalCode the postal code
+     * @param phone      the phone
+     * @param divisionID the division id
+     * @param countryID  the country id
+     * @param country    the country
+     */
     public Customer(int id, String name, String address, String postalCode, String phone, int divisionID, int countryID, String country) {
         this.id = id;
         this.name = name;
@@ -80,6 +148,17 @@ public class Customer {
         this.country = country;
     }
 
+    /**
+     * Instantiates a new Customer.
+     *
+     * @param id         the id
+     * @param name       the name
+     * @param address    the address
+     * @param postalCode the postal code
+     * @param phone      the phone
+     * @param divisionID the division id
+     * @param countryID  the country id
+     */
     public Customer(int id, String name, String address, String postalCode, String phone, int divisionID, int countryID) {
         this.id = id;
         this.name = name;
@@ -90,6 +169,17 @@ public class Customer {
         this.countryID = countryID;
     }
 
+    /**
+     * Instantiates a new Customer.
+     *
+     * @param id         the id
+     * @param name       the name
+     * @param address    the address
+     * @param postalCode the postal code
+     * @param phone      the phone
+     * @param division   the division
+     * @param country    the country
+     */
     public Customer(int id, String name, String address, String postalCode, String phone, String division, String country) {
         this.id = id;
         this.name = name;
@@ -100,46 +190,101 @@ public class Customer {
         this.country = country;
     }
 
+    /**
+     * Gets id.
+     *
+     * @return the id
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Sets id.
+     *
+     * @param id the id
+     */
     public void setId(int id) {
         this.id = id;
     }
 
+    /**
+     * Gets name.
+     *
+     * @return the name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Sets name.
+     *
+     * @param name the name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Gets address.
+     *
+     * @return the address
+     */
     public String getAddress() {
         return address;
     }
 
+    /**
+     * Sets address.
+     *
+     * @param address the address
+     */
     public void setAddress(String address) {
         this.address = address;
     }
 
+    /**
+     * Gets postal code.
+     *
+     * @return the postal code
+     */
     public String getPostalCode() {
         return postalCode;
     }
 
+    /**
+     * Sets postal code.
+     *
+     * @param postalCode the postal code
+     */
     public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
     }
 
+    /**
+     * Gets phone.
+     *
+     * @return the phone
+     */
     public String getPhone() {
         return phone;
     }
 
+    /**
+     * Sets phone.
+     *
+     * @param phone the phone
+     */
     public void setPhone(String phone) {
         this.phone = phone;
     }
 
+    /**
+     * Gets country.
+     *
+     * @return the country
+     */
     public String getCountry() {
 
         try {
@@ -159,6 +304,12 @@ public class Customer {
         return country;
     }
 
+    /**
+     * Gets country id.
+     *
+     * @param divisionID the division id
+     * @return the country id
+     */
     public int getCountryID(int divisionID) {
 
         try {
@@ -178,14 +329,29 @@ public class Customer {
         return countryID;
     }
 
+    /**
+     * Sets country id.
+     *
+     * @param countryID the country id
+     */
     public void setCountryID(int countryID) {
         this.countryID = countryID;
     }
 
+    /**
+     * Sets country.
+     *
+     * @param country the country
+     */
     public void setCountry(String country) {
         this.country = country;
     }
 
+    /**
+     * Gets division id.
+     *
+     * @return the division id
+     */
     public int getDivisionID() {
 
         try {
@@ -204,6 +370,12 @@ public class Customer {
         return divisionID;
     }
 
+    /**
+     * Gets division name.
+     *
+     * @param divisionID the division id
+     * @return the division name
+     */
     public String getDivisionName(int divisionID) {
 
         try {
@@ -223,10 +395,21 @@ public class Customer {
         return division;
     }
 
+    /**
+     * Sets division id.
+     *
+     * @param divisionID the division id
+     */
     public void setDivisionID(int divisionID) {
         this.divisionID = divisionID;
     }
 
+    /**
+     * Check appointments boolean.
+     *
+     * @param customerID the customer id
+     * @return the boolean
+     */
     public boolean checkAppointments(int customerID) {
 
         try {

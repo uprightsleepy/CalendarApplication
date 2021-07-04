@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**
+ * The type Db connection.
+ */
 public class DBConnection {
 //    JDBC URL parts
     private static final String protocol = "jdbc";
@@ -22,6 +25,11 @@ public class DBConnection {
     private static final String username = "U07rsq";
     private static final String password = "53689113579";
 
+    /**
+     * Connect connection.
+     *
+     * @return the connection
+     */
     public static Connection connect() {
         try {
             Class.forName(MYSQLJDBCDriver);
@@ -34,6 +42,9 @@ public class DBConnection {
         return connection;
     }
 
+    /**
+     * Close connection.
+     */
     public static void closeConnection() {
         try {
             connection.close();
@@ -43,6 +54,11 @@ public class DBConnection {
         }
     }
 
+    /**
+     * Gets connection.
+     *
+     * @return the connection
+     */
     public static Connection getConnection() {
         return connection;
     }

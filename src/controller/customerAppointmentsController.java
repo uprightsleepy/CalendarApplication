@@ -18,25 +18,70 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**
+ * The type Customer appointments controller.
+ */
 public class customerAppointmentsController implements Initializable {
 
+    /**
+     * The Month selector.
+     */
     public ComboBox<Month> monthSelector;
 
+    /**
+     * The Ps label.
+     */
     public Label psLabel;
+    /**
+     * The Db label.
+     */
     public Label dbLabel;
+    /**
+     * The Is label.
+     */
     public Label isLabel;
+    /**
+     * The Dm label.
+     */
     public Label dmLabel;
+    /**
+     * The W label.
+     */
     public Label wLabel;
+    /**
+     * The Tb label.
+     */
     public Label tbLabel;
 
+    /**
+     * The Planning sessions.
+     */
     int planningSessions = 0;
+    /**
+     * The De briefing sessions.
+     */
     int deBriefingSessions = 0;
+    /**
+     * The Info sharing sessions.
+     */
     int infoSharingSessions = 0;
+    /**
+     * The Decision making sessions.
+     */
     int decisionMakingSessions = 0;
+    /**
+     * The Workshop sessions.
+     */
     int workshopSessions = 0;
+    /**
+     * The Team building sessions.
+     */
     int teamBuildingSessions = 0;
 
 
+    /**
+     * The Appointments.
+     */
     ObservableList<Appointment> appointments = DBAppointments.getAllAppointments();
 
     @Override
@@ -45,12 +90,18 @@ public class customerAppointmentsController implements Initializable {
         populate();
     }
 
+    /**
+     * Populate.
+     */
     public void populate() {
 
         monthSelector.getItems().addAll(Month.JANUARY, Month.FEBRUARY, Month.MARCH, Month.APRIL, Month.MAY, Month.JUNE, Month.JULY, Month.AUGUST,
                 Month.SEPTEMBER, Month.OCTOBER, Month.NOVEMBER, Month.DECEMBER);
     }
 
+    /**
+     * Sets month selector.
+     */
     public void setMonthSelector() {
 
         planningSessions = 0;
@@ -100,6 +151,12 @@ public class customerAppointmentsController implements Initializable {
         }
     }
 
+    /**
+     * Back to reports.
+     *
+     * @param actionEvent the action event
+     * @throws IOException the io exception
+     */
     public void backToReports(ActionEvent actionEvent) throws IOException {
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "This will return to the Reports Menu. Do you want to continue?");

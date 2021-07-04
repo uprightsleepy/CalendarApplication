@@ -23,17 +23,47 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**
+ * The type New customer controller.
+ */
 public class newCustomerController implements Initializable {
 
+    /**
+     * The Name tf.
+     */
     public TextField nameTF;
+    /**
+     * The Address tf.
+     */
     public TextField addressTF;
+    /**
+     * The Zip tf.
+     */
     public TextField zipTF;
+    /**
+     * The Phone tf.
+     */
     public TextField phoneTF;
+    /**
+     * The Country list.
+     */
     public ComboBox<Countries> countryList;
 
+    /**
+     * The Added.
+     */
     public boolean added = false;
+    /**
+     * The Index.
+     */
     public int index = 0;
+    /**
+     * The Division id.
+     */
     public int divisionID = 0;
+    /**
+     * The Divisions list.
+     */
     public ComboBox<FirstLevelDivision> divisionsList;
 
     @Override
@@ -42,6 +72,12 @@ public class newCustomerController implements Initializable {
         populate();
     }
 
+    /**
+     * Back to customer gui.
+     *
+     * @param actionEvent the action event
+     * @throws IOException the io exception
+     */
     public void backToCustomerGUI(ActionEvent actionEvent) throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "This will return to the Customer Menu. Do you want to continue?");
         Optional<ButtonType> result = alert.showAndWait();
@@ -57,6 +93,12 @@ public class newCustomerController implements Initializable {
         }
     }
 
+    /**
+     * Add new customer.
+     *
+     * @param actionEvent the action event
+     * @throws IOException the io exception
+     */
     public void addNewCustomer(ActionEvent actionEvent) throws IOException {
         String name = nameTF.getText();
         String address = addressTF.getText();
@@ -97,11 +139,19 @@ public class newCustomerController implements Initializable {
         stage.show();
     }
 
+    /**
+     * Populate.
+     */
     public void populate() {
         ObservableList<Countries> countries = DBCountries.getAllCountries();
         countryList.setItems(countries);
     }
 
+    /**
+     * Select country int.
+     *
+     * @return the int
+     */
     public int selectCountry() {
 
         ObservableList<FirstLevelDivision> divisions;
@@ -123,6 +173,11 @@ public class newCustomerController implements Initializable {
         return index;
     }
 
+    /**
+     * Select division int.
+     *
+     * @return the int
+     */
     public int selectDivision() {
         String divisionName = divisionsList.getSelectionModel().getSelectedItem().getName();
 

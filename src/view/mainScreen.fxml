@@ -29,17 +29,19 @@
          <Button layoutX="287.0" layoutY="142.0" mnemonicParsing="false" onAction="#updateAppointmentGUI" style="-fx-background-color: #20A9CE;" text="Edit Appointment" textFill="WHITE" />
          <Button layoutX="411.0" layoutY="142.0" mnemonicParsing="false" onAction="#deleteAppointment" style="-fx-background-color: #20A9CE;" text="Delete Appointment" textFill="WHITE" />
          <Button layoutX="553.0" layoutY="142.0" mnemonicParsing="false" onAction="#loadReportOptions" prefHeight="26.0" prefWidth="108.0" style="-fx-background-color: #20A9CE;" text="Reports" textFill="WHITE" />
-         <Button layoutX="40.0" layoutY="618.0" mnemonicParsing="false" onAction="#logout" prefHeight="26.0" prefWidth="85.0" style="-fx-background-color: #20A9CE;" text="Logout" textFill="WHITE" />
-         <TextField fx:id="searchField" layoutX="745.0" layoutY="143.0" onAction="#search" promptText="Search by ID or Title" />
+         <Button layoutX="50.0" layoutY="622.0" mnemonicParsing="false" onAction="#logout" prefHeight="26.0" prefWidth="85.0" style="-fx-background-color: #20A9CE;" text="Logout" textFill="WHITE" />
+         <TextField fx:id="searchField" layoutX="711.0" layoutY="143.0" onAction="#search" prefHeight="25.0" prefWidth="183.0" promptText="Search by Appt. ID or Type" />
          <Button fx:id="search" layoutX="907.0" layoutY="143.0" mnemonicParsing="false" onAction="#search" text="Search" />
-         <Label fx:id="appointmentMessage" alignment="CENTER" contentDisplay="BOTTOM" layoutX="235.0" layoutY="613.0" prefHeight="36.0" prefWidth="530.0" text="No Upcoming Appointments">
+         <Label fx:id="appointmentMessage" alignment="CENTER" contentDisplay="BOTTOM" layoutX="235.0" layoutY="614.0" prefHeight="36.0" prefWidth="530.0" text="No Upcoming Appointments">
             <font>
                <Font name="Roboto Light" size="20.0" />
             </font>
          </Label>
-         <RadioButton fx:id="allRadio" layoutX="894.0" layoutY="605.0" mnemonicParsing="false" text="View All" />
+         <RadioButton fx:id="allRadio" layoutX="894.0" layoutY="605.0" mnemonicParsing="false" onAction="#viewAll" text="View All" />
          <RadioButton fx:id="monthRadio" layoutX="826.0" layoutY="605.0" mnemonicParsing="false" onAction="#sortByMonth" text="Month" />
-         <RadioButton fx:id="weekRadio" layoutX="760.0" layoutY="605.0" mnemonicParsing="false" text="Week" />
+         <RadioButton fx:id="weekRadio" layoutX="760.0" layoutY="605.0" mnemonicParsing="false" onAction="#sortByWeek" text="Week" />
+         <ComboBox fx:id="sortList" disable="true" layoutX="741.0" layoutY="636.0" prefHeight="25.0" prefWidth="157.0" promptText="Select Week / Month" />
+         <Button fx:id="sortButton" disable="true" layoutX="905.0" layoutY="636.0" mnemonicParsing="false" onAction="#sort" prefHeight="25.0" prefWidth="55.0" text="Sort" />
        </AnchorPane>
    </top>
 </BorderPane>

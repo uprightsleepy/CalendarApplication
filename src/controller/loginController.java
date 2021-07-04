@@ -18,21 +18,54 @@ import model.User;
 
 import java.net.URL;
 
+/**
+ * The type Login controller.
+ */
 public class loginController implements Initializable {
 
+    /**
+     * The Location id.
+     */
     public Label locationID;
 
+    /**
+     * The Username tf.
+     */
     public TextField usernameTF;
+    /**
+     * The Password tf.
+     */
     public PasswordField passwordTF;
+    /**
+     * The Login button.
+     */
     public Button loginButton;
+    /**
+     * The Login successful.
+     */
     public boolean loginSuccessful = false;
+    /**
+     * The Left panel.
+     */
     public ImageView leftPanel;
 
+    /**
+     * The French panel.
+     */
     Image frenchPanel = new Image("side_panel_fr.png");
 
+    /**
+     * The Default locale.
+     */
     Locale defaultLocale = Locale.getDefault();
+    /**
+     * The Bundle.
+     */
     ResourceBundle bundle = ResourceBundle.getBundle("MessageBundle", Locale.US);
 
+    /**
+     * The Attempt.
+     */
     int attempt = 0;
 
     @Override
@@ -54,6 +87,12 @@ public class loginController implements Initializable {
         locationID.setText(zoneID);
     }
 
+    /**
+     * Login.
+     *
+     * @param actionEvent the action event
+     * @throws IOException the io exception
+     */
     public void login(ActionEvent actionEvent) throws IOException {
 
         ObservableList<User> userList = DBUsers.getAllUsers();
@@ -104,6 +143,11 @@ public class loginController implements Initializable {
         }
     }
 
+    /**
+     * Record attempt.
+     *
+     * @throws IOException the io exception
+     */
     public void recordAttempt() throws IOException{
 
         Date date = new Date();
@@ -116,6 +160,11 @@ public class loginController implements Initializable {
         attempt++;
     }
 
+    /**
+     * Sus login.
+     *
+     * @throws IOException the io exception
+     */
     public void susLogin() throws IOException{
 
         Date date = new Date();

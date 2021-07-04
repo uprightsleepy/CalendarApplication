@@ -28,36 +28,96 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**
+ * The type New appointment controller.
+ */
 public class newAppointmentController implements Initializable {
 
+    /**
+     * The Times.
+     */
     ObservableList<LocalTime> times = FXCollections.observableArrayList();
+    /**
+     * The Appointments.
+     */
     ObservableList<Appointment> appointments = DBAppointments.getAllAppointments();
 
+    /**
+     * The Customer list.
+     */
     public ComboBox<String> customerList;
+    /**
+     * The Contact list.
+     */
     public ComboBox<String> contactList;
 
+    /**
+     * The Start time picker.
+     */
     public ComboBox<LocalTime> startTimePicker;
+    /**
+     * The End time picker.
+     */
     public ComboBox<LocalTime> endTimePicker;
 
+    /**
+     * The Type list.
+     */
     public ComboBox<String> typeList;
 
+    /**
+     * The Starting date.
+     */
     public DatePicker startingDate;
+    /**
+     * The Ending date.
+     */
     public DatePicker endingDate;
 
+    /**
+     * The Customer name.
+     */
     public String customerName;
+    /**
+     * The Customer.
+     */
     public String customer;
+    /**
+     * The Customer id.
+     */
     public int customerID;
 
+    /**
+     * The Contact name.
+     */
     public String contactName;
+    /**
+     * The Contact id.
+     */
     public int contactID;
 
+    /**
+     * The Added.
+     */
     boolean added = false;
 
+    /**
+     * The Title tf.
+     */
     public TextField titleTF;
+    /**
+     * The Location tf.
+     */
     public TextField locationTF;
+    /**
+     * The Description ta.
+     */
     public TextArea descriptionTA;
 
     private final DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    /**
+     * The Time.
+     */
     LocalTime time = LocalTime.of(8,0);
 
     @Override
@@ -66,6 +126,12 @@ public class newAppointmentController implements Initializable {
         populate();
     }
 
+    /**
+     * Back to main.
+     *
+     * @param actionEvent the action event
+     * @throws IOException the io exception
+     */
     public void backToMain(ActionEvent actionEvent) throws IOException {
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "This will return to the Main Menu. Do you want to continue?");
@@ -83,6 +149,12 @@ public class newAppointmentController implements Initializable {
         }
     }
 
+    /**
+     * Send back.
+     *
+     * @param actionEvent the action event
+     * @throws IOException the io exception
+     */
     public void sendBack(ActionEvent actionEvent) throws IOException {
 
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/mainScreen.fxml")));
@@ -95,6 +167,9 @@ public class newAppointmentController implements Initializable {
             stage.show();
     }
 
+    /**
+     * Populate.
+     */
     public void populate() {
 
         ObservableList<Customer> customers = DBCustomer.getAllCustomers();
@@ -116,6 +191,12 @@ public class newAppointmentController implements Initializable {
         typeList.getItems().addAll("Planning Session", "De-Briefing", "Info-Sharing", "Decision Making", "Workshop", "Team Building");
     }
 
+    /**
+     * Add new appointment.
+     *
+     * @param actionEvent the action event
+     * @throws IOException the io exception
+     */
     public void addNewAppointment(ActionEvent actionEvent) throws IOException {
 
         String title = titleTF.getText();
@@ -225,6 +306,11 @@ public class newAppointmentController implements Initializable {
         }
     }
 
+    /**
+     * Gets customer id.
+     *
+     * @return the customer id
+     */
     public int getCustomerID() {
 
         try {
@@ -244,6 +330,11 @@ public class newAppointmentController implements Initializable {
         return customerID;
     }
 
+    /**
+     * Gets contact id.
+     *
+     * @return the contact id
+     */
     public int getContactID() {
 
         try {
@@ -263,6 +354,9 @@ public class newAppointmentController implements Initializable {
         return contactID;
     }
 
+    /**
+     * Add times.
+     */
     public void addTimes() {
 
         do {
@@ -271,6 +365,12 @@ public class newAppointmentController implements Initializable {
         } while(!time.equals(LocalTime.of(22,30)));
     }
 
+    /**
+     * Check weekend boolean.
+     *
+     * @param dateChoice the date choice
+     * @return the boolean
+     */
     public static boolean checkWeekend(LocalDate dateChoice) {
         DayOfWeek day = dateChoice.getDayOfWeek();
         return day == DayOfWeek.SATURDAY || day == DayOfWeek.SUNDAY;

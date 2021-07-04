@@ -8,7 +8,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * The type Db contacts.
+ */
 public class DBContacts {
+    /**
+     * Gets all contacts.
+     *
+     * @return the all contacts
+     */
     public static ObservableList<Contact> getAllContacts() {
 
         ObservableList<Contact> contactList = FXCollections.observableArrayList();

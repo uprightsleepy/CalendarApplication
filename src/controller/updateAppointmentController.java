@@ -28,37 +28,97 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**
+ * The type Update appointment controller.
+ */
 public class updateAppointmentController implements Initializable {
 
     private final DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     private final Appointment modifiedAppointment = mainScreenController.getAppointmentToModify();
+    /**
+     * The Time.
+     */
     LocalTime time = LocalTime.of(8,0);
 
+    /**
+     * The Times.
+     */
     ObservableList<LocalTime> times = FXCollections.observableArrayList();
+    /**
+     * The Appointments.
+     */
     ObservableList<Appointment> appointments = DBAppointments.getAllAppointments();
 
+    /**
+     * The Customer list.
+     */
     public ComboBox<String> customerList;
+    /**
+     * The Contact list.
+     */
     public ComboBox<String> contactList;
+    /**
+     * The Type list.
+     */
     public ComboBox<String> typeList;
 
+    /**
+     * The Start time picker.
+     */
     public ComboBox<LocalTime> startTimePicker;
+    /**
+     * The End time picker.
+     */
     public ComboBox<LocalTime> endTimePicker;
 
+    /**
+     * The Starting date.
+     */
     public DatePicker startingDate;
+    /**
+     * The Ending date.
+     */
     public DatePicker endingDate;
 
+    /**
+     * The Customer name.
+     */
     public String customerName;
+    /**
+     * The Customer id.
+     */
     public int customerID = modifiedAppointment.getCustomerID();
 
+    /**
+     * The Contact name.
+     */
     public String contactName;
     private int contactID = modifiedAppointment.getContactID();
 
+    /**
+     * The Added.
+     */
     boolean added = false;
 
+    /**
+     * The Contact tf.
+     */
     public TextField contactTF;
+    /**
+     * The Title tf.
+     */
     public TextField titleTF;
+    /**
+     * The Location tf.
+     */
     public TextField locationTF;
+    /**
+     * The Type tf.
+     */
     public TextField typeTF;
+    /**
+     * The Description ta.
+     */
     public TextArea descriptionTA;
 
     @Override
@@ -68,6 +128,12 @@ public class updateAppointmentController implements Initializable {
     }
 
 
+    /**
+     * Back to main.
+     *
+     * @param actionEvent the action event
+     * @throws IOException the io exception
+     */
     public void backToMain(ActionEvent actionEvent) throws IOException {
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "This will return to the Main Menu. Do you want to continue?");
@@ -84,6 +150,9 @@ public class updateAppointmentController implements Initializable {
         }
     }
 
+    /**
+     * Populate.
+     */
     public void populate() {
 
         titleTF.setText(modifiedAppointment.getTitle());
@@ -118,6 +187,12 @@ public class updateAppointmentController implements Initializable {
         endTimePicker.getSelectionModel().select(modifiedAppointment.getEndTime());
     }
 
+    /**
+     * Add appointment.
+     *
+     * @param actionEvent the action event
+     * @throws IOException the io exception
+     */
     public void addAppointment(ActionEvent actionEvent) throws IOException {
 
         String title = titleTF.getText();
@@ -210,6 +285,11 @@ public class updateAppointmentController implements Initializable {
         }
     }
 
+    /**
+     * Gets customer id.
+     *
+     * @return the customer id
+     */
     public int getCustomerID() {
 
         try {
@@ -227,6 +307,11 @@ public class updateAppointmentController implements Initializable {
         return customerID;
     }
 
+    /**
+     * Gets contact id.
+     *
+     * @return the contact id
+     */
     public int getContactID() {
 
         try {
@@ -246,6 +331,11 @@ public class updateAppointmentController implements Initializable {
         return contactID;
     }
 
+    /**
+     * Gets contact name.
+     *
+     * @return the contact name
+     */
     public String getContactName() {
 
         try {
@@ -265,6 +355,9 @@ public class updateAppointmentController implements Initializable {
         return contactName;
     }
 
+    /**
+     * Add times.
+     */
     public void addTimes() {
         do {
 
@@ -273,6 +366,12 @@ public class updateAppointmentController implements Initializable {
         } while(!time.equals(LocalTime.of(19,30)));
     }
 
+    /**
+     * Send back.
+     *
+     * @param actionEvent the action event
+     * @throws IOException the io exception
+     */
     public void sendBack(ActionEvent actionEvent) throws IOException {
 
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/mainScreen.fxml")));
@@ -285,6 +384,12 @@ public class updateAppointmentController implements Initializable {
         stage.show();
     }
 
+    /**
+     * Check weekend boolean.
+     *
+     * @param date the date
+     * @return the boolean
+     */
     public static boolean checkWeekend(LocalDate date) {
         DayOfWeek d = date.getDayOfWeek();
         return d == DayOfWeek.SATURDAY || d == DayOfWeek.SUNDAY;

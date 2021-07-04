@@ -8,8 +8,16 @@ import utils.DBConnection;
 import java.sql.*;
 
 
+/**
+ * The type Db countries.
+ */
 public class DBCountries {
 
+    /**
+     * Gets all countries.
+     *
+     * @return the all countries
+     */
     public static ObservableList<Countries> getAllCountries() {
         ObservableList<Countries> countriesList = FXCollections.observableArrayList();
 
@@ -32,6 +40,9 @@ public class DBCountries {
         return countriesList;
     }
 
+    /**
+     * Check date conversion.
+     */
     public static void checkDateConversion() {
         System.out.println("CREATE DATE TEST");
         String sql = "SELECT Create_Date FROM countries";

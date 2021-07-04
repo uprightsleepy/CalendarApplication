@@ -9,8 +9,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Locale;
 
+/**
+ * The type Db customer.
+ */
 public class DBCustomer {
 
+    /**
+     * Gets all customers.
+     *
+     * @return the all customers
+     */
     public static ObservableList<Customer> getAllCustomers() {
 
         ObservableList<Customer> customerList = FXCollections.observableArrayList();
@@ -52,6 +60,12 @@ public class DBCustomer {
         return customerList;
     }
 
+    /**
+     * Lookup customer observable list.
+     *
+     * @param customerName the customer name
+     * @return the observable list
+     */
     public static ObservableList<Customer> lookupCustomer(String customerName) {
 
         ObservableList<Customer> customers = FXCollections.observableArrayList();
@@ -67,6 +81,12 @@ public class DBCustomer {
         return customers;
     }
 
+    /**
+     * Lookup customer observable list.
+     *
+     * @param customerID the customer id
+     * @return the observable list
+     */
     public static ObservableList<Customer> lookupCustomer(int customerID) {
 
         ObservableList<Customer> customers = FXCollections.observableArrayList();
