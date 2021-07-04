@@ -71,7 +71,7 @@ public class mainScreenController implements Initializable {
     public TableColumn<Appointment,String> custIdCol;
 
     /**
-     * The Sort week selecton.
+     * The Sort week selection boolean.
      */
     boolean sortWeekSelecton = false;
 
@@ -133,6 +133,7 @@ public class mainScreenController implements Initializable {
      *
      * @param actionEvent the action event
      * @throws IOException the io exception
+     * logs the user out the intended way and logs it in the "login_activity.txt" file
      */
     public void logout(ActionEvent actionEvent) throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you'd like to logout?");
@@ -420,7 +421,7 @@ public class mainScreenController implements Initializable {
     }
 
     /**
-     * Sort.
+     * Sort. Applied lambda expressions to replace for loops and improve performance.
      */
     public void sort() {
 
@@ -429,26 +430,26 @@ public class mainScreenController implements Initializable {
 
         String selection = sortList.getSelectionModel().getSelectedItem();
 
+        // Implemented lambdas to replaces repetitive looping in these if-statements
         if(weekRadio.isSelected()) {
-            for(Appointment a:appointments) {
 
-                test = a.getDate().toLocalDate();
+            appointments.forEach(item -> { test = item.getDate().toLocalDate();
+
                 TemporalField weekOfYear = WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear();
                 int weekNumber = test.get(weekOfYear);
                 if(weekNumber == Integer.parseInt(selection)) {
-                    appointmentsList.getItems().add(a);
-                }
-            }
+                    appointmentsList.getItems().add(item);
+                } });
         } if(monthRadio.isSelected()) {
-            for(Appointment a: appointments) {
 
-                test = a.getDate().toLocalDate();
+            appointments.forEach(item -> {
+                test = item.getDate().toLocalDate();
                 Month month = test.getMonth();
                 System.out.println(month);
                 if(selection.equals(month.toString())) {
-                    appointmentsList.getItems().add(a);
+                    appointmentsList.getItems().add(item);
                 }
-            }
+            });
         }
     }
 }

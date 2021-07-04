@@ -1,10 +1,14 @@
 package model;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import utils.DBConnection;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.OffsetDateTime;
 
 /**
  * The type Customer.
@@ -23,6 +27,8 @@ public class Customer {
 
     private int appointmentID = 0;
     private int[] appointmentList;
+
+    int numberOfAppointments;
     /**
      * The .
      */
@@ -432,4 +438,23 @@ public class Customer {
         return isBusy;
     }
 
+    public int getNumberOfAppointments() {
+
+        numberOfAppointments = 0;
+
+        try {
+            String sql = "SELECT * FROM appointments WHERE Customer_ID = " + id;
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()) {
+                 numberOfAppointments++;
+            }
+        } catch (SQLException e) {
+
+            e.printStackTrace();
+        }
+
+        return numberOfAppointments;
+    }
 }

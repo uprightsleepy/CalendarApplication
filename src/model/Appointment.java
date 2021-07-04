@@ -37,7 +37,6 @@ public class Appointment {
     private LocalDateTime end;
     private LocalTime endTime;
     private LocalDateTime created;
-
     /**
      * The Local zone.
      */

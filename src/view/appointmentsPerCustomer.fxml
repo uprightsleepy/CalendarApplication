@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.appointmentsPerCustomer">
+    <center>
+        <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <Button layoutX="806.0" layoutY="640.0" mnemonicParsing="false" onAction="#backtoReports" prefHeight="45.0" prefWidth="180.0" style="-fx-background-color: #20A9CE;" text="Back to Reports Menu" textFill="WHITE" />
+            <Label layoutX="248.0" layoutY="28.0" prefHeight="64.0" prefWidth="505.0" text="Appointments Per Customer" textFill="#20a9ce">
+                <font>
+                    <Font size="40.0" />
+                </font></Label>
+         <TableView fx:id="customerTable" layoutX="159.0" layoutY="211.0" prefHeight="279.0" prefWidth="684.0">
+           <columns>
+             <TableColumn fx:id="idCol" prefWidth="228.0" text="Customer ID" />
+             <TableColumn fx:id="nameCol" prefWidth="228.0" text="Customer Name" />
+               <TableColumn fx:id="numberCol" prefWidth="228.0" text="Number of Appointments" />
+           </columns>
+         </TableView>
+        </AnchorPane>
+    </center>
+</BorderPane>

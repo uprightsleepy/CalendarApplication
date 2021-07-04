@@ -58,6 +58,16 @@ public class reportsController implements Initializable {
         stage.show();
     }
 
+    public void goToAppointmentsPerCustomer(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/appointmentsPerCustomer.fxml")));
+        Stage stage = (Stage) ((Button) (actionEvent.getSource())).getScene().getWindow();
+
+        Scene scene = new Scene(root, 1000, 700);
+        stage.setTitle("Appointments Per Customer");
+        stage.setScene(scene);
+        stage.show();
+    }
+
     /**
      * Back to main.
      *
