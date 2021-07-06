@@ -6,9 +6,9 @@ module WGU.C195PA {
     requires mysql.connector.java;
 
     opens controller;
-    opens DBAccess;
 
     exports model;
-    exports DBAccess;
     exports controller;
+    exports utils;
+    opens utils;
 }

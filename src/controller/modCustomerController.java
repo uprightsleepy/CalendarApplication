@@ -1,7 +1,7 @@
 package controller;
 
-import DBAccess.DBCountries;
-import DBAccess.DBFirstLevelDivisions;
+import utils.DBCountries;
+import utils.DBFirstLevelDivisions;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -90,6 +90,7 @@ public class modCustomerController implements Initializable {
         System.out.println("Original Division: " + originalDivision);
 
         populate();
+        selectDivision();
     }
 
     /**
@@ -123,6 +124,7 @@ public class modCustomerController implements Initializable {
     public void setOriginalCountrySelection() {
 
         originalCountry = modifiedCustomer.getCountryID(divisionID);
+        System.out.println(originalCountry);
 
         if(originalCountry == 1) {
 
@@ -179,6 +181,12 @@ public class modCustomerController implements Initializable {
 
         setOriginalCountrySelection();
         getDivision();
+
+        for(FirstLevelDivision f : divisionsList.getItems()) {
+            if(modifiedCustomer.getDivisionName().equals(f.getName())) {
+                divisionsList.getSelectionModel().select(f);
+            }
+        }
     }
 
     /**
@@ -274,30 +282,5 @@ public class modCustomerController implements Initializable {
 
         System.out.println(divisionID);
         return originalDivision;
-    }
-
-    /**
-     * Gets division name.
-     *
-     * @return the division name
-     */
-    public String getDivisionName() {
-
-        try {
-
-            String sql = "SELECT Division FROM first_level_divisions WHERE Division_ID =" + divisionID + ";";
-            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-
-            while(rs.next()) {
-
-                divisionName = rs.getString("Division");
-            }
-        } catch (SQLException e) {
-
-            e.printStackTrace();
-        }
-
-        return divisionName;
     }
 }

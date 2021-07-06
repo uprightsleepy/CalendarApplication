@@ -129,6 +129,7 @@ public class Contact {
                 OffsetDateTime endConv = rs.getTimestamp("End").toLocalDateTime().atOffset(local);
 
                 Timestamp start = Timestamp.valueOf(startConv.format(format));
+                System.out.println(start);
                 Timestamp end = Timestamp.valueOf(endConv.format(format));
 
                 Appointment A = new Appointment(appointmentID,title,desc,type,customerID);

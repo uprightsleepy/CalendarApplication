@@ -1,6 +1,6 @@
 package controller;
 
-import DBAccess.DBUsers;
+import utils.DBUsers;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -64,16 +64,19 @@ public class loginController implements Initializable {
     ResourceBundle bundle = ResourceBundle.getBundle("MessageBundle", Locale.US);
 
     /**
-     * The Attempt.
+     * The Login Attempt #.
      */
     int attempt = 0;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        TimeZone timezone = TimeZone.getDefault();
+        String zoneID = timezone.getID();
+        locationID.setText(zoneID);
         attempt = 0;
 
-        if(defaultLocale.getDisplayLanguage().equals("French")) {
+        if(defaultLocale.getLanguage().equals("French")) {
 
             bundle = ResourceBundle.getBundle("MessageBundle", Locale.CANADA_FRENCH);
             usernameTF.setPromptText(bundle.getString("username"));
@@ -82,13 +85,11 @@ public class loginController implements Initializable {
             leftPanel.setImage(frenchPanel);
         }
 
-        TimeZone timezone = TimeZone.getDefault();
-        String zoneID = timezone.getID();
-        locationID.setText(zoneID);
+
     }
 
     /**
-     * Login.
+     * Logins the user in and checks for errors in username and password, also displays info in correct language.
      *
      * @param actionEvent the action event
      * @throws IOException the io exception
@@ -144,7 +145,7 @@ public class loginController implements Initializable {
     }
 
     /**
-     * Record attempt.
+     * Records login attempt.
      *
      * @throws IOException the io exception
      */
@@ -153,7 +154,7 @@ public class loginController implements Initializable {
         Date date = new Date();
 
         String str = "Login attempt recorded at " + date +" | Login Successful: " + loginSuccessful;
-        BufferedWriter writer = new BufferedWriter(new FileWriter("src/login_activity.txt", true));
+        BufferedWriter writer = new BufferedWriter(new FileWriter("login_activity.txt", true));
         writer.append('\n');
         writer.append(str);
         writer.close();
@@ -161,7 +162,7 @@ public class loginController implements Initializable {
     }
 
     /**
-     * Sus login.
+     * Suspicious login attempt.
      *
      * @throws IOException the io exception
      */
@@ -170,7 +171,7 @@ public class loginController implements Initializable {
         Date date = new Date();
 
         String str = "Suspicious Successful Login attempt recorded at " + date;
-        BufferedWriter writer = new BufferedWriter(new FileWriter("src/login_activity.txt", true));
+        BufferedWriter writer = new BufferedWriter(new FileWriter("login_activity.txt", true));
         writer.append('\n');
         writer.append(str);
         writer.close();

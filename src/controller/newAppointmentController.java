@@ -1,8 +1,8 @@
 package controller;
 
-import DBAccess.DBAppointments;
-import DBAccess.DBContacts;
-import DBAccess.DBCustomer;
+import utils.DBAppointments;
+import utils.DBContacts;
+import utils.DBCustomer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -19,11 +19,9 @@ import utils.DBConnection;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.time.*;
-import java.time.chrono.ChronoZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
-import java.time.temporal.Temporal;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -116,12 +114,25 @@ public class newAppointmentController implements Initializable {
 
     private final DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     /**
-     * The Time.
+     * The Date & Time.
      */
-    LocalTime time = LocalTime.of(8,0);
+    LocalTime time = LocalTime.of(0,0);
+    LocalDate date = LocalDate.now();
+    LocalDateTime currentTime = LocalDateTime.of(date,time);
+
+    ZoneId sourceZone = ZoneId.systemDefault();
+    ZoneId destinationZone = ZoneId.of("America/New_York");
+
+    ZonedDateTime localTime = currentTime.atZone(sourceZone); // current time 0:00 at local timezone
+    ZonedDateTime testTime = localTime.withZoneSameInstant(destinationZone); // time 0:00 local at EST
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        System.out.println(localTime.format(format));
+        System.out.println(testTime.format(format));
+
+        time = LocalTime.of(0,0);
 
         populate();
     }
@@ -209,7 +220,6 @@ public class newAppointmentController implements Initializable {
         LocalDate startDate = startingDate.getValue();
         LocalTime startTime = startTimePicker.getValue();
         LocalDateTime start = LocalDateTime.of(startDate,startTime);
-
         Timestamp startDB = Timestamp.valueOf(start);
         ZonedDateTime testStart = startDB.toInstant().atZone(ZoneId.of("UTC"));
         Timestamp startConverted = Timestamp.valueOf(testStart.format(format));
@@ -240,17 +250,11 @@ public class newAppointmentController implements Initializable {
             a.setContactID(getContactID());
             a.setCustomerName(customer);
             a.setType(type);
+            a.setCustomerID(getCustomerID());
 
             for(Appointment b: appointments) {
 
-                if (testStart.toLocalDateTime().equals(b.getStart())) {
-
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error Dialog");
-                    alert.setContentText("Cannot add an appointment at the same time as another appointment.");
-                    alert.showAndWait();
-                    return;
-                } if(start.isAfter(end) || start.equals(end)) {
+                if(start.isAfter(end) || start.equals(end)) {
 
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Error Dialog");
@@ -264,13 +268,14 @@ public class newAppointmentController implements Initializable {
                     alert.setContentText("Unable to schedule appointments on the weekend.");
                     alert.showAndWait();
                     return;
-                } if(startET.after(Timestamp.valueOf(LocalDateTime.of(startDate, LocalTime.of(22,0)).format(format))) ||
-                        startET.before(Timestamp.valueOf(LocalDateTime.of(startDate, LocalTime.of(8,0)).format(format))) ||
-                        endET.after(Timestamp.valueOf(LocalDateTime.of(startDate, LocalTime.of(22,0)).format(format)))) {
+                } if(a.getCustomerID() == b.getCustomerID() && startTime.equals(b.getStartTime()) ||
+                        a.getCustomerID() == b.getCustomerID() && startTime.isAfter(b.getStartTime()) && startTime.isBefore(b.getEndTime()) ||
+                        a.getCustomerID() == b.getCustomerID() && startTime.isBefore(b.getEndTime()) && endTime.isAfter(b.getEndTime()) ||
+                        a.getCustomerID() == b.getCustomerID() && startTime.equals(b.getEndTime())){
 
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Error Dialog");
-                    alert.setContentText("Can not schedule appointment before 8:00am EST or after 10:00pm EST.");
+                    alert.setContentText("The same customer can not have overlapping appointments.");
                     alert.showAndWait();
                     return;
                 }
@@ -278,7 +283,6 @@ public class newAppointmentController implements Initializable {
 
             a.setStart(start);
             a.setEnd(end);
-            a.setCustomerID(getCustomerID());
             String sql = "INSERT INTO appointments(Appointment_ID, Title, Description, Location, Type, Start, End, Create_Date, Customer_ID, User_ID, Contact_ID) VALUES(NULL,'" + a.getTitle() + "', '"
                     + a.getDesc() + "', '" + a.getLocation() + "', '" + a.getType() + "', '" + startConverted + "', '" + endConverted + "', '" + created + "'," + a.getCustomerID() + ", 1, " +
                     a.getContactID() + ");";
@@ -360,9 +364,20 @@ public class newAppointmentController implements Initializable {
     public void addTimes() {
 
         do {
+            time = time.plusMinutes(30);
+            currentTime = LocalDateTime.of(date,time);
+            localTime = currentTime.atZone(sourceZone);
+            testTime = localTime.withZoneSameInstant(destinationZone);
+            System.out.println(testTime.format(format));
+        } while(testTime.getHour()<8);
+
+        do {
             times.add(time);
             time = time.plusMinutes(30);
-        } while(!time.equals(LocalTime.of(22,30)));
+            currentTime = LocalDateTime.of(date,time);
+            localTime = currentTime.atZone(sourceZone);
+            testTime = localTime.withZoneSameInstant(destinationZone);
+        } while(testTime.getHour() < 22);
     }
 
     /**

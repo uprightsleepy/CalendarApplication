@@ -1,6 +1,6 @@
 package controller;
 
-import DBAccess.DBContacts;
+import utils.DBContacts;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -12,7 +12,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.Appointment;
 import model.Contact;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
@@ -99,27 +98,27 @@ public class contactScheduleController implements Initializable {
      */
     public TableColumn<Appointment,Integer> LLidCol;
     /**
-     * The L ltitle col.
+     * The Lltitle col.
      */
     public TableColumn<Appointment,String> LLtitleCol;
     /**
-     * The L ldesc col.
+     * The Lldesc col.
      */
     public TableColumn<Appointment,String> LLdescCol;
     /**
-     * The L ltype col.
+     * The Lltype col.
      */
     public TableColumn<Appointment,String> LLtypeCol;
     /**
-     * The L lstart col.
+     * The Llstart col.
      */
     public TableColumn<Appointment,String> LLstartCol;
     /**
-     * The L lend col.
+     * The Llend col.
      */
     public TableColumn<Appointment,String> LLendCol;
     /**
-     * The L lcust id col.
+     * The Llcust id col.
      */
     public TableColumn<Appointment,Integer> LLcustIdCol;
 
@@ -129,7 +128,7 @@ public class contactScheduleController implements Initializable {
     }
 
     /**
-     * Populate.
+     * Populates the user view.
      */
     public void populate() {
 
@@ -145,8 +144,8 @@ public class contactScheduleController implements Initializable {
             titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
             descCol.setCellValueFactory(new PropertyValueFactory<>("desc"));
             typeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
-            startCol.setCellValueFactory(new PropertyValueFactory<>("start"));
-            endCol.setCellValueFactory(new PropertyValueFactory<>("end"));
+            startCol.setCellValueFactory(new PropertyValueFactory<>("startDateTime"));
+            endCol.setCellValueFactory(new PropertyValueFactory<>("endDateTime"));
             custIdCol.setCellValueFactory(new PropertyValueFactory<>("customerID"));
         }
 
@@ -157,8 +156,8 @@ public class contactScheduleController implements Initializable {
             DGtitleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
             DGdescCol.setCellValueFactory(new PropertyValueFactory<>("desc"));
             DGtypeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
-            DGstartCol.setCellValueFactory(new PropertyValueFactory<>("start"));
-            DGendCol.setCellValueFactory(new PropertyValueFactory<>("end"));
+            DGstartCol.setCellValueFactory(new PropertyValueFactory<>("startDateTime"));
+            DGendCol.setCellValueFactory(new PropertyValueFactory<>("endDateTime"));
             DGcustIdCol.setCellValueFactory(new PropertyValueFactory<>("customerID"));
         }
 
@@ -169,14 +168,14 @@ public class contactScheduleController implements Initializable {
             LLtitleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
             LLdescCol.setCellValueFactory(new PropertyValueFactory<>("desc"));
             LLtypeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
-            LLstartCol.setCellValueFactory(new PropertyValueFactory<>("start"));
-            LLendCol.setCellValueFactory(new PropertyValueFactory<>("end"));
+            LLstartCol.setCellValueFactory(new PropertyValueFactory<>("startDateTime"));
+            LLendCol.setCellValueFactory(new PropertyValueFactory<>("endDateTime"));
             LLcustIdCol.setCellValueFactory(new PropertyValueFactory<>("customerID"));
         }
     }
 
     /**
-     * Back to reports.
+     * Back to reports menu.
      *
      * @param actionEvent the action event
      * @throws IOException the io exception

@@ -1,6 +1,6 @@
 package controller;
 
-import DBAccess.DBAppointments;
+import utils.DBAppointments;
 
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -69,6 +69,8 @@ public class mainScreenController implements Initializable {
      * The Cust id col.
      */
     public TableColumn<Appointment,String> custIdCol;
+
+    public TableColumn<Appointment, String> locationCol;
 
     /**
      * The Sort week selection boolean.
@@ -259,6 +261,7 @@ public class mainScreenController implements Initializable {
         startCol.setCellValueFactory(new PropertyValueFactory<>("startDateTime"));
         endCol.setCellValueFactory(new PropertyValueFactory<>("endDateTime"));
         custIdCol.setCellValueFactory(new PropertyValueFactory<>("customerID"));
+        locationCol.setCellValueFactory(new PropertyValueFactory<>("location"));
     }
 
     /**
@@ -335,7 +338,7 @@ public class mainScreenController implements Initializable {
     }
 
     /**
-     * Search.
+     * Search customer list based on ID or type.
      */
     public void search() {
 
@@ -363,7 +366,7 @@ public class mainScreenController implements Initializable {
     }
 
     /**
-     * Check times.
+     * Checks times against each other.
      */
     public void checkTimes() {
         for(Appointment a : appointmentsList.getItems()) {

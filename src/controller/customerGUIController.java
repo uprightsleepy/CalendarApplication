@@ -1,6 +1,6 @@
 package controller;
 
-import DBAccess.DBCustomer;
+import utils.DBCustomer;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -73,7 +73,7 @@ public class customerGUIController implements Initializable {
     }
 
     /**
-     * Back to main.
+     * Back to main menu.
      *
      * @param actionEvent the action event
      * @throws IOException the io exception
@@ -96,7 +96,7 @@ public class customerGUIController implements Initializable {
     }
 
     /**
-     * Add customer.
+     * Adds customer to database and view.
      *
      * @param actionEvent the action event
      * @throws IOException the io exception
@@ -114,7 +114,7 @@ public class customerGUIController implements Initializable {
     }
 
     /**
-     * Mod customer.
+     * Updates the customer information.
      *
      * @param actionEvent the action event
      * @throws IOException the io exception
@@ -146,7 +146,7 @@ public class customerGUIController implements Initializable {
     }
 
     /**
-     * Delete customer.
+     * Deletes customer from database and view.
      */
     public void deleteCustomer() {
 
@@ -193,7 +193,7 @@ public class customerGUIController implements Initializable {
     }
 
     /**
-     * Populate.
+     * Populates the user view.
      *
      * @throws NullPointerException the null pointer exception
      */

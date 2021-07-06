@@ -1,7 +1,7 @@
 package controller;
 
-import DBAccess.DBCountries;
-import DBAccess.DBFirstLevelDivisions;
+import utils.DBCountries;
+import utils.DBFirstLevelDivisions;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;

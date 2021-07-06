@@ -1,9 +1,9 @@
-package DBAccess;
+package utils;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Appointment;
-import utils.DBConnection;
+
 import java.sql.*;
 import java.time.*;
 import java.util.Locale;

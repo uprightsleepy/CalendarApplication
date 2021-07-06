@@ -14,8 +14,9 @@ public class Appointment {
 
     private Date date;
 
-    private boolean isBusy = false;
+    private Timestamp checkedTime;
 
+    private boolean sameTime = false;
 
     private int customerID;
     private String customerName;
@@ -602,5 +603,48 @@ public class Appointment {
     public Month getMonth(LocalDateTime start){
 
         return start.getMonth();
+    }
+
+
+    public Timestamp getAppointmentStartTimes(int customerID) {
+
+        try {
+
+            String sql = "SELECT Start FROM appointments WHERE Customer_ID = " + customerID + ";";
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()) {
+
+                checkedTime = rs.getTimestamp("Start");
+            }
+        } catch (SQLException e) {
+
+            e.printStackTrace();
+        }
+
+        return checkedTime;
+    }
+
+    public boolean checkTimes(int customerID) {
+
+        try {
+
+            String sql = "SELECT Appointment_ID FROM appointments WHERE Customer_ID = " + customerID + " AND Start = " + startTime + ";";
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()) {
+
+                appointmentID = rs.getInt("Appointment_ID");
+
+                sameTime = !rs.isBeforeFirst();
+            }
+        } catch (SQLException e) {
+
+            e.printStackTrace();
+        }
+
+        return sameTime;
     }
 }

@@ -1,6 +1,6 @@
 package controller;
 
-import DBAccess.DBAppointments;
+import utils.DBAppointments;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -91,7 +91,7 @@ public class customerAppointmentsController implements Initializable {
     }
 
     /**
-     * Populate.
+     * Populates the user view.
      */
     public void populate() {
 

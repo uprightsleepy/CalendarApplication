@@ -1,6 +1,6 @@
 package controller;
 
-import DBAccess.DBCustomer;
+import utils.DBCustomer;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -18,13 +18,31 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**
+ * The type Appointments per customer.
+ */
 public class appointmentsPerCustomer implements Initializable {
 
+    /**
+     * The Customers.
+     */
     ObservableList<Customer> customers = DBCustomer.getAllCustomers();
 
+    /**
+     * The Customer table.
+     */
     public TableView<Customer> customerTable;
+    /**
+     * The Id col.
+     */
     public TableColumn<Customer, Integer> idCol;
+    /**
+     * The Name col.
+     */
     public TableColumn<Customer, String> nameCol;
+    /**
+     * The Number col.
+     */
     public TableColumn<Customer, Integer> numberCol;
 
     @Override
@@ -32,6 +50,9 @@ public class appointmentsPerCustomer implements Initializable {
         populate();
     }
 
+    /**
+     * Populates the user view.
+     */
     public void populate() {
 
         customerTable.setItems(customers);
@@ -40,6 +61,12 @@ public class appointmentsPerCustomer implements Initializable {
         numberCol.setCellValueFactory(new PropertyValueFactory<>("numberOfAppointments"));
     }
 
+    /**
+     * Back to reports menu.
+     *
+     * @param actionEvent the action event
+     * @throws IOException the io exception
+     */
     public void backtoReports(ActionEvent actionEvent) throws IOException {
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "This will return to the Reports Menu. Do you want to continue?");
