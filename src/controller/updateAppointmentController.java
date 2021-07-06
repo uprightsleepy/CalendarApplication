@@ -236,14 +236,7 @@ public class updateAppointmentController implements Initializable {
 
             for(Appointment b: appointments) {
 
-                if (testStart.toLocalDateTime().equals(b.getStart())) {
-
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error Dialog");
-                    alert.setContentText("Cannot add an appointment at the same time as another appointment.");
-                    alert.showAndWait();
-                    return;
-                } if(start.isAfter(end) || start.equals(end)) {
+                if(start.isAfter(end) || start.equals(end)) {
 
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Error Dialog");
@@ -255,6 +248,16 @@ public class updateAppointmentController implements Initializable {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Error Dialog");
                     alert.setContentText("Unable to schedule appointments on the weekend.");
+                    alert.showAndWait();
+                    return;
+                } if(a.getCustomerID() == b.getCustomerID() && startTime.equals(b.getStartTime()) ||
+                        a.getCustomerID() == b.getCustomerID() && startTime.isAfter(b.getStartTime()) && startTime.isBefore(b.getEndTime()) ||
+                        a.getCustomerID() == b.getCustomerID() && startTime.isBefore(b.getEndTime()) && endTime.isAfter(b.getEndTime()) ||
+                        a.getCustomerID() == b.getCustomerID() && startTime.equals(b.getEndTime())){
+
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error Dialog");
+                    alert.setContentText("The same customer can not have overlapping appointments.");
                     alert.showAndWait();
                     return;
                 }
