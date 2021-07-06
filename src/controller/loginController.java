@@ -73,10 +73,11 @@ public class loginController implements Initializable {
 
         TimeZone timezone = TimeZone.getDefault();
         String zoneID = timezone.getID();
+
         locationID.setText(zoneID);
         attempt = 0;
 
-        if(defaultLocale.getLanguage().equals("French")) {
+        if(defaultLocale.getLanguage().equals("fr")){
 
             bundle = ResourceBundle.getBundle("MessageBundle", Locale.CANADA_FRENCH);
             usernameTF.setPromptText(bundle.getString("username"));
@@ -84,8 +85,6 @@ public class loginController implements Initializable {
             loginButton.setText(bundle.getString("login"));
             leftPanel.setImage(frenchPanel);
         }
-
-
     }
 
     /**
